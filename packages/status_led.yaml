@@ -1,0 +1,5 @@
+---
+status_led:
+  pin:
+    number: $pin_status_led
+    inverted: true
