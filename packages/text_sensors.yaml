@@ -25,14 +25,18 @@ text_sensor:
       on_value:
         then:
           - lambda: |-
-              if (x == "F0:2F:74:99:3B:20"){
-                  id(bssid).publish_state("Hallway");
-              } else if (x == "F0:2F:74:E3:52:C0"){
-                  id(bssid).publish_state("Bedroom");
-              } else if (x == "F0:2F:74:38:CB:18"){
-                  id(bssid).publish_state("Workshop");
-              } else if (x == "04:D4:C4:BF:7C:E8"){
-                  id(bssid).publish_state("Livingroom");
-              } else if (x == "24:4B:FE:91:DA:89"){
-                  id(bssid).publish_state("Bedroom");
-              }
+              // Craiova Home
+              if (x == "F0:2F:74:99:3B:20")
+                id(bssid).publish_state("Hallway");
+              else if (x == "F0:2F:74:E3:52:C0")
+                id(bssid).publish_state("Bedroom");
+              // Edi Home               
+              else if (x == "F0:2F:74:38:CB:18")
+                id(bssid).publish_state("Workshop");
+              else if (x == "04:D4:C4:BF:7C:E8")
+                id(bssid).publish_state("Livingroom");
+              else if (x == "24:4B:FE:91:DA:89")
+                id(bssid).publish_state("Bedroom");
+              // Bucuresti Home
+              else if (x == "10:7B:44:E6:A9:A0")
+                id(bssid).publish_state("Livingroom");
