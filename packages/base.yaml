@@ -1,0 +1,14 @@
+---
+esphome:
+  name: ${name}
+
+packages:
+  wifi: !include wifi.yaml
+  ota: !include ota.yaml
+  captive_portal: !include captive_portal.yaml
+  logger: !include logger.yaml
+  api: !include api.yaml
+  web_server: !include web_server.yaml
+  button: !include buttons.yaml
+  text_sensor: !include text_sensors.yaml
+  sensor: !include sensors.yaml
