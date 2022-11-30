@@ -1,0 +1,60 @@
+---
+substitutions:
+  pin_camera_ext_clock: GPIO00
+  pin_camera_i2c_sda: GPIO26
+  pin_camera_i2c_scl: GPIO27
+  pin_camera_data_1: GPIO05
+  pin_camera_data_2: GPIO18
+  pin_camera_data_3: GPIO19
+  pin_camera_data_4: GPIO21
+  pin_camera_data_5: GPIO36
+  pin_camera_data_6: GPIO39
+  pin_camera_data_7: GPIO34
+  pin_camera_data_8: GPIO35
+  pin_camera_vsync: GPIO25
+  pin_camera_href: GPIO23
+  pin_camera_pixel_clock: GPIO22
+  pin_camera_power_down: GPIO32
+  pin_flash: GPIO04
+
+psram:
+
+esp32_camera:
+  id: camera
+  external_clock:
+    pin: $pin_camera_ext_clock
+    frequency: 20MHz
+  i2c_pins:
+    sda: $pin_camera_i2c_sda
+    scl: $pin_camera_i2c_scl
+  data_pins: [$pin_camera_data_1, $pin_camera_data_2, $pin_camera_data_3, $pin_camera_data_4, $pin_camera_data_5, $pin_camera_data_6, $pin_camera_data_7, $pin_camera_data_8]
+  vsync_pin: $pin_camera_vsync
+  href_pin: $pin_camera_href
+  pixel_clock_pin: $pin_camera_pixel_clock
+  power_down_pin: $pin_camera_power_down
+  name: "Camera"
+  resolution: 800x600
+  idle_framerate: 1 fps
+  max_framerate: 30 fps
+  disabled_by_default: true
+  internal: true
+
+esp32_camera_web_server:
+  - port: 8080
+    mode: stream
+  - port: 8081
+    mode: snapshot
+
+output:
+  - platform: ledc
+    pin: $pin_flash
+    id: flash_output
+    channel: 7
+
+light:
+  - platform: monochromatic
+    output: flash_output
+    name: "$name Flash"
+    icon: mdi:flash
+    restore_mode: ALWAYS_OFF
+    default_transition_length: 0s
