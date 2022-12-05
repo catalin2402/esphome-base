@@ -40,3 +40,5 @@ text_sensor:
               // Bucuresti Home
               else if (x == "10:7B:44:E6:A9:A0")
                 id(bssid).publish_state("Livingroom");
+              else
+                id(bssid).publish_state(x);
