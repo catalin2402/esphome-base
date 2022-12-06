@@ -9,6 +9,5 @@ packages:
   logger: !include logger.yaml
   api: !include api.yaml
   web_server: !include web_server.yaml
-  button: !include buttons.yaml
-  text_sensor: !include text_sensors.yaml
-  sensor: !include sensors.yaml
+  button: !include_dir_list buttons
+  sensors: !include_dir_list sensors

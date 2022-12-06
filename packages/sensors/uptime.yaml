@@ -23,6 +23,9 @@ sensor:
                 (to_string(seconds) + "s")
               ).c_str();
 
-  - platform: wifi_signal
-    id: signal_wifi
-    name: "$name WiFi Signal"
+text_sensor:
+  - platform: template
+    name: "$name Uptime"
+    entity_category: diagnostic
+    id: uptime_human
+    icon: mdi:clock-start

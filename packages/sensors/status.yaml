@@ -1,0 +1,5 @@
+---
+platform: status
+name: "$name Node Status"
+internal: true
+id: system_status

@@ -1,9 +1,5 @@
 ---
 button:
-  - platform: safe_mode
-    id: safe_mode_button
-    name: "$name Safe Mode"
-
   - platform: restart
     id: restart_button
     name: "$name Restart"
