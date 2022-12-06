@@ -9,5 +9,7 @@ packages:
   logger: !include logger.yaml
   api: !include api.yaml
   web_server: !include web_server.yaml
-  button: !include_dir_list buttons
-  sensors: !include_dir_list sensors
+  restart_button: !include buttons/restart_button.yaml
+  safe_mode_button: !include buttons/safe_mode_button.yaml
+  uptime: !include sensors/uptime.yaml
+  wifi_info: !include sensors/wifi_info.yaml
