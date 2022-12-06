@@ -1,5 +1,6 @@
 ---
-platform: status
-name: "$name Node Status"
-internal: true
-id: system_status
+sensor:
+  platform: status
+  name: "$name Node Status"
+  internal: true
+  id: system_status
