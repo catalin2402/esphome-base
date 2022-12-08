@@ -1,0 +1,171 @@
+substitutions:
+  name: doorbell
+  wifi_ssid: !secret wifi_ssid
+  wifi_password: !secret wifi_password
+  pin_rx: GPIO10
+  pin_tx: GPIO11
+  pin_status_led: GPIO9
+
+packages:
+  base: github://catalin2402/esphome-base/packages/base.yaml
+  status_led: github://catalin2402/esphome-base/packages/status_led.yaml
+
+external_components:
+  - source: github://catalin2402/esphome-base/
+
+esphome:
+  on_boot: 
+    then:
+      - binary_sensor.template.publish:
+          id: doorbell
+          state: false
+      - select.last: volume
+      - select.set_index: 
+            id: sound
+            index: 7
+          
+libretuya:
+  board: generic-bk7231n-qfn32-tuya
+  framework:
+    version: dev
+    
+uart:
+  - id: uart1
+    baud_rate: 9600
+    rx_pin: $pin_rx
+    tx_pin: $pin_tx
+    
+tuya_doorbell:
+  id: doorbell_platform
+   
+sensor:
+  - platform: tuya_doorbell
+    id: sensor_volume
+    internal: true
+    sensor_datapoint: 3
+    on_value:
+      then: 
+        - lambda: "id(doorbell_platform)->setVolume(x);"
+
+  - platform: tuya_doorbell
+    id: sensor_sound
+    internal: true
+    sensor_datapoint: 2
+    on_value:
+      then: 
+        - lambda: "id(doorbell_platform)->setSound(x);"
+ 
+  - platform: tuya_doorbell
+    internal: true
+    id: doorbell_internal
+    sensor_datapoint: 10
+    on_raw_value:
+      - binary_sensor.template.publish:
+          id: doorbell
+          state: true
+      - delay: 1 s
+      - binary_sensor.template.publish:
+          id: doorbell
+          state: false
+          
+binary_sensor:
+  - platform: template
+    icon: mdi:doorbell
+    id: doorbell
+    name: "$name Doorbell"
+    publish_initial_state: true
+button:
+  - platform: template
+    name: "$name Ring"
+    on_press: 
+      then:
+        - lambda: "id(doorbell_platform)->ring();"
+        - binary_sensor.template.publish:
+            id: doorbell
+            state: true
+        - delay: 1 s
+        - binary_sensor.template.publish:
+            id: doorbell
+            state: false
+
+select:
+  - platform: template
+    id: mode
+    name: "$name Mode"
+    icon: mdi:bell
+    options:
+      - Light & Sound
+      - Sound Only
+      - Light
+    set_action:
+        - lambda: "id(doorbell_platform)->setRingMode(id(mode).index_of(x).value());"
+    lambda: "return id(mode).at(id(doorbell_platform)->ringMode_);"    
+    update_interval: 1s   
+
+  - platform: template
+    id: volume
+    icon: mdi:volume-high
+    name: "$name Volume"
+    options:
+      - Volume 1
+      - Volume 2
+      - Volume 3
+      - Volume 4
+      - Volume 5
+      - Volume 6
+      - Volume 7
+      - Volume 8
+    set_action:
+        - lambda: "id(doorbell_platform)->setVolume(id(volume).index_of(x).value() * 14);"
+    lambda: "return id(volume).at(id(doorbell_platform)->volume_ / 14);"     
+    update_interval: 1s
+
+  - platform: template
+    id: sound
+    icon: mdi:music-note
+    name: "$name Sound"
+    options:
+      - Sound 1
+      - Sound 2
+      - Sound 3
+      - Sound 4
+      - Sound 5
+      - Sound 6
+      - Sound 7
+      - Sound 8
+      - Sound 9
+      - Sound 10
+      - Sound 11
+      - Sound 12
+      - Sound 13
+      - Sound 14
+      - Sound 15
+      - Sound 16
+      - Sound 17
+      - Sound 18
+      - Sound 19
+      - Sound 20
+      - Sound 21
+      - Sound 22
+      - Sound 23
+      - Sound 24
+      - Sound 25
+      - Sound 26
+      - Sound 27
+      - Sound 28
+      - Sound 29
+      - Sound 30
+      - Sound 31
+      - Sound 32
+      - Sound 33
+      - Sound 34
+      - Sound 35
+      - Sound 36
+      - Sound 37
+      - Sound 38
+      - Sound 39
+      - Sound 40     
+    set_action:
+        - lambda: "id(doorbell_platform)->setSound(id(sound).index_of(x).value() +1);"
+    lambda: "return id(sound).at(id(doorbell_platform)->sound_ -1);"      
+    update_interval: 1s 
