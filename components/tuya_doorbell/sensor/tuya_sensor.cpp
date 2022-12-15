@@ -29,5 +29,5 @@ void Tuya2Sensor::dump_config() {
   ESP_LOGCONFIG(TAG, "  Sensor has datapoint ID %u", this->sensor_id_);
 }
 
-}  // namespace tuya
+}  // namespace tuya_doorbell
 }  // namespace esphome

@@ -52,4 +52,3 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_PT2323_ID])
     cg.add(var.set_parent(parent))
     cg.add(var.set_switch_type(config[CONF_SWITCH_TYPE]))
-

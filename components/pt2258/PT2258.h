@@ -3,7 +3,6 @@
 #include "esphome/core/component.h"
 #include "esphome/components/i2c/i2c.h"
 
-
 namespace esphome {
 namespace pt2258 {
 
@@ -30,7 +29,6 @@ class PT2258 : public Component, public i2c::I2CDevice {
   void setPower(bool power);
 
  protected:
-
  private:
   bool power_ = false;
   int defaultVolume_ = 50;
@@ -45,7 +43,6 @@ class PT2258 : public Component, public i2c::I2CDevice {
   int offsetSubwoofer_ = 0;
   void setVolume();
   void setChannelVolume(int volume, int channel);
-
 };
 
 }  // namespace pt2258

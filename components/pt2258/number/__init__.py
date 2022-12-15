@@ -1,7 +1,7 @@
 from esphome.components import number
 import esphome.config_validation as cv
 import esphome.codegen as cg
-from esphome.const import  CONF_ID
+from esphome.const import CONF_ID
 from .. import pt2258_ns, CONF_PT2258_ID, PT2258
 
 DEPENDENCIES = ["pt2258"]
@@ -32,7 +32,7 @@ CONFIG_SCHEMA = cv.All(
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    min = 0 
+    min = 0
     max = 79
 
     if config[CONF_NUMBER_TYPE] != "MASTER":
@@ -43,9 +43,9 @@ async def to_code(config):
     await number.register_number(
         var,
         config,
-        min_value = min,
-        max_value = max,
-        step = 1,
+        min_value=min,
+        max_value=max,
+        step=1,
     )
 
     paren = await cg.get_variable(config[CONF_PT2258_ID])

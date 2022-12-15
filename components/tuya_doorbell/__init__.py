@@ -6,7 +6,8 @@ from esphome.const import CONF_ID
 DEPENDENCIES = ['uart']
 
 tuya_doorbell = cg.esphome_ns.namespace('tuya_doorbell')
-TuyaDoorbell = tuya_doorbell.class_('TuyaDoorbell', cg.Component, uart.UARTDevice)
+TuyaDoorbell = tuya_doorbell.class_(
+    'TuyaDoorbell', cg.Component, uart.UARTDevice)
 
 CONF_TUYA2_ID = 'tuya_doorbell'
 CONFIG_SCHEMA = cv.Schema({

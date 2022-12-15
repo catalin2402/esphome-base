@@ -13,10 +13,7 @@ class PT2258Number : public number::Number, public Component {
   void setup() override;
   void dump_config() override;
   void set_number_type(uint8_t number_type) { this->number_type_ = number_type; }
-
   void set_parent(PT2258 *parent) { this->parent_ = parent; }
-
-  void add_mute_state_callback(std::function<void(bool)> &&callback);
 
  protected:
   void control(float value) override;

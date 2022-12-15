@@ -20,5 +20,5 @@ class Tuya2Sensor : public sensor::Sensor, public Component {
   uint8_t sensor_id_{0};
 };
 
-}  // namespace tuya
+}  // namespace tuya_doorbell
 }  // namespace esphome

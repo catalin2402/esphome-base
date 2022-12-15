@@ -6,10 +6,7 @@ namespace pt2323 {
 
 static const char *const TAG = "PT2323";
 
-
-void PT2323::setup() {
-  setDefaults();
-}
+void PT2323::setup() { setDefaults(); }
 
 void PT2323::dump_config() {
   ESP_LOGCONFIG(TAG, "PT2323:");
@@ -24,9 +21,7 @@ void PT2323::dump_config() {
   LOG_I2C_DEVICE(this);
 }
 
-void PT2323::setPower(bool power) {
-  this->power_ = power;
-}
+void PT2323::setPower(bool power) { this->power_ = power; }
 
 void PT2323::setInput(int input) {
   ESP_LOGD(TAG, "Setting input to %d", input);
@@ -47,16 +42,16 @@ void PT2323::setBoost(bool boost) {
 }
 
 void PT2323::setMute(bool mute) {
- this->mute_ = mute;
+  this->mute_ = mute;
   ESP_LOGD(TAG, "Setting mute to %s", mute ? "true" : "false");
   sendData((this->mute_) ? 0xFF : 0xFE);
 }
 
 void PT2323::setMuteFront(bool mute) {
- this-> muteFront_ = mute;
+  this->muteFront_ = mute;
   ESP_LOGD(TAG, "Setting mute front to %s", mute ? "true" : "false");
-  sendData((this-> muteFront_) ? 0xF1 : 0xF0);
-  sendData((this-> muteFront_) ? 0xF3 : 0xF2);
+  sendData((this->muteFront_) ? 0xF1 : 0xF0);
+  sendData((this->muteFront_) ? 0xF3 : 0xF2);
 }
 
 void PT2323::setMuteRear(bool mute) {
@@ -85,43 +80,25 @@ void PT2323::setDefaults() {
   sendData((this->mute_) ? 0xFF : 0xFE);
 }
 
-bool PT2323::isEnhanced() {
-  return this->enhance_;
-}
+bool PT2323::isEnhanced() { return this->enhance_; }
 
-bool PT2323::isBoosted() {
-  return this->boost_;
-}
+bool PT2323::isBoosted() { return this->boost_; }
 
-bool PT2323::isMuted() {
-  return this->mute_;
-}
+bool PT2323::isMuted() { return this->mute_; }
 
-bool PT2323::isMutedFront() {
-  return this->muteFront_;
-}
+bool PT2323::isMutedFront() { return this->muteFront_; }
 
-bool PT2323::isMutedRear() {
-  return this->muteRear_;
-}
+bool PT2323::isMutedRear() { return this->muteRear_; }
 
-bool PT2323::isMutedSubwoofer() {
-  return this->muteSubwoofer_;
-}
+bool PT2323::isMutedSubwoofer() { return this->muteSubwoofer_; }
 
-bool PT2323::isMutedCenter() {
-  return this->muteCenter_;
-}
+bool PT2323::isMutedCenter() { return this->muteCenter_; }
 
-bool PT2323::isPowered() {
-  return this->power_;
-}
+bool PT2323::isPowered() { return this->power_; }
 
-int PT2323::getSelectedInput()  {
-  return this->input_;
-}
+int PT2323::getSelectedInput() { return this->input_; }
 
-void  PT2323::sendData(uint8_t data) {
+void PT2323::sendData(uint8_t data) {
   if (!this->write_bytes(data, nullptr, 0)) {
     ESP_LOGE(TAG, "Error writing data");
     this->status_set_warning();

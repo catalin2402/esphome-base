@@ -3,7 +3,6 @@
 #include "esphome/core/component.h"
 #include "esphome/components/i2c/i2c.h"
 
-
 namespace esphome {
 namespace pt2323 {
 
@@ -30,14 +29,14 @@ class PT2323 : public Component, public i2c::I2CDevice {
   bool isMutedCenter();
   bool isPowered();
   int getSelectedInput();
-  
+
  private:
   int input_ = 4;
   bool power_ = false;
   bool enhance_ = false;
   bool boost_ = false;
   bool mute_ = false;
-  bool muteFront_  = false;
+  bool muteFront_ = false;
   bool muteRear_ = false;
   bool muteSubwoofer_ = false;
   bool muteCenter_ = false;

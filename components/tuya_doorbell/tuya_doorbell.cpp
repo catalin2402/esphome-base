@@ -99,7 +99,7 @@ bool TuyaDoorbell::validate_message_() {
   const uint8_t *message_data = data + 6;
   ESP_LOGV(TAG, "Received Tuya: CMD=0x%02X VERSION=%u DATA=[%s] INIT_STATE=%u", command, version,
            hexencode(message_data, length).c_str(), this->init_state_);
-    this->handle_command_((TuyaCommandTypeV3) command, version, message_data, length);
+  this->handle_command_((TuyaCommandTypeV3) command, version, message_data, length);
 
   // return false to reset rx buffer
   return false;
@@ -123,7 +123,7 @@ void TuyaDoorbell::handle_command_(TuyaCommandTypeV3 command, uint8_t version, c
       if (this->init_state_ == TuyaInitState::INIT_HEARTBEAT) {
         this->init_state_ = TuyaInitState::INIT_PRODUCT;
         this->send_empty_command_(TuyaCommandTypeV3::PRODUCT_QUERY);
-      } 
+      }
       break;
     case TuyaCommandTypeV3::PRODUCT_QUERY: {
       // check it is a valid string made up of printable characters
@@ -140,9 +140,8 @@ void TuyaDoorbell::handle_command_(TuyaCommandTypeV3 command, uint8_t version, c
         this->product_ = R"({"p":"INVALID"})";
       }
       if (this->init_state_ == TuyaInitState::INIT_PRODUCT) {
-          this->init_state_ = TuyaInitState::INIT_CONF;
-          this->send_empty_command_(TuyaCommandTypeV3::CONF_QUERY);
-        
+        this->init_state_ = TuyaInitState::INIT_CONF;
+        this->send_empty_command_(TuyaCommandTypeV3::CONF_QUERY);
       }
       break;
     }
@@ -203,17 +202,17 @@ void TuyaDoorbell::handle_datapoints_(const uint8_t *buffer, size_t len) {
     }
 
     switch (datapoint.type) {
-	  case TuyaDatapointType::RAW:
+      case TuyaDatapointType::RAW:
         datapoint.value_raw = std::vector<uint8_t>(data, data + data_size);
         ESP_LOGD(TAG, "Datapoint %u update to %s", datapoint.id, format_hex_pretty(datapoint.value_raw).c_str());
-		if (datapoint.id == 1){
-			this->ringMode_ = datapoint.value_raw[6];
-			this->volume_ = datapoint.value_raw[5];
-			this->sound_ = datapoint.value_raw[4];
-			ESP_LOGD(TAG, "Ring Mode: %d", datapoint.value_raw[6]);
-			ESP_LOGD(TAG, "Volume: %d", datapoint.value_raw[5]);
-			ESP_LOGD(TAG, "Sound: %d", datapoint.value_raw[4]);
-		}
+        if (datapoint.id == 1) {
+          this->ringMode_ = datapoint.value_raw[6];
+          this->volume_ = datapoint.value_raw[5];
+          this->sound_ = datapoint.value_raw[4];
+          ESP_LOGD(TAG, "Ring Mode: %d", datapoint.value_raw[6]);
+          ESP_LOGD(TAG, "Volume: %d", datapoint.value_raw[5]);
+          ESP_LOGD(TAG, "Sound: %d", datapoint.value_raw[4]);
+        }
         break;
       case TuyaDatapointType::BOOLEAN:
         if (data_size != 1)
@@ -285,11 +284,10 @@ void TuyaDoorbell::set_datapoint_value(TuyaDatapoint datapoint) {
   std::vector<uint8_t> buffer;
   ESP_LOGV(TAG, "Datapoint %u set to %u", datapoint.id, datapoint.value_uint);
   for (auto &other : this->datapoints_) {
-      if (other.value_uint == datapoint.value_uint) {
-        ESP_LOGV(TAG, "Not sending unchanged value");
-        return;
-      }
-    
+    if (other.value_uint == datapoint.value_uint) {
+      ESP_LOGV(TAG, "Not sending unchanged value");
+      return;
+    }
   }
   buffer.push_back(datapoint.id);
   buffer.push_back(static_cast<uint8_t>(datapoint.type));
@@ -322,55 +320,55 @@ void TuyaDoorbell::set_datapoint_value(TuyaDatapoint datapoint) {
   this->send_command_(TuyaCommandTypeV3::DATAPOINT_DELIVER, buffer.data(), buffer.size());
 }
 
-void TuyaDoorbell::setRingMode(uint8_t mode){
-	this->ringMode_ = mode;
-	updateDoorbell();
+void TuyaDoorbell::setRingMode(uint8_t mode) {
+  this->ringMode_ = mode;
+  updateDoorbell();
 }
 
 bool volInit = true;
 bool soundInit = true;
 
-void TuyaDoorbell::setVolume(uint8_t volume){
-	this->volume_ = volume;
-	TuyaDatapoint datapoint{};
-	datapoint.id = 3;
-	datapoint.type = TuyaDatapointType::INTEGER;
-	datapoint.value_int = volume;
-	if (volInit) {
-		volInit = false;
-	} else {
-		set_datapoint_value(datapoint);
-	}
-	updateDoorbell();
+void TuyaDoorbell::setVolume(uint8_t volume) {
+  this->volume_ = volume;
+  TuyaDatapoint datapoint{};
+  datapoint.id = 3;
+  datapoint.type = TuyaDatapointType::INTEGER;
+  datapoint.value_int = volume;
+  if (volInit) {
+    volInit = false;
+  } else {
+    set_datapoint_value(datapoint);
+  }
+  updateDoorbell();
 }
 
-void TuyaDoorbell::setSound(uint8_t sound){
-	this->sound_ = sound;
-	TuyaDatapoint datapoint{};
-	datapoint.id = 2;
-	datapoint.type = TuyaDatapointType::INTEGER;
-	datapoint.value_int = sound;
-	if (soundInit) {
-		soundInit = false;
-	} else {
-		set_datapoint_value(datapoint);
-	}
-	updateDoorbell();
+void TuyaDoorbell::setSound(uint8_t sound) {
+  this->sound_ = sound;
+  TuyaDatapoint datapoint{};
+  datapoint.id = 2;
+  datapoint.type = TuyaDatapointType::INTEGER;
+  datapoint.value_int = sound;
+  if (soundInit) {
+    soundInit = false;
+  } else {
+    set_datapoint_value(datapoint);
+  }
+  updateDoorbell();
 }
 
 void TuyaDoorbell::ring() {
-	TuyaDatapoint datapoint{};
-	datapoint.id = 2;
-	datapoint.type = TuyaDatapointType::INTEGER;
-	datapoint.value_int = this->sound_;
-	set_datapoint_value(datapoint);
-	updateDoorbell();
+  TuyaDatapoint datapoint{};
+  datapoint.id = 2;
+  datapoint.type = TuyaDatapointType::INTEGER;
+  datapoint.value_int = this->sound_;
+  set_datapoint_value(datapoint);
+  updateDoorbell();
 }
 
 void TuyaDoorbell::updateDoorbell() {
-	  uint8_t c[] = {0x01, 0x00, 0x00, 0x11, 0x04, 0x04, 0x01, 0x0C, sound_, volume_, ringMode_, 0xFF, 0x08, 0x00, 0x62, 0x00, 0x65, 0x00, 0x6C, 0x00, 0x6C };
-	  this->send_command_(TuyaCommandTypeV3::DATAPOINT_DELIVER, c, 21);
-	  
+  uint8_t c[] = {0x01, 0x00, 0x00, 0x11, 0x04, 0x04, 0x01, 0x0C, sound_, volume_, ringMode_,
+                 0xFF, 0x08, 0x00, 0x62, 0x00, 0x65, 0x00, 0x6C, 0x00,   0x6C};
+  this->send_command_(TuyaCommandTypeV3::DATAPOINT_DELIVER, c, 21);
 }
 
 void TuyaDoorbell::register_listener(uint8_t datapoint_id, const std::function<void(TuyaDatapoint)> &func) {
@@ -386,5 +384,5 @@ void TuyaDoorbell::register_listener(uint8_t datapoint_id, const std::function<v
       func(datapoint);
 }
 
-}  // namespace tuya
+}  // namespace tuya_doorbell
 }  // namespace esphome

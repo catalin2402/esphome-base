@@ -24,5 +24,4 @@ def to_code(config):
 
     paren = yield cg.get_variable(config[CONF_TUYA2_ID])
     cg.add(var.set_tuya_parent(paren))
-
     cg.add(var.set_sensor_id(config[CONF_SENSOR_DATAPOINT]))

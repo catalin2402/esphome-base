@@ -7,7 +7,6 @@
 namespace esphome {
 namespace pt2323 {
 
-
 class SwitchTurnOnTrigger : public Trigger<> {
  public:
   SwitchTurnOnTrigger(PT2323Switch *a_switch) {
@@ -29,8 +28,6 @@ class SwitchTurnOffTrigger : public Trigger<> {
     });
   }
 };
-
-
 
 }  // namespace pt2323
 }  // namespace esphome

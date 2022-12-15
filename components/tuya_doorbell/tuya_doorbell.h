@@ -39,7 +39,6 @@ enum class WifiState : uint8_t {
   CONNECTED_DATA = 4,
 };
 
-
 enum class TuyaCommandTypeV3 : uint8_t {
   HEARTBEAT = 0x00,
   PRODUCT_QUERY = 0x01,

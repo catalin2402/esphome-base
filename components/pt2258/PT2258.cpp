@@ -23,9 +23,7 @@ void PT2258::dump_config() {
   LOG_I2C_DEVICE(this);
 }
 
-void PT2258::setup() {
-  setDefaults();
-}
+void PT2258::setup() { setDefaults(); }
 
 void PT2258::setMasterVolume(int volume) {
   masterVolume_ = volume;
@@ -34,8 +32,8 @@ void PT2258::setMasterVolume(int volume) {
 }
 
 void PT2258::setFrontVolume(int offset) {
-  if (offset == -22){
-      return;
+  if (offset == -22) {
+    return;
   }
   offsetFront_ = offset;
   ESP_LOGD("PT2258", "Setting offset front to %d", offsetFront_);
@@ -43,8 +41,8 @@ void PT2258::setFrontVolume(int offset) {
 }
 
 void PT2258::setRearVolume(int offset) {
-  if (offset == -22){
-      return;
+  if (offset == -22) {
+    return;
   }
   offsetRear_ = offset;
   ESP_LOGD("PT2258", "Setting offset rear to %d", offsetRear_);
@@ -52,7 +50,7 @@ void PT2258::setRearVolume(int offset) {
 }
 
 void PT2258::setCenterVolume(int offset) {
-  if (offset == -22){
+  if (offset == -22) {
     return;
   }
   offsetCenter_ = offset;
@@ -61,61 +59,37 @@ void PT2258::setCenterVolume(int offset) {
 }
 
 void PT2258::setSubwooferVolume(int offset) {
-  if (offset == -22){
-      return;
+  if (offset == -22) {
+    return;
   }
   offsetSubwoofer_ = offset;
   ESP_LOGD("PT2258", "Setting offset subwoofer to %d", offsetSubwoofer_);
   setVolume();
 }
 
-void PT2258::setDefaults() {
-  setMasterVolume(masterVolume_);
-}
+void PT2258::setDefaults() { setMasterVolume(masterVolume_); }
 
-int PT2258::getMasterVolume() {
-  return masterVolume_;
-}
+int PT2258::getMasterVolume() { return masterVolume_; }
 
-int PT2258::getFrontVolume() {
-  return frontVolume_;
-}
+int PT2258::getFrontVolume() { return frontVolume_; }
 
-int PT2258::getRearVolume() {
-  return rearVolume_;
-}
+int PT2258::getRearVolume() { return rearVolume_; }
 
-int PT2258::getCenterVolume() {
-  return centerVolume_;
-}
+int PT2258::getCenterVolume() { return centerVolume_; }
 
-int PT2258::getSubwooferVolume() {
-  return subwooferVolume_;
-}
+int PT2258::getSubwooferVolume() { return subwooferVolume_; }
 
-int PT2258::getOffsetFront() {
-  return offsetFront_;
-}
+int PT2258::getOffsetFront() { return offsetFront_; }
 
-int PT2258::getOffsetRear() {
-  return offsetRear_;
-}
+int PT2258::getOffsetRear() { return offsetRear_; }
 
-int PT2258::getOffsetCenter() {
-  return offsetCenter_;
-}
+int PT2258::getOffsetCenter() { return offsetCenter_; }
 
-int PT2258::getOffsetSubwoofer() {
-  return offsetSubwoofer_;
-}
+int PT2258::getOffsetSubwoofer() { return offsetSubwoofer_; }
 
-bool PT2258::isPowered() {
-  return power_;
-}
+bool PT2258::isPowered() { return power_; }
 
-void PT2258::setPower(bool power) {
-  this->power_ = power;
-}
+void PT2258::setPower(bool power) { this->power_ = power; }
 
 void PT2258::setVolume() {
   frontVolume_ = masterVolume_ + offsetFront_;
@@ -150,23 +124,17 @@ void PT2258::setVolume() {
     subwooferVolume_ = 79;
   if (subwooferVolume_ <= 0)
     subwooferVolume_ = 0;
-  if (masterVolume_ == 0)
-  {
+  if (masterVolume_ == 0) {
     frontVolume_ = 0;
     rearVolume_ = 0;
     centerVolume_ = 0;
     subwooferVolume_ = 0;
   }
 
-  if (masterVolume_ == frontVolume_ 
-      && masterVolume_ == rearVolume_
-      && masterVolume_ == centerVolume_ 
-      && masterVolume_ == subwooferVolume_)
-  {
+  if (masterVolume_ == frontVolume_ && masterVolume_ == rearVolume_ && masterVolume_ == centerVolume_ &&
+      masterVolume_ == subwooferVolume_) {
     setChannelVolume(masterVolume_, 0);
-  }
-  else
-  {
+  } else {
     setChannelVolume(subwooferVolume_, 1);
     setChannelVolume(centerVolume_, 2);
     setChannelVolume(rearVolume_, 3);
@@ -175,7 +143,6 @@ void PT2258::setVolume() {
     setChannelVolume(frontVolume_, 6);
   }
 }
-
 
 void PT2258::setChannelVolume(int volume, int channel) {
   char x10;
