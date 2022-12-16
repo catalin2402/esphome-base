@@ -36,3 +36,4 @@ esphome:
   
 esp32:
   board: esp32dev
+  name: $name
