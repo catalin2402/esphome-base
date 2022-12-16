@@ -28,9 +28,9 @@ packages:
   # status_led: github://catalin2402/esphome-base/packages/status_led.yaml
   # status_light: github://catalin2402/esphome-base/packages/status_light.yaml
   # camera: github://catalin2402/esphome-base/packages/camera.yaml
- # time_homeassistant:  github://catalin2402/esphome-base/packages/time/homeassistant.yaml
- # time_sntp:  github://catalin2402/esphome-base/packages/time/sntp.yaml
- # system_status:  github://catalin2402/esphome-base/packages/sensors/status.yaml
+  # time_homeassistant:  github://catalin2402/esphome-base/packages/time/homeassistant.yaml
+  # time_sntp:  github://catalin2402/esphome-base/packages/time/sntp.yaml
+  # system_status:  github://catalin2402/esphome-base/packages/sensors/status.yaml
 
 esphome:
   
