@@ -33,7 +33,7 @@ packages:
   # system_status:  github://catalin2402/esphome-base/packages/sensors/status.yaml
 
 esphome:
-  
+  name: $name
+
 esp32:
   board: esp32dev
-  name: $name
