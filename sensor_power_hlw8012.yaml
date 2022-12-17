@@ -1,4 +1,10 @@
 ---
+globals:
+  - id: watts
+    type: float
+    restore_value: no
+    initial_value: '0'
+
 sensor:
   - platform: hlw8012
     model: HLW8012
