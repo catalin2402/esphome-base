@@ -1,0 +1,13 @@
+---
+dallas:
+  - pin:
+      number: $pin_temperature
+      mode:
+        input: true
+        pullup: true
+
+sensor:
+  - platform: dallas
+    address: $dallas_address
+    id: sensor_temperature
+    name: $name Temperature

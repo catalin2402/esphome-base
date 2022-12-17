@@ -1,0 +1,9 @@
+---
+sensor:
+  - platform: htu21d
+    temperature:
+      id: sensor_temperature
+      name: $name Temperature
+    humidity:
+      id: sensor_humidity
+      name: $name Humidity

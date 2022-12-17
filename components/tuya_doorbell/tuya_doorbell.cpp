@@ -325,17 +325,14 @@ void TuyaDoorbell::setRingMode(uint8_t mode) {
   updateDoorbell();
 }
 
-bool volInit = true;
-bool soundInit = true;
-
 void TuyaDoorbell::setVolume(uint8_t volume) {
   this->volume_ = volume;
   TuyaDatapoint datapoint{};
   datapoint.id = 3;
   datapoint.type = TuyaDatapointType::INTEGER;
   datapoint.value_int = volume;
-  if (volInit) {
-    volInit = false;
+  if (volInit_) {
+    volInit_ = false;
   } else {
     set_datapoint_value(datapoint);
   }
@@ -348,8 +345,8 @@ void TuyaDoorbell::setSound(uint8_t sound) {
   datapoint.id = 2;
   datapoint.type = TuyaDatapointType::INTEGER;
   datapoint.value_int = sound;
-  if (soundInit) {
-    soundInit = false;
+  if (soundInit_) {
+    soundInit_ = false;
   } else {
     set_datapoint_value(datapoint);
   }

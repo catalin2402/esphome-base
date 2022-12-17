@@ -96,6 +96,8 @@ class TuyaDoorbell : public Component, public uart::UARTDevice {
   int gpio_reset_ = -1;
   std::string product_ = "";
   int version_ = 3;
+  bool volInit_ = true;
+  bool soundInit_ = true;
 
   std::vector<TuyaDatapointListener> listeners_;
   std::vector<TuyaDatapoint> datapoints_;

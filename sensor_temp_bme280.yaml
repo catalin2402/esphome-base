@@ -1,0 +1,13 @@
+---
+sensor:
+  - platform: bme280
+    address: $bme280_address
+    temperature:
+      id: sensor_temperature
+      name: $name Temperature
+    pressure:
+      id: sensor_pressure
+      name: $name Pressure
+    humidity:
+      id: sensor_humidity
+      name: $name Humidity
