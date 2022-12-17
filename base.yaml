@@ -1,4 +1,7 @@
 ---
+esphome:
+  name: $name
+
 packages:
   wifi: !include wifi.yaml
   ota: !include ota.yaml
