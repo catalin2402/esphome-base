@@ -1,0 +1,29 @@
+---
+packages:
+  base: !include ../base.yaml
+  status_light: !include ../status_light.yaml
+  time_sntp: !include ../time_sntp.yaml
+  hlw8012: !include ../sensor_power_hlw8012.yaml
+  
+logger:
+  baud_rate: 0
+
+binary_sensor:
+  - platform: gpio
+    internal: true
+    pin:
+      number: $pin_button
+      inverted: true
+    name: "$name Power Button"
+    on_press:
+      - switch.toggle: relay
+
+switch:
+  - platform: gpio
+    name: "$name smartplug"
+    pin: $pin_relay
+    id: relay
+    on_turn_on:
+      - light.turn_on: statusled
+    on_turn_off:
+      - light.turn_off: statusled
