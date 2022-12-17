@@ -1,0 +1,10 @@
+---
+packages:
+  wifi: !include wifi.yaml
+  ota: !include ota.yaml
+  captive_portal: !include captive_portal.yaml
+  logger: !include logger.yaml
+  api: !include api.yaml
+  web_server: !include web_server.yaml
+  buttons: !include_dir_list buttons
+  sensors: !include_dir_list sensors

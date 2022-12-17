@@ -2,35 +2,12 @@ substitutions:
   name: base-8266
   wifi_ssid: !secret wifi_ssid
   wifi_password: !secret wifi_password
-  #
-  # pin_status_led is required with status_led or status_light
-  #
-  # pin_status_led: GPIO02
 
 packages:
-  base: github://catalin2402/esphome-base/packages/base.yaml
-  #
-  # or, you can include by components
-  #
-  # wifi: github://catalin2402/esphome-base/packages/wifi.yaml
-  # ota: github://catalin2402/esphome-base/packages/ota.yaml
-  # captive_portal: github://catalin2402/esphome-base/packages/captive_portal.yaml
-  # logger: github://catalin2402/esphome-base/packages/logger.yaml
-  # api: github://catalin2402/esphome-base/packages/api.yaml
-  # web_server: github://catalin2402/esphome-base/packages/web_server.yaml
-  # restart_button: github://catalin2402/esphome-base/packages/buttons/restart_button.yaml
-  # safe_mode_button: github://catalin2402/esphome-base/packages/buttons/safe_mode_button.yaml
-  # uptime: github://catalin2402/esphome-base/packages/sensors/uptime.yaml
-  # wifi_info: github://catalin2402/esphome-base/packages/sensors/wifi_info.yaml
-  #
-  # individual components, not included in base
-  #
-  # status_led: github://catalin2402/esphome-base/packages/status_led.yaml
-  # status_light: github://catalin2402/esphome-base/packages/status_light.yaml
-  # camera: github://catalin2402/esphome-base/packages/camera.yaml
-  # time_homeassistant:  github://catalin2402/esphome-base/packages/time/homeassistant.yaml
-  # time_sntp:  github://catalin2402/esphome-base/packages/time/sntp.yaml
-  # system_status:  github://catalin2402/esphome-base/packages/sensors/status.yaml
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [ base.yaml ]
+    refresh: 1 min
 
 esphome:
   name: $name
