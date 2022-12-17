@@ -1,7 +1,7 @@
 ---
 dallas:
   - pin:
-      number: $pin_temperature
+      number: $pin_dallas
       mode:
         input: true
         pullup: true
