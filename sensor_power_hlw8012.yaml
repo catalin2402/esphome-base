@@ -1,10 +1,4 @@
 ---
-globals:
-  - id: watts
-    type: float
-    restore_value: no
-    initial_value: '0'
-
 sensor:
   - platform: hlw8012
     model: HLW8012
@@ -17,24 +11,21 @@ sensor:
     change_mode_every: 4294967295
     update_interval: 30s
     power:
-      name: "$name Wattage"
+      name: "$name Power"
       unit_of_measurement: W
-      id: "wattage"
+      id: "power"
       on_value:
-        - lambda: |-
-            id(watts) = x;
+        - component.update: current
     voltage:
       name: "$name Voltage"
       unit_of_measurement: V
       id: voltage
       on_value:
-      - sensor.template.publish:
-          id: current
-          state: !lambda 'return id(watts) / x;'
+        - component.update: current
 
   - platform: total_daily_energy
     name: "$name Energy"
-    power_id: "wattage"
+    power_id: "power"
     filters:
         - multiply: 0.001
     unit_of_measurement: kWh 
@@ -42,6 +33,7 @@ sensor:
   - platform: template
     id: current
     name: "$name Current"
+    lambda: !lambda 'return id(power).state / id(voltage).state;'
     unit_of_measurement: A
     accuracy_decimals: 3
     update_interval: 30s
