@@ -1,7 +1,7 @@
 ---
 sensor:
   - platform: dht
-    pin: $pin_temperature_sensor
+    pin: $pin_dht
     temperature:
       id: sensor_temperature
       name: $name Temperature
