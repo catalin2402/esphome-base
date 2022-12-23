@@ -1,4 +1,8 @@
 ---
+substitutions:
+  pin_sm2135_data: GPIO24
+  pin_sm2135_clk: GPIO26
+
 packages:
   base: !include ../base.yaml
   
