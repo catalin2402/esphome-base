@@ -1,0 +1,63 @@
+---
+substitutions:
+  pin_status_led: GPIO6
+  pin_relay: GPIO15
+  pin_internal_switch: GPIO8
+  pin_external_switch: GPIO14
+
+packages:
+  base: !include ../base.yaml
+  status_light: !include ../status_light.yaml
+
+
+switch:
+  - platform: gpio
+    name: "$name Relay"
+    id: relay
+    pin: $pin_relay
+    on_turn_on:
+      then:
+        - light.turn_on: statusled
+    on_turn_off:
+      then:
+        - light.turn_off: statusled
+
+  - platform: restart
+    internal: true
+    name: "$name Restart"
+    id: restartswitch
+
+binary_sensor:
+  - platform: gpio
+    internal: true
+    id: internal_switch
+    pin:
+      inverted: true
+      number: $pin_internal_switch
+      mode:
+        input: true
+        pullup: true
+    on_double_click:
+      then:
+        - switch.toggle: restartswitch
+    on_click:
+      then:
+        - switch.toggle: relay
+
+  - platform: gpio
+    internal: true
+    id: external_switch
+    pin:
+      inverted: true
+      number: $pin_external_switch
+      mode:
+        input: true
+        pullup: true
+    filters:
+        - delayed_on_off: 100ms
+    on_press:
+      then:
+        - switch.turn_on: relay
+    on_release:
+      then:
+        - switch.turn_off: relay
