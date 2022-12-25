@@ -2,21 +2,9 @@
 sensor:
   - platform: hlw8012
     model: HLW8012
-    sel_pin: 
-      number: $pin_hlw8012_sel
-      mode:
-        input: true
-        pulldown: true
-    cf_pin: 
-      number: $pin_hlw8012_cf
-      mode:
-        input: true
-        pulldown: true
-    cf1_pin: 
-      number: $pin_hlw8012_cf1
-      mode:
-        input: true
-        pulldown: true
+    sel_pin: $pin_hlw8012_sel
+    cf_pin: $pin_hlw8012_cf
+    cf1_pin: $pin_hlw8012_cf1
     voltage_divider: $hlw8012_voltage_divider
     current_resistor: $hlw8012_current_resistor
     initial_mode: VOLTAGE
