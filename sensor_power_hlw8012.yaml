@@ -2,9 +2,21 @@
 sensor:
   - platform: hlw8012
     model: HLW8012
-    sel_pin: $pin_hlw8012_sel
-    cf_pin: $pin_hlw8012_cf
-    cf1_pin: $pin_hlw8012_cf1
+    sel_pin: 
+      number: $pin_hlw8012_sel
+      mode:
+        input: true
+        pulldown: true
+    cf_pin: 
+      number: $pin_hlw8012_cf
+      mode:
+        input: true
+        pulldown: true
+    cf1_pin: 
+      number: $pin_hlw8012_cf1
+      mode:
+        input: true
+        pulldown: true
     voltage_divider: $hlw8012_voltage_divider
     current_resistor: $hlw8012_current_resistor
     initial_mode: VOLTAGE
@@ -20,8 +32,6 @@ sensor:
       name: "$name Voltage"
       unit_of_measurement: V
       id: voltage
-      on_value:
-        - component.update: current
 
   - platform: total_daily_energy
     name: "$name Energy"
@@ -36,4 +46,4 @@ sensor:
     lambda: !lambda 'return id(power).state / id(voltage).state;'
     unit_of_measurement: A
     accuracy_decimals: 3
-    update_interval: 30s
+    update_interval: never
