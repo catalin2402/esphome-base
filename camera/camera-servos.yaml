@@ -1,0 +1,80 @@
+---
+globals:
+    - id: servo_1_target
+      type: float
+      restore_value: no
+      initial_value: "0"
+  
+    - id: servo_2_target
+      type: float
+      restore_value: no
+      initial_value: "0"
+
+esphome:
+  on_boot: 
+    - priority: 800
+      then:
+        - delay: 5s
+        - number.set: 
+            id: pan
+            value: 0
+        - number.set: 
+            id: tilt
+            value: 0                
+
+output: 
+  - platform: ledc
+    id: servo1_output
+    pin: $pin_servo_1
+    channel: 4
+    frequency: 50 Hz
+
+  - platform: ledc
+    id: servo2_output
+    pin: $pin_servo_2
+    channel: 5
+    frequency: 50 Hz   
+
+servo:
+  - id: servo_1
+    output: servo1_output
+    auto_detach_time: 1 s
+
+  - id: servo_2
+    output: servo2_output
+    auto_detach_time: 1 s
+
+number:
+  - platform: template
+    id: pan
+    name: "$name Pan"
+    min_value: -100
+    max_value: 100
+    step: 1
+    set_action:
+      then:
+        - globals.set: 
+            id: servo_1_target
+            value: !lambda 'return x / 100.0;'
+        - servo.write:
+            id: servo_1
+            level: !lambda 'return id(servo_1_target);'
+        - lambda: "id(pan).publish_state(x);"
+    lambda: !lambda 'return (int)(id(servo_1_target) * 100);'
+
+  - platform: template
+    name: "$name Tilt"
+    id: tilt
+    min_value: -100
+    max_value: 100
+    step: 1
+    set_action:
+      then:
+        - globals.set: 
+            id: servo_2_target
+            value: !lambda 'return x / 100.0;'
+        - servo.write:
+            id: servo_2
+            level: !lambda 'return id(servo_2_target);'
+        - lambda: "id(tilt).publish_state(x);"
+    lambda: !lambda 'return (int)(id(servo_2_target) * 100);'
