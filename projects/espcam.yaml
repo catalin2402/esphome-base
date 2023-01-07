@@ -1,0 +1,19 @@
+substitutions:
+  name: espcam
+  wifi_ssid: !secret wifi_ssid
+  wifi_password: !secret wifi_password
+  pin_status_led: GPIO33
+
+packages:
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [base.yaml, status/led.yaml, camera.yaml]
+    refresh: 10 min
+
+esp32:
+  board: esp32dev
+
+logger:
+  logs:
+    esp32_camera: ERROR
+    esp32_camera_web_server: ERROR

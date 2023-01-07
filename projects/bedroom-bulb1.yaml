@@ -1,0 +1,15 @@
+substitutions:
+  name: bedroom-bulb1
+  wifi_ssid: !secret wifi_ssid
+  wifi_password: !secret wifi_password
+
+packages:
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [devices/ledvance_bulb.yaml]
+    refresh: 10 min
+
+libretuya:
+  board: generic-bk7231t-qfn32-tuya
+  framework:
+    version: dev
