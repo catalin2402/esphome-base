@@ -8,9 +8,11 @@ substitutions:
   pin_external_switch: GPIO14
 
 packages:
-  base: github://catalin2402/esphome-base/packages/base.yaml
-  status: github://catalin2402/esphome-base/packages/status_light.yaml
-
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [base.yaml, status/light.yaml]
+    refresh: 10 min
+    
 libretuya:
   board: generic-bk7231n-qfn32-tuya
   framework:

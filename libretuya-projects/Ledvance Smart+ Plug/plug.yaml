@@ -16,8 +16,10 @@ globals:
     initial_value: '0'
 
 packages:
-  base: github://catalin2402/esphome-base/packages/base.yaml
-  status_light: github://catalin2402/esphome-base/packages/status_light.yaml
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [base.yaml, status/light.yaml]
+    refresh: 10 min
 
 libretuya:
   board: wb2s

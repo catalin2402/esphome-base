@@ -1,5 +1,0 @@
----
-button:
-  - platform: safe_mode
-    id: safe_mode_button
-    name: "$name Safe Mode"

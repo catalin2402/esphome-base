@@ -7,11 +7,14 @@ substitutions:
   pin_status_led: GPIO9
 
 packages:
-  base: github://catalin2402/esphome-base/packages/base.yaml
-  status_led: github://catalin2402/esphome-base/packages/status_led.yaml
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [base.yaml, status/led.yaml]
+    refresh: 10 min
 
 external_components:
-  - source: github://catalin2402/esphome-base/
+  - source: github://catalin2402/esphome-components/
+    components: [ tuya_doorbell ]
 
 esphome:
   on_boot: 

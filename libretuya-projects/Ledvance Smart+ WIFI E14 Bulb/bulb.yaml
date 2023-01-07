@@ -6,7 +6,10 @@ substitutions:
   pin_sm2135_clk: GPIO26
 
 packages:
-  base: github://catalin2402/esphome-base/packages/base.yaml
+  base: 
+    url: https://github.com/catalin2402/esphome-base
+    files: [base.yaml]
+    refresh: 10 min
 
 external_components:
   - source: github://pr#3850

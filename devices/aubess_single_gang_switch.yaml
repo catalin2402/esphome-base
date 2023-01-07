@@ -7,7 +7,7 @@ substitutions:
 
 packages:
   base: !include ../base.yaml
-  status_light: !include ../status_light.yaml
+  status_light: !include ../status/light.yaml
 
 
 switch:

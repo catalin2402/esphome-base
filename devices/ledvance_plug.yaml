@@ -1,9 +1,9 @@
 ---
 packages:
   base: !include ../base.yaml
-  status_light: !include ../status_light.yaml
-  time_sntp: !include ../time_sntp.yaml
-  hlw8012: !include ../sensor_power_hlw8012.yaml
+  status_light: !include ../status/light.yaml
+  time_sntp: !include ../time/sntp.yaml
+  hlw8012: !include ../sensors/hlw8012.yaml
   
 logger:
   baud_rate: 0
