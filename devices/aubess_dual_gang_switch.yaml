@@ -49,7 +49,7 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-    on_click:
+    on_double_click:
       then:
         - switch.toggle: restartswitch
 
