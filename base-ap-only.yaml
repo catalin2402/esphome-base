@@ -1,0 +1,97 @@
+---
+esphome:
+  name: $name
+
+logger:
+
+ota:
+
+wifi:
+  ap:
+    ssid: "$name Hotspot"
+    password: $wifi_password
+
+captive_portal:
+
+api:
+
+web_server:
+  local: true
+
+button:
+  - platform: restart
+    id: restart_button
+    name: "$name Restart"
+
+  - platform: safe_mode
+    id: safe_mode_button
+    name: "$name Safe Mode"
+    
+sensor:
+  - platform: uptime
+    internal: true
+    id: uptime_sensor
+    update_interval: 60s
+    on_raw_value:
+      then:
+        - text_sensor.template.publish:
+            id: uptime_human
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? to_string(days) + "d " : "") +
+                (hours ? to_string(hours) + "h " : "") +
+                (minutes ? to_string(minutes) + "m " : "") +
+                (to_string(seconds) + "s")
+              ).c_str();
+
+  - platform: wifi_signal
+    id: signal_wifi
+    name: "$name WiFi Signal"
+    
+text_sensor:
+  - platform: template
+    name: "$name Uptime"
+    entity_category: diagnostic
+    id: uptime_human
+    icon: mdi:clock-start
+
+  - platform: template
+    name: "$name Connected To"
+    entity_category: diagnostic
+    id: bssid
+    icon: mdi:router-wireless
+
+  - platform: wifi_info
+    ip_address:
+      id: ip_address
+      name: "$name IP Address"
+    mac_address:
+      id: mac
+      name: "$name MAC"
+    bssid:
+      name: "$name BSSID"
+      internal: true
+      on_value:
+        then:
+          - lambda: |-
+              if (x == "F0:2F:74:99:3B:20")
+                id(bssid).publish_state("Hallway");
+              else if (x == "F0:2F:74:E3:52:C0")
+                id(bssid).publish_state("Bedroom");           
+              else if (x == "F0:2F:74:38:CB:18")
+                id(bssid).publish_state("Workshop");
+              else if (x == "04:D4:C4:BF:7C:E8")
+                id(bssid).publish_state("Livingroom");
+              else if (x == "24:4B:FE:91:DA:89")
+                id(bssid).publish_state("Bedroom");
+              else if (x == "10:7B:44:E6:A9:A0")
+                id(bssid).publish_state("Livingroom");
+              else
+                id(bssid).publish_state(x);
