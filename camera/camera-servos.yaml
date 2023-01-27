@@ -1,16 +1,4 @@
----
-esphome:
-  on_boot: 
-    - priority: 800
-      then:
-        - delay: 5s
-        - number.set: 
-            id: pan
-            value: 0
-        - number.set: 
-            id: tilt
-            value: 0                
-
+---         
 output: 
   - platform: ledc
     id: servo1_output
