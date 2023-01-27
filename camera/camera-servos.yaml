@@ -1,15 +1,4 @@
 ---
-globals:
-    - id: servo_1_target
-      type: float
-      restore_value: no
-      initial_value: "0"
-  
-    - id: servo_2_target
-      type: float
-      restore_value: no
-      initial_value: "0"
-
 esphome:
   on_boot: 
     - priority: 800
@@ -51,30 +40,20 @@ number:
     min_value: -100
     max_value: 100
     step: 1
+    optimistic: true
     set_action:
-      then:
-        - globals.set: 
-            id: servo_1_target
-            value: !lambda 'return x / 100.0;'
-        - servo.write:
-            id: servo_1
-            level: !lambda 'return id(servo_1_target);'
-        - lambda: "id(pan).publish_state(x);"
-    lambda: !lambda 'return (int)(id(servo_1_target) * 100);'
+      - servo.write:
+          id: servo_1
+          level: !lambda 'return x / 100.0;'
 
   - platform: template
     name: "$name Tilt"
     id: tilt
     min_value: -100
     max_value: 100
+    optimistic: true
     step: 1
     set_action:
-      then:
-        - globals.set: 
-            id: servo_2_target
-            value: !lambda 'return x / 100.0;'
-        - servo.write:
-            id: servo_2
-            level: !lambda 'return id(servo_2_target);'
-        - lambda: "id(tilt).publish_state(x);"
-    lambda: !lambda 'return (int)(id(servo_2_target) * 100);'
+      - servo.write:
+          id: servo_2
+          level: !lambda 'return x / 100.0;'
