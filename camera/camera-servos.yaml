@@ -1,4 +1,21 @@
----         
+---
+substitutions:
+  default_servo_pan: "0"
+  default_servo_tilt: "0"
+
+esphome:
+  on_boot: 
+    priority: -100
+    then:
+      - delay: 3s
+      - number.set: 
+          id: pan
+          value: $default_servo_pan
+      - delay: 2s
+      - number.set: 
+          id: tilt
+          value: $default_servo_tilt  
+
 output: 
   - platform: ledc
     id: servo1_output
