@@ -16,6 +16,8 @@ substitutions:
   pin_camera_pixel_clock: GPIO22
   pin_camera_power_down: GPIO32
   pin_flash: GPIO04
+  camera_max_framerate: "30 fps"
+  camera_resolution: "800x600"
 
 psram:
 
@@ -33,9 +35,9 @@ esp32_camera:
   pixel_clock_pin: $pin_camera_pixel_clock
   power_down_pin: $pin_camera_power_down
   name: "Camera"
-  resolution: 800x600
+  resolution: $camera_resolution
   idle_framerate: 1 fps
-  max_framerate: 30 fps
+  max_framerate: $camera_max_framerate
   disabled_by_default: true
   internal: true
 
