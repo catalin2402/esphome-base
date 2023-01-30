@@ -1,6 +1,6 @@
 ---
 substitutions:
-  motion_pin: ""
+  pin_motion: ""
   motion_light_id: ""
   motion_pin_inverted: "false"
   motion_light_on_brightness: "0.98"
@@ -29,7 +29,7 @@ binary_sensor:
   - platform: gpio
     name: $name Motion
     pin: 
-      number: $motion_pin
+      number: $pin_motion
       inverted: $motion_pin_inverted
     device_class: motion
     on_press: 
