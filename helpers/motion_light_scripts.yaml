@@ -1,4 +1,5 @@
 ---
+substitutions:
   pin_motion: ""
   motion_light_id: ""
   motion_light_on_brightness: "0.98"
