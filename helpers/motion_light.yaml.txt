@@ -1,0 +1,112 @@
+---
+substitutions:
+  motion_pin: ""
+  motion_light_id: ""
+  motion_pin_inverted: "false"
+  motion_light_on_brightness: "0.98"
+  motion_first_delay: "5min"
+  motion_intermediate_brightness: "0.48"
+  motion_second_delay: "10min"
+
+esphome:
+  on_boot:
+    - switch.turn_on: motion_enabled
+    - light.turn_off: $motion_light_id
+
+logger:
+  logs:
+    binary_sensor: ERROR
+    
+switch:
+  - platform: template
+    id: motion_enabled
+    name: "$name Motion Enabled"
+    icon: mdi:motion-sensor
+    optimistic: true
+    entity_category: config
+
+binary_sensor:
+  - platform: gpio
+    name: $name Motion
+    pin: 
+      number: $motion_pin
+      inverted: $motion_pin_inverted
+    device_class: motion
+    on_press: 
+      - logger.log: 
+          format: "Motion detected"
+          tag: "motion"
+      - if:
+          condition: 
+            and:
+              - switch.is_on: motion_enabled
+              - or:
+                  - light.is_off: $motion_light_id
+                  - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_light_on_brightness * 100);"
+                  - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_intermediate_brightness * 100);"
+          then:
+          - logger.log: 
+              format: "Conditions met, turning light on and resetting delays"
+              tag: "motion"
+          - light.turn_on:
+              id: $motion_light_id
+              brightness: $motion_light_on_brightness
+          - lambda: !lambda
+              id(motion_delay_1).publish_state(false);
+              id(motion_delay_2).publish_state(false);
+          else:
+          - logger.log: 
+              format: "Conditions not met, aborting"
+              tag: "motion"          
+    on_release:
+      - logger.log: 
+          format: "Motion ended"
+          tag: "motion"
+      - if:
+          condition: 
+            and:
+              - switch.is_on: motion_enabled
+              - or:
+                  - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_light_on_brightness * 100);"
+                  - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_intermediate_brightness * 100);"
+          then:
+            - logger.log: 
+                format: "Conditions met, starting first delay"
+                tag: "motion"
+            - lambda: !lambda id(motion_delay_1).publish_state(true);  
+          else:
+          - logger.log: 
+              format: "Conditions not met, aborting"
+              tag: "motion"    
+
+  - platform: template
+    id: motion_delay_1
+    internal: true
+    filters:
+      - delayed_on: $motion_first_delay
+    on_press: 
+      then:
+        - logger.log: 
+            format: "First delay reached, starting second delay"
+            tag: "motion"
+        - light.turn_on:
+            id: $motion_light_id
+            brightness: $motion_intermediate_brightness
+        - lambda: !lambda
+            id(motion_delay_1).publish_state(false);
+            id(motion_delay_2).publish_state(true);
+
+  - platform: template
+    id: motion_delay_2
+    internal: true
+    filters:
+      - delayed_on: $motion_second_delay
+    on_press: 
+      then:
+        - logger.log: 
+            format: "Second delay reached, turning off the light"
+            tag: "motion"
+        - light.turn_off: $motion_light_id
+        - lambda: !lambda
+            id(motion_delay_2).publish_state(false);
+            
