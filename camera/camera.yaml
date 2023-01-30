@@ -18,6 +18,7 @@ substitutions:
   pin_flash: GPIO04
   camera_max_framerate: "30 fps"
   camera_resolution: "800x600"
+  camera_ext_clock: "20MHz"
 
 psram:
 
@@ -25,7 +26,7 @@ esp32_camera:
   id: camera
   external_clock:
     pin: $pin_camera_ext_clock
-    frequency: 20MHz
+    frequency: $camera_ext_clock
   i2c_pins:
     sda: $pin_camera_i2c_sda
     scl: $pin_camera_i2c_scl
