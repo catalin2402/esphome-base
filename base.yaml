@@ -60,7 +60,7 @@ sensor:
 text_sensor:
   - platform: version
     name: "$name Version"
-    id: version
+    id: version_id
     hide_timestamp: true
     
   - platform: template
