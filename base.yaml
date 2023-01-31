@@ -58,6 +58,10 @@ sensor:
     name: "$name WiFi Signal"
     
 text_sensor:
+  - platform: version
+    name: "$name Version"
+    hide_timestamp: true
+    
   - platform: template
     name: "$name Uptime"
     entity_category: diagnostic
