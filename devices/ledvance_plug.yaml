@@ -2,7 +2,6 @@
 packages:
   base: !include ../base.yaml
   status_light: !include ../status/light.yaml
-  time_homeassistant: !include ../time/ha.yaml
   hlw8012: !include ../sensors/hlw8012.yaml
   
 logger:

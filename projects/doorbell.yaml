@@ -78,6 +78,7 @@ binary_sensor:
     id: doorbell
     name: "$name Doorbell"
     publish_initial_state: true
+
 button:
   - platform: template
     name: "$name Ring"
