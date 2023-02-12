@@ -39,7 +39,7 @@ time:
         then:
           text_sensor.template.publish:
             id: last_restart
-            state: !lambda return id(time_ha).utcnow().strftime("%Y-%m-%dT%H:%M:%S.000000+00:00");
+            state: !lambda return id(time_ha).now().strftime("%Y-%m-%dT%H:%M:%S");
 
 text_sensor: 
   - platform: template
