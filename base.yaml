@@ -37,7 +37,7 @@ time:
         condition:
           lambda: return id(last_restart).state == "";
         then:
-          text_sensor.template.publish:
+          sensor.template.publish:
             id: last_restart
             state: !lambda return id(time_ha).now().timestamp;
 
