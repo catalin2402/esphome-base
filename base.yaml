@@ -39,9 +39,9 @@ time:
         then:
           text_sensor.template.publish:
             id: last_restart
-            state: !lambda return id(time_ha).now().strftime("%Y-%m-%dT%H:%M:%S");
+            state: !lambda return id(time_ha).now().timestamp;
 
-text_sensor: 
+sensor:
   - platform: template
     name: "$name Last Restart"
     entity_category: diagnostic
@@ -49,6 +49,7 @@ text_sensor:
     icon: mdi:clock-start
     device_class: timestamp
 
+text_sensor: 
   - platform: wifi_info
     ip_address:
       id: ip_address
