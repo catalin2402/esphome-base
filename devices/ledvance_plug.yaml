@@ -13,13 +13,12 @@ binary_sensor:
     pin:
       number: $pin_button
       inverted: true
-    name: "$name Power Button"
     on_press:
       - switch.toggle: relay
 
 switch:
   - platform: gpio
-    name: "$name smartplug"
+    name: $name Socket
     pin: $pin_relay
     id: relay
     on_turn_on:

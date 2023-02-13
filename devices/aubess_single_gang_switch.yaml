@@ -12,7 +12,7 @@ packages:
 
 switch:
   - platform: gpio
-    name: "$name Relay"
+    name: $name Switch
     id: relay
     pin: $pin_relay
     on_turn_on:
@@ -24,7 +24,7 @@ switch:
 
   - platform: restart
     internal: true
-    name: "$name Restart"
+    name: $name Restart
     id: restartswitch
 
 binary_sensor:
