@@ -1,4 +1,8 @@
 ---
+substitutions:
+  pin_dallas: REPLACEME
+  dallas_address: REPLACEME
+  
 dallas:
   - pin:
       number: $pin_dallas

@@ -1,4 +1,7 @@
 ---
+substitutions:
+  pin_dht: REPLACEME
+
 sensor:
   - platform: dht
     pin: $pin_dht

@@ -1,4 +1,11 @@
 ---
+substitutions:
+  pin_hlw8012_sel: REPLACEME
+  pin_hlw8012_cf: REPLACEME
+  pin_hlw8012_cf1: REPLACEME
+  hlw8012_voltage_divider: REPLACEME
+  hlw8012_current_resistor: REPLACEME
+
 sensor:
   - platform: hlw8012
     model: HLW8012
@@ -11,26 +18,26 @@ sensor:
     change_mode_every: 4294967295
     update_interval: 30s
     power:
-      name: "$name Power"
+      name: $name Power
       unit_of_measurement: W
-      id: "power"
+      id: power
       on_value:
         - component.update: current
     voltage:
-      name: "$name Voltage"
+      name: $name Voltage
       unit_of_measurement: V
       id: voltage
 
   - platform: total_daily_energy
-    name: "$name Energy"
-    power_id: "power"
+    name: $name Energy
+    power_id: power
     filters:
         - multiply: 0.001
     unit_of_measurement: kWh 
 
   - platform: template
     id: current
-    name: "$name Current"
+    name: $name Current
     lambda: !lambda 'return id(power).state / id(voltage).state;'
     unit_of_measurement: A
     accuracy_decimals: 3

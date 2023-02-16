@@ -1,4 +1,7 @@
 ---
+substitutions:
+  bmp280_address: REPLACEME
+  
 sensor:
   - platform: bmp280
     address: $bmp280_address

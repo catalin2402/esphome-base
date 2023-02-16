@@ -1,7 +1,7 @@
 ---
 substitutions:
-  pin_motion: ""
-  motion_light_id: ""
+  pin_motion: REPLACEME
+  motion_light_id: REPLACEME
   motion_light_on_brightness: "0.98"
   motion_first_delay: "5s"
   motion_intermediate_brightness: "0.48"

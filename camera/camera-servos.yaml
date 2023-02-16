@@ -1,5 +1,7 @@
 ---
 substitutions:
+  pin_servo_1: REPLACEME
+  pin_servo_2: REPLACEME
   default_servo_pan: "0"
   default_servo_tilt: "0"
 

@@ -1,4 +1,9 @@
 ---
+substitutions:
+  name: REPLACEME
+  wifi_ssid: REPLACEME
+  wifi_password: REPLACEME
+
 esphome:
   name: $name
 
