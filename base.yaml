@@ -53,6 +53,7 @@ sensor:
     id: last_restart
     icon: mdi:clock-start
     device_class: timestamp
+    update_interval: never
 
 text_sensor: 
   - platform: wifi_info
