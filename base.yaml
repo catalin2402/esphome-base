@@ -1,13 +1,11 @@
 ---
 substitutions:
   name: REPLACEME
-  friendly_name: REPLACEME
   wifi_ssid: REPLACEME
   wifi_password: REPLACEME
 
 esphome:
   name: $name
-  friendly_name: $friendly_name
 
 logger:
 
@@ -17,7 +15,7 @@ wifi:
   ssid: $wifi_ssid
   password: $wifi_password
   ap:
-    ssid: $friendly_name Hotspot
+    ssid: "$name Hotspot"
     password: $wifi_password
 
 captive_portal:
@@ -30,11 +28,11 @@ web_server:
 button:
   - platform: restart
     id: restart_button
-    name: Restart
+    name: "$name Restart"
 
   - platform: safe_mode
     id: safe_mode_button
-    name: Safe Mode
+    name: "$name Safe Mode"
    
 time:
   - platform: homeassistant
@@ -50,7 +48,7 @@ time:
 
 sensor:
   - platform: template
-    name: Last Restart
+    name: "$name Last Restart"
     entity_category: diagnostic
     id: last_restart
     icon: mdi:clock-start
@@ -61,4 +59,4 @@ text_sensor:
   - platform: wifi_info
     ip_address:
       id: ip_address
-      name: IP Address
+      name: "$name IP Address"

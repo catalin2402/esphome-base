@@ -1,7 +1,4 @@
 ---
-substitutions:
-  pin_status_led: REPLACEME
-  
 light:
   - platform: status_led
     id: statusled

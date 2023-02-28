@@ -15,7 +15,7 @@ esphome:
 switch:
   - platform: template
     id: motion_enabled
-    name: Motion Enabled
+    name: "$name Motion Enabled"
     icon: mdi:motion-sensor
     optimistic: true
     entity_category: config
@@ -23,7 +23,7 @@ switch:
 binary_sensor:
   - platform: gpio
     pin: $pin_motion
-    name: Motion
+    name: "$name Motion"
     device_class: motion
     on_press: 
       then:

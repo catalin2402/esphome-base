@@ -57,7 +57,7 @@ output:
 light:
   - platform: monochromatic
     output: flash_output
-    name: Flash
+    name: "$name Flash"
     icon: mdi:flash
     restore_mode: ALWAYS_OFF
     default_transition_length: 0s

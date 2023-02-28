@@ -1,7 +1,4 @@
 ---
-substitutions:
-  pin_status_led: REPLACEME
-  
 status_led:
   pin:
     number: $pin_status_led

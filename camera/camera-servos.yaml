@@ -43,7 +43,7 @@ servo:
 number:
   - platform: template
     id: pan
-    name: Pan
+    name: "$name Pan"
     min_value: -100
     max_value: 100
     step: 1
@@ -54,7 +54,7 @@ number:
           level: !lambda 'return x / 100.0;'
 
   - platform: template
-    name: Tilt
+    name: "$name Tilt"
     id: tilt
     min_value: -100
     max_value: 100
