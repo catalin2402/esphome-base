@@ -10,7 +10,7 @@ logger:
 binary_sensor:
   - platform: gpio
     internal: true
-    id: button
+    id: internal_button
     pin:
       number: $pin_button
       inverted: true
