@@ -156,8 +156,8 @@ switch:
           value: "0"
 
 sun:
-  latitude: 44.4550782°
-  longitude: 24.4539806°
+  latitude: 44°
+  longitude: 24°
   on_sunrise:
     - then:
         - delay: 15min
