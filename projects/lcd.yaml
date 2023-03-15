@@ -511,8 +511,8 @@ touchscreen:
       - script.execute: lcd_backlight_touch
 
 sun:
-  latitude: 44.426880°
-  longitude: 26.126260°
+  latitude: 44°
+  longitude: 26°
 
 binary_sensor:
   - platform: gpio
