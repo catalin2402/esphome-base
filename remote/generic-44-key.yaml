@@ -1,6 +1,5 @@
 ---
 substitutions:
-  nec_address: "0xFF00"
   diy1_red: "1.0"
   diy1_green: "1.0"
   diy1_blue: "1.0"
@@ -25,536 +24,456 @@ globals:
   type: std::string
   initial_value: '"None"'
 
-binary_sensor:
-  - platform: remote_receiver
-    id: brightness_up
-    nec: 
-      address: $nec_address
-      command: 0xA35C
-    on_press:
-      - light.dim_relative:
-          id: remote_light
-          relative_brightness: 10%
+script:
+  id: remote_process
+  mode: single
+  parameters:
+    command: int
+  then:
+    - if:
+        condition:
+          - lambda: return command == 0xA35C;
+        then:
+          - light.dim_relative:
+              id: remote_light
+              relative_brightness: 10%
 
-  - platform: remote_receiver
-    id: brightness_down
-    nec: 
-      address: $nec_address
-      command: 0xA25D
-    on_press:
-      - light.dim_relative:
-          id: remote_light
-          relative_brightness: -10%
+    - if:
+        condition:
+          - lambda: return command == 0xA25D;
+        then:
+          - light.dim_relative:
+              id: remote_light
+              relative_brightness: -10%
 
-  - platform: remote_receiver
-    id: play_pause
-    nec: 
-      address: $nec_address
-      command: 0xBE41
-    on_press:
-      - lambda: |-
-          auto effect = id(remote_light).get_effect_name();
-          auto call = id(remote_light).make_call();
-          if (effect != "None") {
-            ESP_LOGD("EFFECT", "%s", effect.c_str());
-            id(last_effect) = effect.c_str();
-            call.set_effect("None");
-            call.perform();
-          } else {
-            call.set_effect(id(last_effect));
-            call.perform();
-          }
+    - if:
+        condition:
+          - lambda: return command == 0xA25D;
+        then:
+          - light.dim_relative:
+              id: remote_light
+              relative_brightness: -10%
 
-  - platform: remote_receiver
-    id: on_off
-    nec: 
-      address: $nec_address
-      command: 0xBF40
-    on_press:
-      - light.toggle: remote_light
+    - if:
+        condition:
+          - lambda: return command == 0xBE41;
+        then:
+          - lambda: |-
+              auto effect = id(remote_light).get_effect_name();
+              auto call = id(remote_light).make_call();
+              if (effect != "None") {
+                ESP_LOGD("EFFECT", "%s", effect.c_str());
+                id(last_effect) = effect.c_str();
+                call.set_effect("None");
+                call.perform();
+              } else {
+                call.set_effect(id(last_effect));
+                call.perform();
+              }
 
-  - platform: remote_receiver
-    id: color_red
-    nec: 
-      address: $nec_address
-      command: 0xA758
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.0
-          blue: 0.0
-          
-  - platform: remote_receiver
-    id: color_green
-    nec: 
-      address: $nec_address
-      command: 0xA659
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 1.0
-          blue: 0.0
+    - if:
+        condition:
+          - lambda: return command == 0xBF40;
+        then:
+          - light.toggle: remote_light
 
-  - platform: remote_receiver
-    id: color_deep_blue
-    nec: 
-      address: $nec_address
-      command: 0xBA45
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 0.0
-          blue: 1.0
+    - if:
+        condition:
+          - lambda: return command == 0xA758;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.0
+              blue: 0.0
 
-  - platform: remote_receiver
-    id: color_white
-    nec: 
-      address: $nec_address
-      command: 0xBB44
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 1.0
-          blue: 1.0
+    - if:
+        condition:
+          - lambda: return command == 0xA659;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1.0
+              blue: 0.0          
 
-  - platform: remote_receiver
-    id: color_reddish
-    nec: 
-      address: $nec_address
-      command: 0xAB54
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.47
-          blue: 0.0
+    - if:
+        condition:
+          - lambda: return command == 0xBA45;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 0.0
+              blue: 1.0
 
-  - platform: remote_receiver
-    id: color_greenish
-    nec: 
-      address: $nec_address
-      command: 0xAA55
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 1.0
-          blue: 0.47
+    - if:
+        condition:
+          - lambda: return command == 0xBB44;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 1.0
+              blue: 1.0
 
-  - platform: remote_receiver
-    id: color_blue
-    nec: 
-      address: $nec_address
-      command: 0xB649
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 0.62
-          blue: 1.0
-          
-  - platform: remote_receiver
-    id: color_warm_white_2
-    nec: 
-      address: $nec_address
-      command: 0xB748
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.66
-          blue: 0.41
+    - if:
+        condition:
+          - lambda: return command == 0xAB54;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.47
+              blue: 0.0
 
-  - platform: remote_receiver
-    id: color_orange
-    nec: 
-      address: $nec_address
-      command: 0xAF50
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.62
-          blue: 0.0
-          
-  - platform: remote_receiver
-    id: color_turqoise
-    nec: 
-      address: $nec_address
-      command: 0xAE51
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 1
-          blue: 0.62
+    - if:
+        condition:
+          - lambda: return command == 0xAA55;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1.0
+              blue: 0.47
 
-  - platform: remote_receiver
-    id: color_purple
-    nec: 
-      address: $nec_address
-      command: 0xB24D
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.66
-          green: 0.0
-          blue: 1.0
+    - if:
+        condition:
+          - lambda: return command == 0xB649;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 0.62
+              blue: 1.0
+              
+    - if:
+        condition:
+          - lambda: return command == 0xB748;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.66
+              blue: 0.41
 
-  - platform: remote_receiver
-    id: color_warm_white
-    nec: 
-      address: $nec_address
-      command: 0xB34C
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.75
-          blue: 0.55
+    - if:
+        condition:
+          - lambda: return command == 0xAF50;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.62
+              blue: 0.0
+              
+    - if:
+        condition:
+          - lambda: return command == 0xAE51;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1
+              blue: 0.62
 
-  - platform: remote_receiver
-    id: color_yellowish
-    nec: 
-      address: $nec_address
-      command: 0xE31C
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.78
-          blue: 0.0
+    - if:
+        condition:
+          - lambda: return command == 0xB24D;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.66
+              green: 0.0
+              blue: 1.0
+                            
+    - if:
+        condition:
+          - lambda: return command == 0xB34C;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.75
+              blue: 0.55
 
-  - platform: remote_receiver
-    id: color_cyan
-    nec: 
-      address: $nec_address
-      command: 0xE21D
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 1.0
-          blue: 0.86
+    - if:
+        condition:
+          - lambda: return command == 0xE31C;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.78
+              blue: 0.0
 
-  - platform: remote_receiver
-    id: color_magenta
-    nec: 
-      address: $nec_address
-      command: 0xE11E
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.0
-          blue: 0.86
+    - if:
+        condition:
+          - lambda: return command == 0xE21D;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1.0
+              blue: 0.86
 
-  - platform: remote_receiver
-    id: color_neutral_white
-    nec: 
-      address: $nec_address
-      command: 0xE01F
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.83
-          blue: 0.7
+    - if:
+        condition:
+          - lambda: return command == 0xE11E;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.0
+              blue: 0.86
 
-  - platform: remote_receiver
-    id: color_yellow
-    nec: 
-      address: $nec_address
-      command: 0xE718
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 1.0
-          blue: 0.0
+    - if:
+        condition:
+          - lambda: return command == 0xE01F;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.83
+              blue: 0.7
 
-  - platform: remote_receiver
-    id: color_aqua
-    nec: 
-      address: $nec_address
-      command: 0xE619
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 0.0
-          green: 0.78
-          blue: 1.0
+    - if:
+        condition:
+          - lambda: return command == 0xE718;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 1.0
+              blue: 0.0
 
-  - platform: remote_receiver
-    id: color_pink
-    nec: 
-      address: $nec_address
-      command: 0xE51A
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.0
-          blue: 0.62
+    - if:
+        condition:
+          - lambda: return command == 0xE619;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 0.78
+              blue: 1.0
 
-  - platform: remote_receiver
-    id: color_cold_white
-    nec: 
-      address: $nec_address
-      command: 0xE41B
-    on_press:
-      - light.control:
-          id: remote_light
-          red: 1.0
-          green: 0.91
-          blue: 0.85
+    - if:
+        condition:
+          - lambda: return command == 0xE51A;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.0
+              blue: 0.62
 
-  - platform: remote_receiver
-    id: red_up
-    nec: 
-      address: $nec_address
-      command: 0xEB14
-    on_press:
-      - light.control:
-          id: remote_light
-          red: !lambda return id(remote_light).remote_values.get_red() + 0.05;
-          transition_length: 0s
+    - if:
+        condition:
+          - lambda: return command == 0xE41B;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.91
+              blue: 0.85
 
-  - platform: remote_receiver
-    id: green_up
-    nec: 
-      address: $nec_address
-      command: 0xEA15
-    on_press:
-      - light.control:
-          id: remote_light
-          green: !lambda return id(remote_light).remote_values.get_green() + 0.05;
-          transition_length: 0s
+    - if:
+        condition:
+          - lambda: return command == 0xEB14;
+        then:
+          - light.control:
+              id: remote_light
+              red: !lambda return id(remote_light).remote_values.get_red() + 0.05;
+              transition_length: 0s
 
-  - platform: remote_receiver
-    id: blue_up
-    nec: 
-      address: $nec_address
-      command: 0xE916
-    on_press:
-      - light.control:
-          id: remote_light
-          blue: !lambda return id(remote_light).remote_values.get_blue() + 0.05;
-          transition_length: 0s
+    - if:
+        condition:
+          - lambda: return command == 0xEA15;
+        then:
+          - light.control:
+              id: remote_light
+              green: !lambda return id(remote_light).remote_values.get_green() + 0.05;
+              transition_length: 0s
 
-  - platform: remote_receiver
-    id: quick
-    nec: 
-      address: $nec_address
-      command: 0xE817
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Random");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xE916;
+        then:
+          - light.control:
+              id: remote_light
+              blue: !lambda return id(remote_light).remote_values.get_blue() + 0.05;
+              transition_length: 0s
 
-  - platform: remote_receiver
-    id: red_down
-    nec: 
-      address: $nec_address
-      command: 0xEF10
-    on_press:
-      - light.control:
-          id: remote_light
-          red: !lambda return id(remote_light).remote_values.get_red() - 0.05;
-          transition_length: 0s
+    - if:
+        condition:
+          - lambda: return command == 0xE817;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Random");
+              call.perform();
 
-  - platform: remote_receiver
-    id: green_down
-    nec: 
-      address: $nec_address
-      command: 0xEE11
-    on_press:
-      - light.control:
-          id: remote_light
-          green: !lambda return id(remote_light).remote_values.get_green() - 0.05;
-          transition_length: 0s
+    - if:
+        condition:
+          - lambda: return command == 0xEF10;
+        then:
+          - light.control:
+              id: remote_light
+              red: !lambda return id(remote_light).remote_values.get_red() - 0.05;
+              transition_length: 0s
 
-  - platform: remote_receiver
-    id: blue_down
-    nec: 
-      address: $nec_address
-      command: 0xED12
-    on_press:
-      - light.control:
-          id: remote_light
-          blue: !lambda return id(remote_light).remote_values.get_blue() - 0.05;
-          transition_length: 0s
+    - if:
+        condition:
+          - lambda: return command == 0xEE11;
+        then:
+          - light.control:
+              id: remote_light
+              green: !lambda return id(remote_light).remote_values.get_green() - 0.05;
+              transition_length: 0s
 
-  - platform: remote_receiver
-    id: slow
-    nec: 
-      address: $nec_address
-      command: 0xEC13
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Pulse");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xED12;
+        then:
+          - light.control:
+              id: remote_light
+              blue: !lambda return id(remote_light).remote_values.get_blue() - 0.05;
+              transition_length: 0s
 
-  - platform: remote_receiver
-    id: diy1
-    nec: 
-      address: $nec_address
-      command: 0xF30C
-    on_press:
-      - light.control:
-          id: remote_light
-          red: $diy1_red
-          blue: $diy1_blue
-          green: $diy1_green
+    - if:
+        condition:
+          - lambda: return command == 0xEC13;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Pulse");
+              call.perform();
 
-  - platform: remote_receiver
-    id: diy2
-    nec: 
-      address: $nec_address
-      command: 0xF20D
-    on_press:
-      - light.control:
-          id: remote_light
-          red: $diy2_red
-          blue: $diy2_blue
-          green: $diy2_green
+    - if:
+        condition:
+          - lambda: return command == 0xF30C;
+        then:
+          - light.control:
+              id: remote_light
+              red: $diy1_red
+              blue: $diy1_blue
+              green: $diy1_green
 
-  - platform: remote_receiver
-    id: diy3
-    nec: 
-      address: $nec_address
-      command: 0xF10E
-    on_press:
-      - light.control:
-          id: remote_light
-          red: $diy3_red
-          blue: $diy3_blue
-          green: $diy3_green
+    - if:
+        condition:
+          - lambda: return command == 0xF20D;
+        then:
+          - light.control:
+              id: remote_light
+              red: $diy2_red
+              blue: $diy2_blue
+              green: $diy2_green
 
-  - platform: remote_receiver
-    id: auto_btn
-    nec: 
-      address: $nec_address
-      command: 0xF00F
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Flicker");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xF10E;
+        then:
+          - light.control:
+              id: remote_light
+              red: $diy3_red
+              blue: $diy3_blue
+              green: $diy3_green
 
-  - platform: remote_receiver
-    id: diy4
-    nec: 
-      address: $nec_address
-      command: 0xF708
-    on_press:
-      - light.control:
-          id: remote_light
-          red: $diy4_red
-          blue: $diy4_blue
-          green: $diy4_green
+    - if:
+        condition:
+          - lambda: return command == 0xF00F;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Flicker");
+              call.perform();
 
-  - platform: remote_receiver
-    id: diy5
-    nec: 
-      address: $nec_address
-      command: 0xF609
-    on_press:
-      - light.control:
-          id: remote_light
-          red: $diy5_red
-          blue: $diy5_blue
-          green: $diy5_green
+    - if:
+        condition:
+          - lambda: return command == 0xF708;
+        then:
+          - light.control:
+              id: remote_light
+              red: $diy4_red
+              blue: $diy4_blue
+              green: $diy4_green
 
-  - platform: remote_receiver
-    id: diy6
-    nec: 
-      address: $nec_address
-      command: 0xF50A
-    on_press:
-      - light.control:
-          id: remote_light
-          red: $diy6_red
-          blue: $diy6_blue
-          green: $diy6_green
+    - if:
+        condition:
+          - lambda: return command == 0xF609;
+        then:
+          - light.control:
+              id: remote_light
+              red: $diy5_red
+              blue: $diy5_blue
+              green: $diy5_green
 
-  - platform: remote_receiver
-    id: flash
-    nec: 
-      address: $nec_address
-      command: 0xF40B
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Strobe");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xF50A;
+        then:
+          - light.control:
+              id: remote_light
+              red: $diy6_red
+              blue: $diy6_blue
+              green: $diy6_green
 
-  - platform: remote_receiver
-    id: jump3
-    nec: 
-      address: $nec_address
-      command: 0xFB04
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Jump 3");
-          call.perform();
-          
+    - if:
+        condition:
+          - lambda: return command == 0xF40B;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Strobe");
+              call.perform();
 
-  - platform: remote_receiver
-    id: jump7
-    nec: 
-      address: $nec_address
-      command: 0xFA05
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Jump 7");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xFB04;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Jump 3");
+              call.perform();
 
-  - platform: remote_receiver
-    id: fade3
-    nec: 
-      address: $nec_address
-      command: 0xF906
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Fade 3");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xFA05;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Jump 7");
+              call.perform();
 
-  - platform: remote_receiver
-    id: fade7
-    nec: 
-      address: $nec_address
-      command: 0xF807
-    on_press:
-      - lambda: |-
-          auto call = id(remote_light).make_call();
-          call.set_effect("Fade 7");
-          call.perform();
+    - if:
+        condition:
+          - lambda: return command == 0xF906;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Fade 3");
+              call.perform();
+
+    - if:
+        condition:
+          - lambda: return command == 0xF807;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Fade 7");
+              call.perform();
 
 light:
   - platform: custom
     id: remote_light
     effects:
-      - random:
-      - pulse:
-      - flicker:
-      - strobe:
-          name: Strobe
+      -
       - lambda: 
           name: Jump 3
-          update_interval: 1s
+          update_interval: 3s
           lambda: |-
             static int state = 0;
-            auto call = id(remote_light).make_call();
+            auto call = id(remote_light).turn_on();
             call.set_transition_length(0);
             switch (state) {
               case 0:
@@ -575,10 +494,10 @@ light:
             if (state == 3) state = 0;
       - lambda: 
           name: Jump 7
-          update_interval: 1s
+          update_interval: 3s
           lambda: |-
             static int state = 0;
-            auto call = id(remote_light).make_call();
+            auto call = id(remote_light).turn_on();
             call.set_transition_length(0);
             switch (state) {
               case 0:
@@ -611,10 +530,10 @@ light:
             if (state == 7) state = 0;
       - lambda: 
           name: Fade 3
-          update_interval: 5s
+          update_interval: 7s
           lambda: |-
             static int state = 0;
-            auto call = id(remote_light).make_call();
+            auto call = id(remote_light).turn_on();
             call.set_transition_length(5000);
             switch (state) {
               case 0:
@@ -635,10 +554,10 @@ light:
             if (state == 3) state = 0;            
       - lambda: 
           name: Fade 7
-          update_interval: 5s
+          update_interval: 7s
           lambda: |-
             static int state = 0;
-            auto call = id(remote_light).make_call();
+            auto call = id(remote_light).turn_on();
             call.set_transition_length(5000);
             switch (state) {
               case 0:

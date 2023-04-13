@@ -7,7 +7,7 @@ script:
   then:
     - if:
         condition:
-          - lambda: return command == 0xFF00;
+          - lambda: return command == 0xF609;
         then:
           - light.dim_relative:
               id: remote_light
@@ -15,7 +15,7 @@ script:
 
     - if:
         condition:
-          - lambda: return command == 0xFD02;
+          - lambda: return command == 0xE21D;
         then:
           - light.dim_relative:
               id: remote_light
@@ -23,104 +23,37 @@ script:
 
     - if:
         condition:
-          - lambda: return command == 0xF906;
+          - lambda: return command == 0xE01F;
         then:
           - light.turn_off: remote_light
 
     - if:
         condition:
-          - lambda: return command == 0xF807;
+          - lambda: return command == 0xF20D;
         then:
           - light.turn_on: remote_light
 
     - if:
         condition:
-          - lambda: return command == 0xF708;
+          - lambda: return command == 0xE619;
         then:
           - light.control:
               id: remote_light
+              color_mode: RGB              
               red: 1.0
               green: 0.0
               blue: 0.0
 
     - if:
         condition:
-          - lambda: return command == 0xF609;
+          - lambda: return command == 0xE41B;
         then:
           - light.control:
               id: remote_light
+              color_mode: RGB                            
               red: 0.0
               green: 1.0
               blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF50A;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 0.0
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xFC03;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 1.0
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF30C;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.47
-                blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF20D;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 1.0
-                blue: 0.47
-
-    - if:
-          condition:
-            - lambda: return command == 0xF10E;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 0.62
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF00F;
-          then:
-            - lambda: |-
-                auto call = id(remote_light).make_call();
-                call.set_effect("Pulse");
-                call.perform();
-
-    - if:
-          condition:
-            - lambda: return command == 0xEF10;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.62
-                blue: 0.0
 
     - if:
           condition:
@@ -128,9 +61,30 @@ script:
           then:
             - light.control:
                 id: remote_light
+                color_mode: RGB                              
                 red: 0.0
-                green: 1
-                blue: 0.62
+                green: 0.0
+                blue: 1.0
+
+    - if:
+          condition:
+            - lambda: return command == 0xEA15;
+          then:
+            - light.control:
+                id: lightstrip
+                color_mode: COLOR_TEMPERATURE                    
+                color_temperature: 2700 K
+
+    - if:
+          condition:
+            - lambda: return command == 0xE817;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB                   
+                red: 1.0
+                green: 0.47
+                blue: 0.0
 
     - if:
           condition:
@@ -138,38 +92,10 @@ script:
           then:
             - light.control:
                 id: remote_light
-                red: 0.66
-                green: 0.0
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xEC13;
-          then:
-            - lambda: |-
-                auto call = id(remote_light).make_call();
-                call.set_effect("Strobe");
-                call.perform();
-
-    - if:
-          condition:
-            - lambda: return command == 0xEB14;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.78
-                blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xEA15;
-          then:
-            - light.control:
-                id: remote_light
+                color_mode: RGB
                 red: 0.0
                 green: 1.0
-                blue: 0.86
+                blue: 0.47
 
     - if:
           condition:
@@ -177,58 +103,145 @@ script:
           then:
             - light.control:
                 id: remote_light
+                color_mode: RGB
+                red: 0.0
+                green: 0.62
+                blue: 1.0
+
+    - if:
+          condition:
+            - lambda: return command == 0xB24D;
+          then:
+            - light.control:
+                id: lightstrip
+                color_mode: COLOR_TEMPERATURE    
+                color_temperature: 6000 K
+
+    - if:
+          condition:
+            - lambda: return command == 0xBF40;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB
+                red: 1.0
+                green: 0.62
+                blue: 0.0
+
+    - if:
+          condition:
+            - lambda: return command == 0xB34C;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB
+                red: 0.0
+                green: 1
+                blue: 0.62
+
+    - if:
+          condition:
+            - lambda: return command == 0xFB04;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB
+                red: 0.66
+                green: 0.0
+                blue: 1.0
+
+    - if:
+          condition:
+            - lambda: return command == 0xFF00;
+          then:
+            - light.control:
+                id: lightstrip
+                color_mode: COLOR_TEMPERATURE    
+                color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() / 1.05f;
+
+    - if:
+          condition:
+            - lambda: return command == 0xF50A;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB
+                red: 1.0
+                green: 0.78
+                blue: 0.0
+
+    - if:
+          condition:
+            - lambda: return command == 0xE11E;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB
+                red: 0.0
+                green: 1.0
+                blue: 0.86
+
+    - if:
+          condition:
+            - lambda: return command == 0xF10E;
+          then:
+            - light.control:
+                id: remote_light
+                color_mode: RGB
                 red: 1.0
                 green: 0.0
                 blue: 0.86
 
     - if:
           condition:
-            - lambda: return command == 0xE817;
+            - lambda: return command == 0xE51A;
           then:
-            - lambda: |-
-                auto call = id(remote_light).make_call();
-                call.set_effect("Random");
-                call.perform();
+            - light.control:
+                id: lightstrip
+                color_mode: COLOR_TEMPERATURE    
+                color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() * 1.05f;
 
     - if:
           condition:
-            - lambda: return command == 0xE718;
+            - lambda: return command == 0xE31C;
           then:
             - light.control:
                 id: remote_light
+                color_mode: RGB
                 red: 1.0
                 green: 1.0
                 blue: 0.0
 
     - if:
           condition:
-            - lambda: return command == 0xE619;
+            - lambda: return command == 0xEB14;
           then:
             - light.control:
                 id: remote_light
+                color_mode: RGB
                 red: 0.0
                 green: 0.78
                 blue: 1.0
 
     - if:
           condition:
-            - lambda: return command == 0xE51A;
+            - lambda: return command == 0xF00F;
           then:
             - light.control:
                 id: remote_light
+                color_mode: RGB
                 red: 1.0
                 green: 0.0
                 blue: 0.62
 
     - if:
         condition:
-          - lambda: return command == 0xF41B;
+          - lambda: return command == 0xF30C;
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Fade");
+              call.set_effect("Random");
               call.perform();
-
 light:
   - platform: custom
     id: remote_light
