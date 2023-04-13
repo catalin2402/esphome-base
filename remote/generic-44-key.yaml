@@ -429,7 +429,7 @@ binary_sensor:
           green: $diy3_green
 
   - platform: remote_receiver
-    id: auto
+    id: auto_btn
     nec: 
       address: $nec_address
       command: 0xF00F
