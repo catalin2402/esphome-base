@@ -1,0 +1,358 @@
+---
+substitutions:
+  nec_address: "0xFF00"
+
+binary_sensor:
+  - platform: remote_receiver
+    id: brightness_up
+    nec: 
+      address: $nec_address
+      command: 0xFF00
+    on_press:
+      - light.dim_relative:
+          id: remote_light
+          relative_brightness: 10%
+
+  - platform: remote_receiver
+    id: brightness_down
+    nec: 
+      address: $nec_address
+      command: 0xFD02
+    on_press:
+      - light.dim_relative:
+          id: remote_light
+          relative_brightness: -10%
+
+  - platform: remote_receiver
+    id: off_btn
+    nec: 
+      address: $nec_address
+      command: 0xF906
+    on_press:
+      - light.turn_off: remote_light
+
+  - platform: remote_receiver
+    id: on_btn
+    nec: 
+      address: $nec_address
+      command: 0xF807
+    on_press:
+      - light.turn_on: remote_light
+
+  - platform: remote_receiver
+    id: color_red
+    nec: 
+      address: $nec_address
+      command: 0xF708
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 0.0
+          blue: 0.0
+          
+  - platform: remote_receiver
+    id: color_green
+    nec: 
+      address: $nec_address
+      command: 0xF609
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 1.0
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_deep_blue
+    nec: 
+      address: $nec_address
+      command: 0xF50A
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 0.0
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_white
+    nec: 
+      address: $nec_address
+      command: 0xFC03
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 1.0
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_reddish
+    nec: 
+      address: $nec_address
+      command: 0xF30C
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 0.47
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_greenish
+    nec: 
+      address: $nec_address
+      command: 0xF20D
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 1.0
+          blue: 0.47
+
+  - platform: remote_receiver
+    id: color_blue
+    nec: 
+      address: $nec_address
+      command: 0xF10E
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 0.62
+          blue: 1.0
+          
+  - platform: remote_receiver
+    id: flash
+    nec: 
+      address: $nec_address
+      command: 0xF00F
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Pulse");
+          call.perform();
+
+  - platform: remote_receiver
+    id: color_orange
+    nec: 
+      address: $nec_address
+      command: 0xEF10
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 0.62
+          blue: 0.0
+          
+  - platform: remote_receiver
+    id: color_turqoise
+    nec: 
+      address: $nec_address
+      command: 0xEE11
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 1
+          blue: 0.62
+
+  - platform: remote_receiver
+    id: color_purple
+    nec: 
+      address: $nec_address
+      command: 0xED12
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.66
+          green: 0.0
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: strobe
+    nec: 
+      address: $nec_address
+      command: 0xEC13
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Strobe");
+          call.perform();
+
+  - platform: remote_receiver
+    id: color_yellowish
+    nec: 
+      address: $nec_address
+      command: 0xEB14
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 0.78
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_cyan
+    nec: 
+      address: $nec_address
+      command: 0xEA15
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 1.0
+          blue: 0.86
+
+  - platform: remote_receiver
+    id: color_magenta
+    nec: 
+      address: $nec_address
+      command: 0xE916
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 0.0
+          blue: 0.86
+
+  - platform: remote_receiver
+    id: smooth
+    nec: 
+      address: $nec_address
+      command: 0xE817
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Random");
+          call.perform();
+
+  - platform: remote_receiver
+    id: color_yellow
+    nec: 
+      address: $nec_address
+      command: 0xE718
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 1.0
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_aqua
+    nec: 
+      address: $nec_address
+      command: 0xE619
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 0.0
+          green: 0.78
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_pink
+    nec: 
+      address: $nec_address
+      command: 0xE51A
+    on_press:
+      - light.control:
+          id: remote_light
+          red: 1.0
+          green: 0.0
+          blue: 0.62
+
+  - platform: remote_receiver
+    id: mode
+    nec: 
+      address: $nec_address
+      command: 0xF41B
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Fade");
+          call.perform();
+
+light:
+  - platform: custom
+    id: remote_light
+    effects:
+      - random:
+      - pulse:
+      - flicker:
+      - strobe:
+          name: Strobe
+      - lambda: 
+          name: Jump
+          update_interval: 1s
+          lambda: |-
+            static int state = 0;
+            auto call = id(remote_light).make_call();
+            call.set_transition_length(0);
+            switch (state) {
+              case 0:
+                call.set_rgb(1.0, 0.0, 0.0);
+                break;
+              case 1:
+                call.set_rgb(0.0, 1.0, 0.0);
+                break;
+              case 2:
+                call.set_rgb(0.0, 0.0, 1.0);
+                break;
+              case 3:
+                call.set_rgb(0.5, 0.0, 0.5);
+                break;
+              case 4:
+                call.set_rgb(0.33, 0.33, 0.33);
+                break;
+              case 5:
+                call.set_rgb(0.0, 0.50, 0.50);
+                break;
+              case 6:
+                call.set_rgb(0.5, 0.5, 0.0);
+                break;
+              default:
+                call.set_rgb(0.5, 0.50, 0.0);
+                break;
+            }
+            call.perform();
+            state += 1;
+            if (state == 7) state = 0;        
+      - lambda: 
+          name: Fade
+          update_interval: 5s
+          lambda: |-
+            static int state = 0;
+            auto call = id(remote_light).make_call();
+            call.set_transition_length(5000);
+            switch (state) {
+              case 0:
+                call.set_rgb(1.0, 0.0, 0.0);
+                break;
+              case 1:
+                call.set_rgb(0.0, 1.0, 0.0);
+                break;
+              case 2:
+                call.set_rgb(0.0, 0.0, 1.0);
+                break;
+              case 3:
+                call.set_rgb(0.5, 0.0, 0.5);
+                break;
+              case 4:
+                call.set_rgb(0.33, 0.33, 0.33);
+                break;
+              case 5:
+                call.set_rgb(0.0, 0.50, 0.50);
+                break;
+              case 6:
+                call.set_rgb(0.5, 0.5, 0.0);
+                break;
+              default:
+                call.set_rgb(0.5, 0.50, 0.0);
+                break;
+            }
+            call.perform();
+            state += 1;
+            if (state == 7) state = 0;

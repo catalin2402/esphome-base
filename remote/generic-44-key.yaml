@@ -1,6 +1,5 @@
 ---
 substitutions:
-  remote_light: REPLACEME
   nec_address: "0xFF00"
   diy1_red: "1.0"
   diy1_green: "1.0"
@@ -34,7 +33,7 @@ binary_sensor:
       command: 0xA35C
     on_press:
       - light.dim_relative:
-          id: $remote_light
+          id: remote_light
           relative_brightness: 10%
 
   - platform: remote_receiver
@@ -44,7 +43,7 @@ binary_sensor:
       command: 0xA25D
     on_press:
       - light.dim_relative:
-          id: $remote_light
+          id: remote_light
           relative_brightness: -10%
 
   - platform: remote_receiver
@@ -54,8 +53,8 @@ binary_sensor:
       command: 0xBE41
     on_press:
       - lambda: |-
-          auto effect = id(lightstrip).get_effect_name();
-          auto call = id(lightstrip).turn_on();
+          auto effect = id(remote_light).get_effect_name();
+          auto call = id(remote_light).make_call();
           if (effect != "None") {
             ESP_LOGD("EFFECT", "%s", effect.c_str());
             id(last_effect) = effect.c_str();
@@ -72,7 +71,7 @@ binary_sensor:
       address: $nec_address
       command: 0xBF40
     on_press:
-      - light.toggle: $remote_light
+      - light.toggle: remote_light
 
   - platform: remote_receiver
     id: color_red
@@ -81,7 +80,7 @@ binary_sensor:
       command: 0xA758
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.0
           blue: 0.0
@@ -93,7 +92,7 @@ binary_sensor:
       command: 0xA659
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 1.0
           blue: 0.0
@@ -105,7 +104,7 @@ binary_sensor:
       command: 0xBA45
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 0.0
           blue: 1.0
@@ -117,7 +116,7 @@ binary_sensor:
       command: 0xBB44
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 1.0
           blue: 1.0
@@ -129,7 +128,7 @@ binary_sensor:
       command: 0xAB54
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.47
           blue: 0.0
@@ -141,7 +140,7 @@ binary_sensor:
       command: 0xAA55
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 1.0
           blue: 0.47
@@ -153,7 +152,7 @@ binary_sensor:
       command: 0xB649
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 0.62
           blue: 1.0
@@ -165,7 +164,7 @@ binary_sensor:
       command: 0xB748
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.66
           blue: 0.41
@@ -177,7 +176,7 @@ binary_sensor:
       command: 0xAF50
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.62
           blue: 0.0
@@ -189,7 +188,7 @@ binary_sensor:
       command: 0xAE51
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 1
           blue: 0.62
@@ -201,7 +200,7 @@ binary_sensor:
       command: 0xB24D
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.66
           green: 0.0
           blue: 1.0
@@ -213,7 +212,7 @@ binary_sensor:
       command: 0xB34C
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.75
           blue: 0.55
@@ -225,7 +224,7 @@ binary_sensor:
       command: 0xE31C
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.78
           blue: 0.0
@@ -237,7 +236,7 @@ binary_sensor:
       command: 0xE21D
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 1.0
           blue: 0.86
@@ -249,7 +248,7 @@ binary_sensor:
       command: 0xE11E
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.0
           blue: 0.86
@@ -261,7 +260,7 @@ binary_sensor:
       command: 0xE01F
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.83
           blue: 0.7
@@ -273,7 +272,7 @@ binary_sensor:
       command: 0xE718
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 1.0
           blue: 0.0
@@ -285,7 +284,7 @@ binary_sensor:
       command: 0xE619
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 0.0
           green: 0.78
           blue: 1.0
@@ -297,7 +296,7 @@ binary_sensor:
       command: 0xE51A
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.0
           blue: 0.62
@@ -309,7 +308,7 @@ binary_sensor:
       command: 0xE41B
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: 1.0
           green: 0.91
           blue: 0.85
@@ -321,8 +320,8 @@ binary_sensor:
       command: 0xEB14
     on_press:
       - light.control:
-          id: $remote_light
-          red: !lambda return id(lightstrip).remote_values.get_red() + 0.05;
+          id: remote_light
+          red: !lambda return id(remote_light).remote_values.get_red() + 0.05;
           transition_length: 0s
 
   - platform: remote_receiver
@@ -332,8 +331,8 @@ binary_sensor:
       command: 0xEA15
     on_press:
       - light.control:
-          id: $remote_light
-          green: !lambda return id(lightstrip).remote_values.get_green() + 0.05;
+          id: remote_light
+          green: !lambda return id(remote_light).remote_values.get_green() + 0.05;
           transition_length: 0s
 
   - platform: remote_receiver
@@ -343,8 +342,8 @@ binary_sensor:
       command: 0xE916
     on_press:
       - light.control:
-          id: $remote_light
-          blue: !lambda return id(lightstrip).remote_values.get_blue() + 0.05;
+          id: remote_light
+          blue: !lambda return id(remote_light).remote_values.get_blue() + 0.05;
           transition_length: 0s
 
   - platform: remote_receiver
@@ -352,6 +351,11 @@ binary_sensor:
     nec: 
       address: $nec_address
       command: 0xE817
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Random");
+          call.perform();
 
   - platform: remote_receiver
     id: red_down
@@ -360,8 +364,8 @@ binary_sensor:
       command: 0xEF10
     on_press:
       - light.control:
-          id: $remote_light
-          red: !lambda return id(lightstrip).remote_values.get_red() - 0.05;
+          id: remote_light
+          red: !lambda return id(remote_light).remote_values.get_red() - 0.05;
           transition_length: 0s
 
   - platform: remote_receiver
@@ -371,8 +375,8 @@ binary_sensor:
       command: 0xEE11
     on_press:
       - light.control:
-          id: $remote_light
-          green: !lambda return id(lightstrip).remote_values.get_green() - 0.05;
+          id: remote_light
+          green: !lambda return id(remote_light).remote_values.get_green() - 0.05;
           transition_length: 0s
 
   - platform: remote_receiver
@@ -382,8 +386,8 @@ binary_sensor:
       command: 0xED12
     on_press:
       - light.control:
-          id: $remote_light
-          blue: !lambda return id(lightstrip).remote_values.get_blue() - 0.05;
+          id: remote_light
+          blue: !lambda return id(remote_light).remote_values.get_blue() - 0.05;
           transition_length: 0s
 
   - platform: remote_receiver
@@ -391,6 +395,11 @@ binary_sensor:
     nec: 
       address: $nec_address
       command: 0xEC13
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Pulse");
+          call.perform();
 
   - platform: remote_receiver
     id: diy1
@@ -399,7 +408,7 @@ binary_sensor:
       command: 0xF30C
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: $diy1_red
           blue: $diy1_blue
           green: $diy1_green
@@ -411,7 +420,7 @@ binary_sensor:
       command: 0xF20D
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: $diy2_red
           blue: $diy2_blue
           green: $diy2_green
@@ -423,7 +432,7 @@ binary_sensor:
       command: 0xF10E
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: $diy3_red
           blue: $diy3_blue
           green: $diy3_green
@@ -433,6 +442,11 @@ binary_sensor:
     nec: 
       address: $nec_address
       command: 0xF00F
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Flicker");
+          call.perform();
 
   - platform: remote_receiver
     id: diy4
@@ -441,7 +455,7 @@ binary_sensor:
       command: 0xF708
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: $diy4_red
           blue: $diy4_blue
           green: $diy4_green
@@ -453,7 +467,7 @@ binary_sensor:
       command: 0xF609
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: $diy5_red
           blue: $diy5_blue
           green: $diy5_green
@@ -465,7 +479,7 @@ binary_sensor:
       command: 0xF50A
     on_press:
       - light.control:
-          id: $remote_light
+          id: remote_light
           red: $diy6_red
           blue: $diy6_blue
           green: $diy6_green
@@ -475,27 +489,183 @@ binary_sensor:
     nec: 
       address: $nec_address
       command: 0xF40B
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Strobe");
+          call.perform();
 
   - platform: remote_receiver
     id: jump3
     nec: 
       address: $nec_address
       command: 0xFB04
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Jump 3");
+          call.perform();
+          
 
   - platform: remote_receiver
     id: jump7
     nec: 
       address: $nec_address
       command: 0xFA05
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Jump 7");
+          call.perform();
 
   - platform: remote_receiver
     id: fade3
     nec: 
       address: $nec_address
       command: 0xF906
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Fade 3");
+          call.perform();
 
   - platform: remote_receiver
     id: fade7
     nec: 
       address: $nec_address
       command: 0xF807
+    on_press:
+      - lambda: |-
+          auto call = id(remote_light).make_call();
+          call.set_effect("Fade 7");
+          call.perform();
+
+light:
+  - platform: custom
+    id: remote_light
+    effects:
+      - random:
+      - pulse:
+      - flicker:
+      - strobe:
+          name: Strobe
+      - lambda: 
+          name: Jump 3
+          update_interval: 1s
+          lambda: |-
+            static int state = 0;
+            auto call = id(remote_light).make_call();
+            call.set_transition_length(0);
+            switch (state) {
+              case 0:
+                call.set_rgb(1.0, 0.0, 0.0);
+                break;
+              case 1:
+                call.set_rgb(0.0, 1.0, 0.0);
+                break;
+              case 2:
+                call.set_rgb(0.0, 0.0, 1.0);
+                break;
+              default:
+                call.set_rgb(1.0, 0.0, 1.0);
+                break;
+            }
+            call.perform();
+            state += 1;
+            if (state == 3) state = 0;
+      - lambda: 
+          name: Jump 7
+          update_interval: 1s
+          lambda: |-
+            static int state = 0;
+            auto call = id(remote_light).make_call();
+            call.set_transition_length(0);
+            switch (state) {
+              case 0:
+                call.set_rgb(1.0, 0.0, 0.0);
+                break;
+              case 1:
+                call.set_rgb(0.0, 1.0, 0.0);
+                break;
+              case 2:
+                call.set_rgb(0.0, 0.0, 1.0);
+                break;
+              case 3:
+                call.set_rgb(0.5, 0.0, 0.5);
+                break;
+              case 4:
+                call.set_rgb(0.33, 0.33, 0.33);
+                break;
+              case 5:
+                call.set_rgb(0.0, 0.50, 0.50);
+                break;
+              case 6:
+                call.set_rgb(0.5, 0.5, 0.0);
+                break;
+              default:
+                call.set_rgb(0.5, 0.50, 0.0);
+                break;
+            }
+            call.perform();
+            state += 1;
+            if (state == 7) state = 0;
+      - lambda: 
+          name: Fade 3
+          update_interval: 5s
+          lambda: |-
+            static int state = 0;
+            auto call = id(remote_light).make_call();
+            call.set_transition_length(5000);
+            switch (state) {
+              case 0:
+                call.set_rgb(1.0, 0.0, 0.0);
+                break;
+              case 1:
+                call.set_rgb(0.0, 1.0, 0.0);
+                break;
+              case 2:
+                call.set_rgb(0.0, 0.0, 1.0);
+                break;
+              default:
+                call.set_rgb(0.5, 0.50, 0.0);
+                break;
+            }
+            call.perform();
+            state += 1;
+            if (state == 3) state = 0;            
+      - lambda: 
+          name: Fade 7
+          update_interval: 5s
+          lambda: |-
+            static int state = 0;
+            auto call = id(remote_light).make_call();
+            call.set_transition_length(5000);
+            switch (state) {
+              case 0:
+                call.set_rgb(1.0, 0.0, 0.0);
+                break;
+              case 1:
+                call.set_rgb(0.0, 1.0, 0.0);
+                break;
+              case 2:
+                call.set_rgb(0.0, 0.0, 1.0);
+                break;
+              case 3:
+                call.set_rgb(0.5, 0.0, 0.5);
+                break;
+              case 4:
+                call.set_rgb(0.33, 0.33, 0.33);
+                break;
+              case 5:
+                call.set_rgb(0.0, 0.50, 0.50);
+                break;
+              case 6:
+                call.set_rgb(0.5, 0.5, 0.0);
+                break;
+              default:
+                call.set_rgb(0.5, 0.50, 0.0);
+                break;
+            }
+            call.perform();
+            state += 1;
+            if (state == 7) state = 0;
