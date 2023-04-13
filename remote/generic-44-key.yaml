@@ -1,0 +1,501 @@
+---
+substitutions:
+  remote_light: REPLACEME
+  nec_address: "0xFF00"
+  diy1_red: "1.0"
+  diy1_green: "1.0"
+  diy1_blue: "1.0"
+  diy2_red: "1.0"
+  diy2_green: "1.0"
+  diy2_blue: "1.0"
+  diy3_red: "1.0"
+  diy3_green: "1.0"
+  diy3_blue: "1.0"
+  diy4_red: "1.0"
+  diy4_green: "1.0"
+  diy4_blue: "1.0"
+  diy5_red: "1.0"
+  diy5_green: "1.0"
+  diy5_blue: "1.0"
+  diy6_red: "1.0"
+  diy6_green: "1.0"
+  diy6_blue: "1.0"    
+
+globals:
+  id: last_effect
+  type: std::string
+  initial_value: '"None"'
+
+binary_sensor:
+  - platform: remote_receiver
+    id: brightness_up
+    nec: 
+      address: $nec_address
+      command: 0xA35C
+    on_press:
+      - light.dim_relative:
+          id: $remote_light
+          relative_brightness: 10%
+
+  - platform: remote_receiver
+    id: brightness_down
+    nec: 
+      address: $nec_address
+      command: 0xA25D
+    on_press:
+      - light.dim_relative:
+          id: $remote_light
+          relative_brightness: -10%
+
+  - platform: remote_receiver
+    id: play_pause
+    nec: 
+      address: $nec_address
+      command: 0xBE41
+    on_press:
+      - lambda: |-
+          auto effect = id(lightstrip).get_effect_name();
+          auto call = id(lightstrip).turn_on();
+          if (effect != "None") {
+            ESP_LOGD("EFFECT", "%s", effect.c_str());
+            id(last_effect) = effect.c_str();
+            call.set_effect("None");
+            call.perform();
+          } else {
+            call.set_effect(id(last_effect));
+            call.perform();
+          }
+
+  - platform: remote_receiver
+    id: on_off
+    nec: 
+      address: $nec_address
+      command: 0xBF40
+    on_press:
+      - light.toggle: $remote_light
+
+  - platform: remote_receiver
+    id: color_red
+    nec: 
+      address: $nec_address
+      command: 0xA758
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.0
+          blue: 0.0
+          
+  - platform: remote_receiver
+    id: color_green
+    nec: 
+      address: $nec_address
+      command: 0xA659
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 1.0
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_deep_blue
+    nec: 
+      address: $nec_address
+      command: 0xBA45
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 0.0
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_white
+    nec: 
+      address: $nec_address
+      command: 0xBB44
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 1.0
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_reddish
+    nec: 
+      address: $nec_address
+      command: 0xAB54
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.47
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_greenish
+    nec: 
+      address: $nec_address
+      command: 0xAA55
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 1.0
+          blue: 0.47
+
+  - platform: remote_receiver
+    id: color_blue
+    nec: 
+      address: $nec_address
+      command: 0xB649
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 0.62
+          blue: 1.0
+          
+  - platform: remote_receiver
+    id: color_warm_white_2
+    nec: 
+      address: $nec_address
+      command: 0xB748
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.66
+          blue: 0.41
+
+  - platform: remote_receiver
+    id: color_orange
+    nec: 
+      address: $nec_address
+      command: 0xAF50
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.62
+          blue: 0.0
+          
+  - platform: remote_receiver
+    id: color_turqoise
+    nec: 
+      address: $nec_address
+      command: 0xAE51
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 1
+          blue: 0.62
+
+  - platform: remote_receiver
+    id: color_purple
+    nec: 
+      address: $nec_address
+      command: 0xB24D
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.66
+          green: 0.0
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_warm_white
+    nec: 
+      address: $nec_address
+      command: 0xB34C
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.75
+          blue: 0.55
+
+  - platform: remote_receiver
+    id: color_yellowish
+    nec: 
+      address: $nec_address
+      command: 0xE31C
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.78
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_cyan
+    nec: 
+      address: $nec_address
+      command: 0xE21D
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 1.0
+          blue: 0.86
+
+  - platform: remote_receiver
+    id: color_magenta
+    nec: 
+      address: $nec_address
+      command: 0xE11E
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.0
+          blue: 0.86
+
+  - platform: remote_receiver
+    id: color_neutral_white
+    nec: 
+      address: $nec_address
+      command: 0xE01F
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.83
+          blue: 0.7
+
+  - platform: remote_receiver
+    id: color_yellow
+    nec: 
+      address: $nec_address
+      command: 0xE718
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 1.0
+          blue: 0.0
+
+  - platform: remote_receiver
+    id: color_aqua
+    nec: 
+      address: $nec_address
+      command: 0xE619
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 0.0
+          green: 0.78
+          blue: 1.0
+
+  - platform: remote_receiver
+    id: color_pink
+    nec: 
+      address: $nec_address
+      command: 0xE51A
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.0
+          blue: 0.62
+
+  - platform: remote_receiver
+    id: color_cold_white
+    nec: 
+      address: $nec_address
+      command: 0xE41B
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: 1.0
+          green: 0.91
+          blue: 0.85
+
+  - platform: remote_receiver
+    id: red_up
+    nec: 
+      address: $nec_address
+      command: 0xEB14
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: !lambda return id(lightstrip).remote_values.get_red() + 0.05;
+          transition_length: 0s
+
+  - platform: remote_receiver
+    id: green_up
+    nec: 
+      address: $nec_address
+      command: 0xEA15
+    on_press:
+      - light.control:
+          id: $remote_light
+          green: !lambda return id(lightstrip).remote_values.get_green() + 0.05;
+          transition_length: 0s
+
+  - platform: remote_receiver
+    id: blue_up
+    nec: 
+      address: $nec_address
+      command: 0xE916
+    on_press:
+      - light.control:
+          id: $remote_light
+          blue: !lambda return id(lightstrip).remote_values.get_blue() + 0.05;
+          transition_length: 0s
+
+  - platform: remote_receiver
+    id: quick
+    nec: 
+      address: $nec_address
+      command: 0xE817
+
+  - platform: remote_receiver
+    id: red_down
+    nec: 
+      address: $nec_address
+      command: 0xEF10
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: !lambda return id(lightstrip).remote_values.get_red() - 0.05;
+          transition_length: 0s
+
+  - platform: remote_receiver
+    id: green_down
+    nec: 
+      address: $nec_address
+      command: 0xEE11
+    on_press:
+      - light.control:
+          id: $remote_light
+          green: !lambda return id(lightstrip).remote_values.get_green() - 0.05;
+          transition_length: 0s
+
+  - platform: remote_receiver
+    id: blue_down
+    nec: 
+      address: $nec_address
+      command: 0xED12
+    on_press:
+      - light.control:
+          id: $remote_light
+          blue: !lambda return id(lightstrip).remote_values.get_blue() - 0.05;
+          transition_length: 0s
+
+  - platform: remote_receiver
+    id: slow
+    nec: 
+      address: $nec_address
+      command: 0xEC13
+
+  - platform: remote_receiver
+    id: diy1
+    nec: 
+      address: $nec_address
+      command: 0xF30C
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: $diy1_red
+          blue: $diy1_blue
+          green: $diy1_green
+
+  - platform: remote_receiver
+    id: diy2
+    nec: 
+      address: $nec_address
+      command: 0xF20D
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: $diy2_red
+          blue: $diy2_blue
+          green: $diy2_green
+
+  - platform: remote_receiver
+    id: diy3
+    nec: 
+      address: $nec_address
+      command: 0xF10E
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: $diy3_red
+          blue: $diy3_blue
+          green: $diy3_green
+
+  - platform: remote_receiver
+    id: auto
+    nec: 
+      address: $nec_address
+      command: 0xF00F
+
+  - platform: remote_receiver
+    id: diy4
+    nec: 
+      address: $nec_address
+      command: 0xF708
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: $diy4_red
+          blue: $diy4_blue
+          green: $diy4_green
+
+  - platform: remote_receiver
+    id: diy5
+    nec: 
+      address: $nec_address
+      command: 0xF609
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: $diy5_red
+          blue: $diy5_blue
+          green: $diy5_green
+
+  - platform: remote_receiver
+    id: diy6
+    nec: 
+      address: $nec_address
+      command: 0xF50A
+    on_press:
+      - light.control:
+          id: $remote_light
+          red: $diy6_red
+          blue: $diy6_blue
+          green: $diy6_green
+
+  - platform: remote_receiver
+    id: flash
+    nec: 
+      address: $nec_address
+      command: 0xF40B
+
+  - platform: remote_receiver
+    id: jump3
+    nec: 
+      address: $nec_address
+      command: 0xFB04
+
+  - platform: remote_receiver
+    id: jump7
+    nec: 
+      address: $nec_address
+      command: 0xFA05
+
+  - platform: remote_receiver
+    id: fade3
+    nec: 
+      address: $nec_address
+      command: 0xF906
+
+  - platform: remote_receiver
+    id: fade7
+    nec: 
+      address: $nec_address
+      command: 0xF807
