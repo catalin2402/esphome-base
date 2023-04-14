@@ -391,7 +391,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Pulse");
+              if (id(remote_light).get_effect_name() == "Pulse") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Pulse");
+              }
               call.perform();
 
     - if:
@@ -430,7 +434,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Flicker");
+              if (id(remote_light).get_effect_name() == "Flicker") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Flicker");
+              }
               call.perform();
 
     - if:
@@ -469,7 +477,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Strobe");
+              if (id(remote_light).get_effect_name() == "Strobe") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Strobe");
+              }
               call.perform();
 
     - if:
@@ -478,7 +490,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Jump 3");
+              if (id(remote_light).get_effect_name() == "Jump 3") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Jump 3");
+              }
               call.perform();
 
     - if:
@@ -487,7 +503,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Jump 7");
+              if (id(remote_light).get_effect_name() == "Jump 7") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Jump 7");
+              }
               call.perform();
 
     - if:
@@ -496,7 +516,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Fade 3");
+              if (id(remote_light).get_effect_name() == "Fade 3") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Fade 3");
+              }
               call.perform();
 
     - if:
@@ -505,7 +529,11 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Fade 7");
+              if (id(remote_light).get_effect_name() == "Fade 7") {
+                call.set_effect("None");
+              } else {
+                call.set_effect("Fade 7");
+              }
               call.perform();
 
 light:
