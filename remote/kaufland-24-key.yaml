@@ -1,4 +1,30 @@
 ---
+substitutions:
+  key01_code: "0xFF00"
+  key02_code: "0xFD02"
+  key03_code: "0xF906"
+  key04_code: "0xF807"
+  key05_code: "0xF708"
+  key06_code: "0xF609"
+  key07_code: "0xF50A"
+  key08_code: "0xFC03"
+  key09_code: "0xF30C"
+  key10_code: "0xF20D"
+  key11_code: "0xF10E"
+  key12_code: "0xF00F"
+  key13_code: "0xEF10"
+  key14_code: "0xEE11"
+  key15_code: "0xED12"
+  key16_code: "0xEC13"
+  key17_code: "0xEB14"
+  key18_code: "0xEA15"
+  key19_code: "0xE916"
+  key20_code: "0xE817"
+  key21_code: "0xE718"
+  key22_code: "0xE619"
+  key23_code: "0xE51A"
+  key24_code: "0xF41B"
+  
 script:
   id: remote_process
   mode: single
@@ -7,7 +33,7 @@ script:
   then:
     - if:
         condition:
-          - lambda: return command == 0xFF00;
+          - lambda: return command == $key01_code;
         then:
           - light.dim_relative:
               id: remote_light
@@ -15,7 +41,7 @@ script:
 
     - if:
         condition:
-          - lambda: return command == 0xFD02;
+          - lambda: return command == $key02_code;
         then:
           - light.dim_relative:
               id: remote_light
@@ -23,19 +49,19 @@ script:
 
     - if:
         condition:
-          - lambda: return command == 0xF906;
+          - lambda: return command == $key03_code;
         then:
           - light.turn_off: remote_light
 
     - if:
         condition:
-          - lambda: return command == 0xF807;
+          - lambda: return command == $key04_code;
         then:
           - light.turn_on: remote_light
 
     - if:
         condition:
-          - lambda: return command == 0xF708;
+          - lambda: return command == $key05_code;
         then:
           - light.control:
               id: remote_light
@@ -45,7 +71,7 @@ script:
 
     - if:
         condition:
-          - lambda: return command == 0xF609;
+          - lambda: return command == $key06_code;
         then:
           - light.control:
               id: remote_light
@@ -54,175 +80,175 @@ script:
               blue: 0.0
 
     - if:
-          condition:
-            - lambda: return command == 0xF50A;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 0.0
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xFC03;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 1.0
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF30C;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.47
-                blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF20D;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 1.0
-                blue: 0.47
-
-    - if:
-          condition:
-            - lambda: return command == 0xF10E;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 0.62
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xF00F;
-          then:
-            - lambda: |-
-                auto call = id(remote_light).make_call();
-                call.set_effect("Pulse");
-                call.perform();
-
-    - if:
-          condition:
-            - lambda: return command == 0xEF10;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.62
-                blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xEE11;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 1
-                blue: 0.62
-
-    - if:
-          condition:
-            - lambda: return command == 0xED12;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.66
-                green: 0.0
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xEC13;
-          then:
-            - lambda: |-
-                auto call = id(remote_light).make_call();
-                call.set_effect("Strobe");
-                call.perform();
-
-    - if:
-          condition:
-            - lambda: return command == 0xEB14;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.78
-                blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xEA15;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 1.0
-                blue: 0.86
-
-    - if:
-          condition:
-            - lambda: return command == 0xE916;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.0
-                blue: 0.86
-
-    - if:
-          condition:
-            - lambda: return command == 0xE817;
-          then:
-            - lambda: |-
-                auto call = id(remote_light).make_call();
-                call.set_effect("Random");
-                call.perform();
-
-    - if:
-          condition:
-            - lambda: return command == 0xE718;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 1.0
-                blue: 0.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xE619;
-          then:
-            - light.control:
-                id: remote_light
-                red: 0.0
-                green: 0.78
-                blue: 1.0
-
-    - if:
-          condition:
-            - lambda: return command == 0xE51A;
-          then:
-            - light.control:
-                id: remote_light
-                red: 1.0
-                green: 0.0
-                blue: 0.62
+        condition:
+          - lambda: return command == $key07_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 0.0
+              blue: 1.0
 
     - if:
         condition:
-          - lambda: return command == 0xF41B;
+          - lambda: return command == $key08_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 1.0
+              blue: 1.0
+
+    - if:
+        condition:
+          - lambda: return command == $key09_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.47
+              blue: 0.0
+
+    - if:
+        condition:
+          - lambda: return command == $key10_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1.0
+              blue: 0.47
+
+    - if:
+        condition:
+          - lambda: return command == $key11_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 0.62
+              blue: 1.0
+
+    - if:
+        condition:
+          - lambda: return command == $key12_code;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Pulse");
+              call.perform();
+
+    - if:
+        condition:
+          - lambda: return command == $key13_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.62
+              blue: 0.0
+
+    - if:
+        condition:
+          - lambda: return command == $key14_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1
+              blue: 0.62
+
+    - if:
+        condition:
+          - lambda: return command == $key15_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.66
+              green: 0.0
+              blue: 1.0
+
+    - if:
+        condition:
+          - lambda: return command == $key16_code;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Strobe");
+              call.perform();
+
+    - if:
+        condition:
+          - lambda: return command == $key17_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.78
+              blue: 0.0
+
+    - if:
+        condition:
+          - lambda: return command == $key18_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 1.0
+              blue: 0.86
+
+    - if:
+        condition:
+          - lambda: return command == $key19_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.0
+              blue: 0.86
+
+    - if:
+        condition:
+          - lambda: return command == $key20_code;
+        then:
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              call.set_effect("Random");
+              call.perform();
+
+    - if:
+        condition:
+          - lambda: return command == $key21_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 1.0
+              blue: 0.0
+
+    - if:
+        condition:
+          - lambda: return command == $key22_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 0.0
+              green: 0.78
+              blue: 1.0
+
+    - if:
+        condition:
+          - lambda: return command == $key23_code;
+        then:
+          - light.control:
+              id: remote_light
+              red: 1.0
+              green: 0.0
+              blue: 0.62
+
+    - if:
+        condition:
+          - lambda: return command == $key24_code;
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
