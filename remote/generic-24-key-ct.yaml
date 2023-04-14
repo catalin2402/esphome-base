@@ -25,13 +25,20 @@ script:
         condition:
           - lambda: return command == 0xE01F;
         then:
-          - light.turn_off: remote_light
+          - lambda: |-
+              auto call = id(remote_light).make_call();
+              if (id(remote_light).remote_values.get_color_mode() == ColorMode::RGB) {
+                call.set_color_mode(ColorMode::COLD_WARM_WHITE);
+              } else {
+                call.set_color_mode(ColorMode::RGB);
+              }
+              call.perform();
 
     - if:
         condition:
           - lambda: return command == 0xF20D;
         then:
-          - light.turn_on: remote_light
+          - light.toggle: remote_light
 
     - if:
         condition:
@@ -240,11 +247,7 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              if (id(remote_light).remote_values.get_color_mode() == ColorMode::RGB) {
-                call.set_color_mode(ColorMode::COLD_WARM_WHITE);
-              } else {
-                call.set_color_mode(ColorMode::RGB);
-              }
+              call.set_effect("Fade 7");
               call.perform();
 
 light:
