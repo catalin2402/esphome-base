@@ -41,7 +41,7 @@ script:
 
     - if:
         condition:
-          - lambda: return command === $key02_code;
+          - lambda: return command == $key02_code;
         then:
           - light.dim_relative:
               id: remote_light
