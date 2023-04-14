@@ -134,13 +134,13 @@ script:
             - lambda: return command == $key12_code;
           then:
             - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Pulse") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Pulse");
-              }
-              call.perform();
+                auto call = id(remote_light).make_call();
+                if (id(remote_light).get_effect_name() == "Pulse") {
+                  call.set_effect("None");
+                } else {
+                  call.set_effect("Pulse");
+                }
+                call.perform();
 
     - if:
           condition:
@@ -177,13 +177,13 @@ script:
             - lambda: return command == $key16_code;
           then:
             - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Strobe") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Strobe");
-              }
-              call.perform();
+                auto call = id(remote_light).make_call();
+                if (id(remote_light).get_effect_name() == "Strobe") {
+                  call.set_effect("None");
+                } else {
+                  call.set_effect("Strobe");
+                }
+                call.perform();
 
     - if:
           condition:
@@ -220,13 +220,13 @@ script:
             - lambda: return command == $key20_code;
           then:
             - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Fade 7") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Fade 7");
-              }
-              call.perform();
+                auto call = id(remote_light).make_call();
+                if (id(remote_light).get_effect_name() == "Fade 7") {
+                  call.set_effect("None");
+                } else {
+                  call.set_effect("Fade 7");
+                }
+                call.perform();
 
     - if:
           condition:
