@@ -272,9 +272,15 @@ script:
           - lambda: return command == $key24_code;
         then:
           - lambda: |-
+          - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Fade 7");
-              call.perform();
+              if (id(remote_light).get_effect_name() != "None") {
+                call.set_effect("None");
+                call.perform();
+              } else {
+                call.set_effect("Fade 7");
+                call.perform();
+              }
 
 light:
   - platform: rgbww
