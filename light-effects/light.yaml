@@ -7,7 +7,7 @@ light:
       - strobe:
       - flicker:
       - random:
-      - <<: !include jump-3.yaml
-      - <<: !include jump-7.yaml
-      - <<: !include fade-3.yaml
-      - <<: !include fade-7.yaml            
+      - <<: !include { file: jump-3.yaml, vars: { id: light_effects } }
+      - <<: !include { file: jump-7.yaml, vars: { id: light_effects } }
+      - <<: !include { file: fade-3.yaml, vars: { id: light_effects } }
+      - <<: !include { file: fade-7.yaml, vars: { id: light_effects } }   

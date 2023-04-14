@@ -3,7 +3,7 @@ lambda:
   update_interval: 7s
   lambda: |-
     static int state = 0;
-    auto call = id(remote_light).turn_on();
+    auto call = id(${id}).turn_on();
     call.set_transition_length(5000);
     switch (state) {
       case 0:

@@ -237,7 +237,7 @@ light:
       - strobe:
       - flicker:
       - random:
-      - <<: !include ../light-effects/jump-3.yaml
-      - <<: !include ../light-effects/jump-7.yaml
-      - <<: !include ../light-effects/fade-3.yaml
-      - <<: !include ../light-effects/fade-7.yaml            
+      - <<: !include { file: jump-3.yaml, vars: { id: remote_light } }
+      - <<: !include { file: jump-7.yaml, vars: { id: remote_light } }
+      - <<: !include { file: fade-3.yaml, vars: { id: remote_light } }
+      - <<: !include { file: fade-7.yaml, vars: { id: remote_light } }       
