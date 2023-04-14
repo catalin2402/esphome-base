@@ -190,7 +190,7 @@ script:
           - light.control:
               id: remote_light
               color_mode: COLD_WARM_WHITE    
-              color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() - 5.0f;
+              color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() - 20.0f;
 
     - if:
         condition:
@@ -232,7 +232,7 @@ script:
           - light.control:
               id: remote_light
               color_mode: COLD_WARM_WHITE    
-              color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() + 5.0f;
+              color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() + 20.0f;
 
     - if:
         condition:
