@@ -71,8 +71,8 @@ script:
             - lambda: return command == 0xEA15;
           then:
             - light.control:
-                id: lightstrip
-                color_mode: COLOR_TEMPERATURE                    
+                id: remote_light
+                color_mode: COLD_WARM_WHITE                    
                 color_temperature: 2700 K
 
     - if:
@@ -113,8 +113,8 @@ script:
             - lambda: return command == 0xB24D;
           then:
             - light.control:
-                id: lightstrip
-                color_mode: COLOR_TEMPERATURE    
+                id: remote_light
+                color_mode: COLD_WARM_WHITE    
                 color_temperature: 6000 K
 
     - if:
@@ -155,9 +155,9 @@ script:
             - lambda: return command == 0xFF00;
           then:
             - light.control:
-                id: lightstrip
-                color_mode: COLOR_TEMPERATURE    
-                color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() / 1.05f;
+                id: remote_light
+                color_mode: COLD_WARM_WHITE    
+                color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() - 5.0f;
 
     - if:
           condition:
@@ -197,9 +197,9 @@ script:
             - lambda: return command == 0xE51A;
           then:
             - light.control:
-                id: lightstrip
-                color_mode: COLOR_TEMPERATURE    
-                color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() * 1.05f;
+                id: remote_light
+                color_mode: COLD_WARM_WHITE    
+                color_temperature: !lambda return id(remote_light).remote_values.get_color_temperature() + 5.0f;
 
     - if:
           condition:
@@ -240,86 +240,25 @@ script:
         then:
           - lambda: |-
               auto call = id(remote_light).make_call();
-              call.set_effect("Random");
+              if (id(remote_light).remote_values.get_color_mode() == ColorMode::RGB) {
+                call.set_color_mode(ColorMode::COLD_WARM_WHITE);
+              } else {
+                call.set_color_mode(ColorMode::RGB);
+              }
               call.perform();
+
 light:
-  - platform: custom
+  - platform: rgbww
     id: remote_light
+    cold_white_color_temperature: 6000 K
+    warm_white_color_temperature: 2700 K
+    color_interlock: true
     effects:
-      - random:
       - pulse:
-      - flicker:
       - strobe:
-          name: Strobe
-      - lambda: 
-          name: Jump
-          update_interval: 1s
-          lambda: |-
-            static int state = 0;
-            auto call = id(remote_light).make_call();
-            call.set_transition_length(0);
-            switch (state) {
-              case 0:
-                call.set_rgb(1.0, 0.0, 0.0);
-                break;
-              case 1:
-                call.set_rgb(0.0, 1.0, 0.0);
-                break;
-              case 2:
-                call.set_rgb(0.0, 0.0, 1.0);
-                break;
-              case 3:
-                call.set_rgb(0.5, 0.0, 0.5);
-                break;
-              case 4:
-                call.set_rgb(0.33, 0.33, 0.33);
-                break;
-              case 5:
-                call.set_rgb(0.0, 0.50, 0.50);
-                break;
-              case 6:
-                call.set_rgb(0.5, 0.5, 0.0);
-                break;
-              default:
-                call.set_rgb(0.5, 0.50, 0.0);
-                break;
-            }
-            call.perform();
-            state += 1;
-            if (state == 7) state = 0;        
-      - lambda: 
-          name: Fade
-          update_interval: 5s
-          lambda: |-
-            static int state = 0;
-            auto call = id(remote_light).make_call();
-            call.set_transition_length(5000);
-            switch (state) {
-              case 0:
-                call.set_rgb(1.0, 0.0, 0.0);
-                break;
-              case 1:
-                call.set_rgb(0.0, 1.0, 0.0);
-                break;
-              case 2:
-                call.set_rgb(0.0, 0.0, 1.0);
-                break;
-              case 3:
-                call.set_rgb(0.5, 0.0, 0.5);
-                break;
-              case 4:
-                call.set_rgb(0.33, 0.33, 0.33);
-                break;
-              case 5:
-                call.set_rgb(0.0, 0.50, 0.50);
-                break;
-              case 6:
-                call.set_rgb(0.5, 0.5, 0.0);
-                break;
-              default:
-                call.set_rgb(0.5, 0.50, 0.0);
-                break;
-            }
-            call.perform();
-            state += 1;
-            if (state == 7) state = 0;
+      - flicker:
+      - random:
+      - <<: !include ../light-effects/jump-3.yaml
+      - <<: !include ../light-effects/jump-7.yaml
+      - <<: !include ../light-effects/fade-3.yaml
+      - <<: !include ../light-effects/fade-7.yaml            

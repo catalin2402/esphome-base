@@ -187,7 +187,7 @@ script:
           then:
             - lambda: |-
                 auto call = id(remote_light).make_call();
-                call.set_effect("Fade");
+                call.set_effect("Fade 7");
                 call.perform();
 
     - if:
@@ -232,80 +232,11 @@ light:
   - platform: custom
     id: remote_light
     effects:
-      - random:
       - pulse:
-      - flicker:
       - strobe:
-          name: Strobe
-      - lambda: 
-          name: Jump
-          update_interval: 1s
-          lambda: |-
-            static int state = 0;
-            auto call = id(remote_light).make_call();
-            call.set_transition_length(0);
-            switch (state) {
-              case 0:
-                call.set_rgb(1.0, 0.0, 0.0);
-                break;
-              case 1:
-                call.set_rgb(0.0, 1.0, 0.0);
-                break;
-              case 2:
-                call.set_rgb(0.0, 0.0, 1.0);
-                break;
-              case 3:
-                call.set_rgb(0.5, 0.0, 0.5);
-                break;
-              case 4:
-                call.set_rgb(0.33, 0.33, 0.33);
-                break;
-              case 5:
-                call.set_rgb(0.0, 0.50, 0.50);
-                break;
-              case 6:
-                call.set_rgb(0.5, 0.5, 0.0);
-                break;
-              default:
-                call.set_rgb(0.5, 0.50, 0.0);
-                break;
-            }
-            call.perform();
-            state += 1;
-            if (state == 7) state = 0;        
-      - lambda: 
-          name: Fade
-          update_interval: 5s
-          lambda: |-
-            static int state = 0;
-            auto call = id(remote_light).make_call();
-            call.set_transition_length(5000);
-            switch (state) {
-              case 0:
-                call.set_rgb(1.0, 0.0, 0.0);
-                break;
-              case 1:
-                call.set_rgb(0.0, 1.0, 0.0);
-                break;
-              case 2:
-                call.set_rgb(0.0, 0.0, 1.0);
-                break;
-              case 3:
-                call.set_rgb(0.5, 0.0, 0.5);
-                break;
-              case 4:
-                call.set_rgb(0.33, 0.33, 0.33);
-                break;
-              case 5:
-                call.set_rgb(0.0, 0.50, 0.50);
-                break;
-              case 6:
-                call.set_rgb(0.5, 0.5, 0.0);
-                break;
-              default:
-                call.set_rgb(0.5, 0.50, 0.0);
-                break;
-            }
-            call.perform();
-            state += 1;
-            if (state == 7) state = 0;
+      - flicker:
+      - random:
+      - <<: !include ../light-effects/jump-3.yaml
+      - <<: !include ../light-effects/jump-7.yaml
+      - <<: !include ../light-effects/fade-3.yaml
+      - <<: !include ../light-effects/fade-7.yaml            

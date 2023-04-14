@@ -1,0 +1,36 @@
+lambda:
+  name: Fade 7
+  update_interval: 7s
+  lambda: |-
+    static int state = 0;
+    auto call = id(remote_light).turn_on();
+    call.set_transition_length(5000);
+    switch (state) {
+      case 0:
+        call.set_rgb(1.0, 0.0, 0.0);
+        break;
+      case 1:
+        call.set_rgb(0.0, 1.0, 0.0);
+        break;
+      case 2:
+        call.set_rgb(0.0, 0.0, 1.0);
+        break;
+      case 3:
+        call.set_rgb(0.5, 0.0, 0.5);
+        break;
+      case 4:
+        call.set_rgb(0.33, 0.33, 0.33);
+        break;
+      case 5:
+        call.set_rgb(0.0, 0.50, 0.50);
+        break;
+      case 6:
+        call.set_rgb(0.5, 0.5, 0.0);
+        break;
+      default:
+        call.set_rgb(0.5, 0.50, 0.0);
+        break;
+    }
+    call.perform();
+    state += 1;
+    if (state == 7) state = 0;

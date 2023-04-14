@@ -1,0 +1,24 @@
+lambda: 
+  name: Jump 3
+  update_interval: 3s
+  lambda: |-
+    static int state = 0;
+    auto call = id(remote_light).turn_on();
+    call.set_transition_length(0);
+    switch (state) {
+      case 0:
+        call.set_rgb(1.0, 0.0, 0.0);
+        break;
+      case 1:
+        call.set_rgb(0.0, 1.0, 0.0);
+        break;
+      case 2:
+        call.set_rgb(0.0, 0.0, 1.0);
+        break;
+      default:
+        call.set_rgb(1.0, 0.0, 1.0);
+        break;
+    }
+    call.perform();
+    state += 1;
+    if (state == 3) state = 0;
