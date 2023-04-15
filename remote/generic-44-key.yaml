@@ -69,473 +69,6 @@ globals:
   type: std::string
   initial_value: '"None"'
 
-script:
-  id: remote_process
-  mode: single
-  parameters:
-    command: int
-  then:
-    - if:
-        condition:
-          - lambda: return command == $key01_code;
-        then:
-          - light.dim_relative:
-              id: remote_light
-              relative_brightness: 10%
-
-    - if:
-        condition:
-          - lambda: return command == $key01_code;
-        then:
-          - light.dim_relative:
-              id: remote_light
-              relative_brightness: -10%
-
-    - if:
-        condition:
-          - lambda: return command == $key02_code;
-        then:
-          - light.dim_relative:
-              id: remote_light
-              relative_brightness: -10%
-
-    - if:
-        condition:
-          - lambda: return command == $key03_code;
-        then:
-          - lambda: |-
-              auto effect = id(remote_light).get_effect_name();
-              auto call = id(remote_light).make_call();
-              if (effect != "None") {
-                ESP_LOGD("EFFECT", "%s", effect.c_str());
-                id(last_effect) = effect.c_str();
-                call.set_effect("None");
-                call.perform();
-              } else {
-                call.set_effect(id(last_effect));
-                call.perform();
-              }
-
-    - if:
-        condition:
-          - lambda: return command == $key04_code;
-        then:
-          - light.toggle: remote_light
-
-    - if:
-        condition:
-          - lambda: return command == $key05_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.0
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key06_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1.0
-              blue: 0.0          
-
-    - if:
-        condition:
-          - lambda: return command == $key07_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 0.0
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key08_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 1.0
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key09_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.47
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key10_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1.0
-              blue: 0.47
-
-    - if:
-        condition:
-          - lambda: return command == $key11_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 0.62
-              blue: 1.0
-              
-    - if:
-        condition:
-          - lambda: return command == $key12_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.66
-              blue: 0.41
-
-    - if:
-        condition:
-          - lambda: return command == $key13_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.62
-              blue: 0.0
-              
-    - if:
-        condition:
-          - lambda: return command == $key14_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1
-              blue: 0.62
-
-    - if:
-        condition:
-          - lambda: return command == $key15_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.66
-              green: 0.0
-              blue: 1.0
-                            
-    - if:
-        condition:
-          - lambda: return command == $key16_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.75
-              blue: 0.55
-
-    - if:
-        condition:
-          - lambda: return command == $key17_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.78
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key18_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1.0
-              blue: 0.86
-
-    - if:
-        condition:
-          - lambda: return command == $key19_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.0
-              blue: 0.86
-
-    - if:
-        condition:
-          - lambda: return command == $key20_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.83
-              blue: 0.7
-
-    - if:
-        condition:
-          - lambda: return command == $key21_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 1.0
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key22_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 0.78
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key23_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.0
-              blue: 0.62
-
-    - if:
-        condition:
-          - lambda: return command == $key24_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.91
-              blue: 0.85
-
-    - if:
-        condition:
-          - lambda: return command == $key25_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: !lambda return id(remote_light).remote_values.get_red() + 0.05;
-              transition_length: 0s
-
-    - if:
-        condition:
-          - lambda: return command == $key26_code;
-        then:
-          - light.control:
-              id: remote_light
-              green: !lambda return id(remote_light).remote_values.get_green() + 0.05;
-              transition_length: 0s
-
-    - if:
-        condition:
-          - lambda: return command == $key27_code;
-        then:
-          - light.control:
-              id: remote_light
-              blue: !lambda return id(remote_light).remote_values.get_blue() + 0.05;
-              transition_length: 0s
-
-    - if:
-        condition:
-          - lambda: return command == $key28_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              call.set_effect("Random");
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key29_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: !lambda return id(remote_light).remote_values.get_red() - 0.05;
-              transition_length: 0s
-
-    - if:
-        condition:
-          - lambda: return command == $key30_code;
-        then:
-          - light.control:
-              id: remote_light
-              green: !lambda return id(remote_light).remote_values.get_green() - 0.05;
-              transition_length: 0s
-
-    - if:
-        condition:
-          - lambda: return command == $key31_code;
-        then:
-          - light.control:
-              id: remote_light
-              blue: !lambda return id(remote_light).remote_values.get_blue() - 0.05;
-              transition_length: 0s
-
-    - if:
-        condition:
-          - lambda: return command == $key32_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Pulse") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Pulse");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key33_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: $diy1_red
-              blue: $diy1_blue
-              green: $diy1_green
-
-    - if:
-        condition:
-          - lambda: return command == $key34_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: $diy2_red
-              blue: $diy2_blue
-              green: $diy2_green
-
-    - if:
-        condition:
-          - lambda: return command == $key35_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: $diy3_red
-              blue: $diy3_blue
-              green: $diy3_green
-
-    - if:
-        condition:
-          - lambda: return command == $key36_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Flicker") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Flicker");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key37_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: $diy4_red
-              blue: $diy4_blue
-              green: $diy4_green
-
-    - if:
-        condition:
-          - lambda: return command == $key38_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: $diy5_red
-              blue: $diy5_blue
-              green: $diy5_green
-
-    - if:
-        condition:
-          - lambda: return command == $key39_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: $diy6_red
-              blue: $diy6_blue
-              green: $diy6_green
-
-    - if:
-        condition:
-          - lambda: return command == $key40_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Strobe") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Strobe");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key41_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Jump 3") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Jump 3");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key42_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Jump 7") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Jump 7");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key43_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Fade 3") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Fade 3");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key44_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Fade 7") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Fade 7");
-              }
-              call.perform();
-
 light:
   - platform: custom
     id: remote_light
@@ -548,3 +81,205 @@ light:
       - <<: !include { file: ../light-effects/jump-7.yaml, vars: { id: remote_light } }
       - <<: !include { file: ../light-effects/fade-3.yaml, vars: { id: remote_light } }
       - <<: !include { file: ../light-effects/fade-7.yaml, vars: { id: remote_light } }                    
+   
+script:
+  id: remote_process
+  mode: single
+  parameters:
+    command: int
+  then:
+    lambda: |-
+      auto call = id(remote_light).make_call();
+      auto effect = id(remote_light).get_effect_name();
+      float brightness = id(remote_light).remote_values.get_brightness();
+      float red = id(remote_light).remote_values.get_red();
+      float green = id(remote_light).remote_values.get_green();
+      float blue = id(remote_light).remote_values.get_blue();
+
+      switch (command) {
+        case $key01_code:
+          call.set_brightness(clamp(brightness + 0.1f, 0.0f, 1.0f));
+          break;
+
+        case $key02_code:
+          call.set_brightness(clamp(brightness - 0.1f, 0.0f, 1.0f));
+          break;
+
+        case $key03_code:
+          if (effect != "None") { id(last_effect) = effect.c_str(); }
+          call.set_effect((effect != "None") ? "None" : id(last_effect));
+          break;
+
+        case $key04_code:
+          call = id(remote_light).toggle();
+          break;
+
+        case $key05_code:
+          call.set_rgb(1.0f, 0.0f, 0.0f);
+          break;
+
+        case $key06_code:
+          call.set_rgb(0.0f, 1.0f, 0.0f);
+          break;
+
+        case $key07_code:
+          call.set_rgb(0.0f, 0.0f, 1.0f);
+          break;
+
+        case $key08_code:
+          call.set_rgb(1.0f, 1.0f, 1.0f);
+          break;
+
+        case $key09_code:
+          call.set_rgb(1.0f, 0.47f, 0.0f);
+          break;
+
+        case $key10_code:
+          call.set_rgb(0.0f, 1.0f, 0.47f);
+          break;
+
+        case $key11_code:
+          call.set_rgb(0.0f, 0.62f, 1.0f);
+          break;   
+
+        case $key12_code:
+          call.set_rgb(1.0f, 0.66f, 0.41f);
+          break;
+
+        case $key13_code:
+          call.set_rgb(1.0f, 0.62f, 0.0f);
+          break;
+
+        case $key14_code:
+          call.set_rgb(0.0f, 1.0f, 0.62f);
+          break;
+
+        case $key15_code:
+          call.set_rgb(0.66f, 0.0f, 1.0f);
+          break;  
+
+        case $key16_code:
+          call.set_rgb(1.0f, 0.75f, 0.55f);
+          break;
+
+        case $key17_code:
+          call.set_rgb(1.0f, 0.78f, 0.0f);
+          break;
+
+        case $key18_code:
+          call.set_rgb(0.0f, 1.0f, 0.86f);
+          break;
+
+        case $key19_code:
+          call.set_rgb(1.0f, 0.0f, 0.86f);
+          break;  
+
+        case $key20_code:
+          call.set_rgb(1.0f, 0.83f, 0.7f);
+          break;
+
+        case $key21_code:
+          call.set_rgb(1.0f, 1.0f, 0.0f);
+          break;
+
+        case $key22_code:
+          call.set_rgb(0.0f, 0.78f, 1.0f);
+          break;
+
+        case $key23_code:
+          call.set_rgb(1.0f, 0.0f, 0.62f);
+          break;  
+
+        case $key24_code:
+          call.set_rgb(1.0f, 0.91f, 0.85f);
+          break;
+
+        case $key25_code:
+          call.set_red(clamp(red + 0.05f, 0.0f, 1.0f));
+          call.set_transition_length(0);
+          break;
+
+        case $key26_code:
+          call.set_green(clamp(green + 0.05f, 0.0f, 1.0f));
+          call.set_transition_length(0);
+          break;
+        
+        case $key27_code:
+          call.set_blue(clamp(blue + 0.05f, 0.0f, 1.0f));
+          call.set_transition_length(0);
+          break;
+
+        case $key28_code:
+          call.set_effect((effect == "Random") ? "None" : "Random");
+          break;
+
+        case $key29_code:
+          call.set_red(clamp(red - 0.05f, 0.0f, 1.0f));
+          call.set_transition_length(0);
+          break;
+
+        case $key30_code:
+          call.set_green(clamp(green - 0.05f, 0.0f, 1.0f));
+          call.set_transition_length(0);
+          break;
+        
+        case $key31_code:
+          call.set_blue(clamp(blue - 0.05f, 0.0f, 1.0f));
+          call.set_transition_length(0);
+          break;
+      
+        case $key32_code:
+          call.set_effect((effect == "Pulse") ? "None" : "Pulse");
+          break;
+
+        case $key33_code:
+          call.set_rgb($diy1_red, $diy1_green, $diy1_blue);
+          break;
+
+        case $key34_code:
+          call.set_rgb($diy2_red, $diy2_green, $diy2_blue);
+          break;
+
+        case $key35_code:
+          call.set_rgb($diy3_red, $diy3_green, $diy3_blue);
+          break;
+
+        case $key36_code:
+          call.set_effect((effect == "Flicker") ? "None" : "Flicker");
+          break;     
+
+        case $key37_code:
+          call.set_rgb($diy4_red, $diy4_green, $diy4_blue);
+          break;
+
+        case $key38_code:
+          call.set_rgb($diy5_red, $diy5_green, $diy5_blue);
+          break;
+
+        case $key39_code:
+          call.set_rgb($diy6_red, $diy6_green, $diy6_blue);
+          break;
+
+        case $key40_code:
+          call.set_effect((effect == "Strobe") ? "None" : "Strobe");
+          break;                    
+
+        case $key41_code:
+          call.set_effect((effect == "Jump 3") ? "None" : "Jump 3");
+          break; 
+
+        case $key42_code:
+          call.set_effect((effect == "Jump 7") ? "None" : "Jump 7");
+          break; 
+
+        case $key43_code:
+          call.set_effect((effect == "Fade 3") ? "None" : "Fade 3");
+          break; 
+
+        case $key44_code:
+          call.set_effect((effect == "Fade 7") ? "None" : "Fade 7");
+          break; 
+          
+      }
+
+      call.perform();

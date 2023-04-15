@@ -25,252 +25,6 @@ substitutions:
   key23_code: "0xF00F"
   key24_code: "0xF30C"
 
-script:
-  id: remote_process
-  mode: single
-  parameters:
-    command: int
-  then:
-    - if:
-        condition:
-          - lambda: return command == $key01_code;
-        then:
-          - light.dim_relative:
-              id: remote_light
-              relative_brightness: 10%
-
-    - if:
-        condition:
-          - lambda: return command == $key02_code;
-        then:
-          - light.dim_relative:
-              id: remote_light
-              relative_brightness: -10%
-
-    - if:
-        condition:
-          - lambda: return command == $key03_code;
-        then:
-          - light.turn_off: remote_light
-
-    - if:
-        condition:
-          - lambda: return command == $key04_code;
-        then:
-          - light.turn_on: remote_light
-
-    - if:
-        condition:
-          - lambda: return command == $key05_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.0
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key06_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1.0
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key07_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 0.0
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key09_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 1.0
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key09_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.47
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key10_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1.0
-              blue: 0.47
-
-    - if:
-        condition:
-          - lambda: return command == $key11_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 0.62
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key12_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Pulse") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Pulse");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key13_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.62
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key14_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1
-              blue: 0.62
-
-    - if:
-        condition:
-          - lambda: return command == $key15_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.66
-              green: 0.0
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key16_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Strobe") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Strobe");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key17_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.78
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key18_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 1.0
-              blue: 0.86
-
-    - if:
-        condition:
-          - lambda: return command == $key19_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.0
-              blue: 0.86
-
-    - if:
-        condition:
-          - lambda: return command == $key20_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Fade 7") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Fade 7");
-              }
-              call.perform();
-
-    - if:
-        condition:
-          - lambda: return command == $key21_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 1.0
-              blue: 0.0
-
-    - if:
-        condition:
-          - lambda: return command == $key22_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 0.0
-              green: 0.78
-              blue: 1.0
-
-    - if:
-        condition:
-          - lambda: return command == $key23_code;
-        then:
-          - light.control:
-              id: remote_light
-              red: 1.0
-              green: 0.0
-              blue: 0.62
-
-    - if:
-        condition:
-          - lambda: return command == $key24_code;
-        then:
-          - lambda: |-
-              auto call = id(remote_light).make_call();
-              if (id(remote_light).get_effect_name() == "Random") {
-                call.set_effect("None");
-              } else {
-                call.set_effect("Random");
-              }
-              call.perform();
-
 light:
   - platform: custom
     id: remote_light
@@ -283,3 +37,115 @@ light:
       - <<: !include { file: ../light-effects/jump-7.yaml, vars: { id: remote_light } }
       - <<: !include { file: ../light-effects/fade-3.yaml, vars: { id: remote_light } }
       - <<: !include { file: ../light-effects/fade-7.yaml, vars: { id: remote_light } }           
+  
+script:
+  id: remote_process
+  mode: single
+  parameters:
+    command: int
+  then:
+    lambda: |-
+      auto call = id(remote_light).make_call();
+      auto effect = id(remote_light).get_effect_name();
+      float brightness = id(remote_light).remote_values.get_brightness();
+
+      switch (command) {
+        case $key01_code:
+          call.set_brightness(clamp(brightness + 0.1f, 0.0f, 1.0f));
+          break;
+
+        case $key02_code:
+          call.set_brightness(clamp(brightness - 0.1f, 0.0f, 1.0f));
+          break;
+
+        case $key03_code:
+          call = id(remote_light).turn_off();
+          break;
+
+        case $key04_code:
+          call = id(remote_light).turn_on();
+          break;
+
+        case $key05_code:
+          call.set_rgb(1.0f, 0.0f, 0.0f);
+          break;
+
+        case $key06_code:
+          call.set_rgb(0.0f, 1.0f, 0.0f);
+          break;
+
+        case $key07_code:
+          call.set_rgb(0.0f, 0.0f, 1.0f);
+          break;
+
+        case $key08_code:
+          call.set_rgb(1.0f, 1.0f, 1.0f);
+          break;
+
+        case $key09_code:
+          call.set_rgb(1.0f, 0.47f, 0.0f);
+          break;
+
+        case $key10_code:
+          call.set_rgb(0.0f, 1.0f, 0.47f);
+          break;
+
+        case $key11_code:
+          call.set_rgb(0.0f, 0.62f, 1.0f);
+          break;   
+
+        case $key12_code:
+          call.set_effect((effect == "Pulse") ? "None" : "Pulse");
+          break;
+
+        case $key13_code:
+          call.set_rgb(1.0f, 0.62f, 0.0f);
+          break;
+
+        case $key14_code:
+          call.set_rgb(0.0f, 1.0f, 0.62f);
+          break;
+
+        case $key15_code:
+          call.set_rgb(0.66f, 0.0f, 1.0f);
+          break;  
+
+        case $key16_code:
+          call.set_effect((effect == "Strobe") ? "None" : "Strobe");
+          break;
+
+        case $key17_code:
+          call.set_rgb(1.0f, 0.78f, 0.0f);
+          break;
+
+        case $key18_code:
+          call.set_rgb(0.0f, 1.0f, 0.86f);
+          break;
+
+        case $key19_code:
+          call.set_rgb(1.0f, 0.0f, 0.86f);
+          break;  
+
+        case $key20_code:
+          call.set_effect((effect == "Fade 7") ? "None" : "Fade 7");
+          break;
+
+        case $key21_code:
+          call.set_rgb(1.0f, 1.0f, 0.0f);
+          break;
+
+        case $key22_code:
+          call.set_rgb(0.0f, 0.78f, 1.0f);
+          break;
+
+        case $key23_code:
+          call.set_rgb(1.0f, 0.0f, 0.62f);
+          break;  
+
+        case $key24_code:
+          call.set_effect((effect == "Random") ? "None" : "Random");
+          break;
+
+      }
+      
+      call.perform();
