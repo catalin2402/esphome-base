@@ -55,7 +55,7 @@ script:
           break;
 
         case $key02_code:
-          call.set_brightness(clamp(brightness - 0.1f, 0.0f, 1.0f));
+          call.set_brightness(clamp(brightness - 0.1f, 0.1f, 1.0f));
           break;
 
         case $key03_code:
