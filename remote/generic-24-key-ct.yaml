@@ -1,5 +1,6 @@
 ---
 substitutions:
+  remote_address: "0xFF00"
   key01_code: "0xF609"
   key02_code: "0xE21D"
   key03_code: "0xE01F"
@@ -46,6 +47,7 @@ script:
   mode: single
   parameters:
     command: int
+    address: int
   then:
     lambda: |-
       auto call = id(remote_light).make_call();
@@ -55,6 +57,8 @@ script:
       float color_temperature = id(remote_light).remote_values.get_color_temperature();
       float min_mireds = id(remote_light).get_traits().get_min_mireds();
       float max_mireds = id(remote_light).get_traits().get_max_mireds();
+
+      if ($remote_address != address) return;
 
       switch (command) {
         case $key01_code:

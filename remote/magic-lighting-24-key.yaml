@@ -1,5 +1,6 @@
 ---
 substitutions:
+  remote_address: "0xFF00"
   key01_code: "0xFA05"
   key02_code: "0xFB04"
   key03_code: "0xF906"
@@ -43,11 +44,14 @@ script:
   mode: single
   parameters:
     command: int
+    address: int
   then:
     lambda: |-
       auto call = id(remote_light).make_call();
       auto effect = id(remote_light).get_effect_name();
       float brightness = id(remote_light).remote_values.get_brightness();
+
+      if ($remote_address != address) return;
 
       switch (command) {
         case $key01_code:

@@ -19,6 +19,7 @@ substitutions:
   diy6_green: "1.0"
   diy6_blue: "1.0"   
 
+  remote_address: "0xFF00"
   key01_code: "0xA35C"
   key02_code: "0xA25D"
   key03_code: "0xBE41"
@@ -87,6 +88,7 @@ script:
   mode: single
   parameters:
     command: int
+    address: int
   then:
     lambda: |-
       auto call = id(remote_light).make_call();
@@ -95,6 +97,8 @@ script:
       float red = id(remote_light).remote_values.get_red();
       float green = id(remote_light).remote_values.get_green();
       float blue = id(remote_light).remote_values.get_blue();
+
+      if ($remote_address != address) return;
 
       switch (command) {
         case $key01_code:
