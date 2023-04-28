@@ -8,6 +8,7 @@ substitutions:
 
 sensor:
   - platform: hlw8012
+    id: hlw8012_sensor
     model: HLW8012
     sel_pin: $pin_hlw8012_sel
     cf_pin: $pin_hlw8012_cf
