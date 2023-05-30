@@ -7,16 +7,15 @@ substitutions:
 
 esphome:
   on_boot: 
-    priority: -100
-    then:
-      - delay: 5s
-      - number.set: 
-          id: pan
-          value: $default_servo_pan
-      - delay: 2s
-      - number.set: 
-          id: tilt
-          value: $default_servo_tilt  
+    - wait_until:
+        condition:
+          api.connected:
+    - number.set: 
+        id: pan
+        value: $default_servo_pan
+    - number.set: 
+        id: tilt
+        value: $default_servo_tilt  
 
 output: 
   - platform: ledc
