@@ -4,7 +4,11 @@ substitutions:
   pin_servo_2: REPLACEME
   default_servo_pan: "0"
   default_servo_tilt: "0"
-  
+
+esphome:
+  on_boot:
+    script.execute: set_defaults
+    
 output: 
   - platform: ledc
     id: servo1_output
@@ -51,3 +55,19 @@ number:
       - servo.write:
           id: servo_2
           level: !lambda 'return x / 100.0;'
+
+script:
+  - id: set_defaults
+    mode: single
+    then:
+      - wait_until:
+          condition:
+            api.connected:
+      - delay: 10s
+      - number.set:
+          id: pan
+          value: $default_servo_pan
+      - delay: 3s
+      - number.set:
+          id: tilt
+          value: $default_servo_tilt
