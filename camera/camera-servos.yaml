@@ -12,6 +12,7 @@ esphome:
         - wait_until:
             condition:
               api.connected:
+        - delay: 5s
         - number.set: 
             id: pan
             value: $default_servo_pan
