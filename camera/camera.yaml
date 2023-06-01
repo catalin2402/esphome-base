@@ -16,7 +16,7 @@ substitutions:
   pin_camera_pixel_clock: GPIO22
   pin_camera_power_down: GPIO32
   pin_flash: GPIO04
-  camera_max_framerate: "30 fps"
+  camera_max_framerate: "10 fps"
   camera_resolution: "800x600"
   camera_ext_clock: "20MHz"
 
