@@ -15,7 +15,7 @@ wifi:
   ssid: $wifi_ssid
   password: $wifi_password
   ap:
-    ssid: "$name Hotspot"
+    ssid: $name Hotspot
     password: $wifi_password
 
 captive_portal:
@@ -28,35 +28,19 @@ web_server:
 button:
   - platform: restart
     id: restart_button
-    name: "$name Restart"
+    name: $name Restart
 
   - platform: safe_mode
     id: safe_mode_button
-    name: "$name Safe Mode"
+    name: $name Safe Mode
    
-time:
-  - platform: homeassistant
-    id: time_ha
-    on_time_sync:
-      if:
-        condition:
-          lambda: return isnan(id(last_restart).state);
-        then:
-          sensor.template.publish:
-            id: last_restart
-            state: !lambda return id(time_ha).now().timestamp;
 
 sensor:
-  - platform: template
-    name: "$name Last Restart"
-    entity_category: diagnostic
-    id: last_restart
-    icon: mdi:clock-start
-    device_class: timestamp
-    update_interval: never
+  - platform: uptime
+    name: $name Uptime
 
 text_sensor: 
   - platform: wifi_info
     ip_address:
       id: ip_address
-      name: "$name IP Address"
+      name: $name IP Address
