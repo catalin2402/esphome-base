@@ -1,0 +1,4 @@
+---
+time:
+  - platform: homeassistant
+    name: time_ha

@@ -1,0 +1,4 @@
+---
+time:
+  - platform: sntp
+    name: time_sntp
