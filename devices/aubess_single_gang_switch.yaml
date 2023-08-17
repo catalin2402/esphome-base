@@ -33,7 +33,7 @@ binary_sensor:
         pullup: true
     on_double_click:
       then:
-        - switch.toggle: restart_button
+        - button.press: restart_button
     on_click:
       then:
         - switch.toggle: relay
