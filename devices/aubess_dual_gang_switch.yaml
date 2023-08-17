@@ -34,11 +34,6 @@ switch:
       then:
         - light.turn_off: statusled
 
-  - platform: restart
-    internal: true
-    name: $name Restart
-    id: restartswitch
-
 binary_sensor:
   - platform: gpio
     internal: true
@@ -51,7 +46,7 @@ binary_sensor:
         pullup: true
     on_double_click:
       then:
-        - switch.toggle: restartswitch
+        - switch.toggle: restart_button
 
   - platform: gpio
     internal: true
