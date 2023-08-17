@@ -9,7 +9,6 @@ packages:
   base: !include ../base.yaml
   status_light: !include ../status/light.yaml
 
-
 switch:
   - platform: gpio
     name: $name Switch
