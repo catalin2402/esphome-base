@@ -3,9 +3,6 @@ packages:
   base: !include ../base.yaml
   status_light: !include ../status/light.yaml
   hlw8012: !include ../sensors/hlw8012.yaml
-  
-logger:
-  baud_rate: 0
 
 binary_sensor:
   - platform: gpio
