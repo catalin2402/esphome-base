@@ -8,6 +8,9 @@ esphome:
   name: $name
 
 logger:
+  baud_rate: 0
+  logs:
+    component: ERROR
 
 ota:
 
