@@ -23,7 +23,6 @@ substitutions:
 psram:
 
 logger:
-  baud_rate: 0
   logs:
     esp32_camera: ERROR
     esp32_camera_web_server: ERROR
