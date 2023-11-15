@@ -1,0 +1,9 @@
+---
+substitutions:
+  espnow_passkey: REPLACEME
+
+external_components:
+  - source: github://afarago/esphome_component_bthome
+
+beethowen_receiver:
+  local_passkey: $espnow_passkey
