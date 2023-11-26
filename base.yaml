@@ -31,10 +31,12 @@ web_server:
 button:
   - platform: restart
     id: restart_button
+    icon: mdi:restart
     name: $name Restart
 
   - platform: safe_mode
     id: safe_mode_button
+    icon: mdi:restart-alert
     name: $name Safe Mode
    
 
@@ -46,4 +48,5 @@ text_sensor:
   - platform: wifi_info
     ip_address:
       id: ip_address
+      icon: mdi:ip-network
       name: $name IP Address
