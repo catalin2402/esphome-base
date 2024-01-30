@@ -14,6 +14,7 @@ logger:
     button: ERROR
     status_led: ERROR
     light: ERROR
+    sensor: ERROR
 
 uart:
   baud_rate: 57600
