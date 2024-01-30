@@ -1,8 +1,9 @@
 ---
 substitutions:
-  pin_rflink_tx: CHANGEME
-  pin_rflink_rx: CHANGEME
-  pin_rflink_reset: CHANGEME
+  pin_rflink_tx: REPLACEME
+  pin_rflink_rx: REPLACEME
+  pin_rflink_reset: REPLACEME
+  pin_status_led: REPLACEME
   
 external_components:
   - source: github://oxan/esphome-stream-server
@@ -36,6 +37,14 @@ output:
     id: reset_output
     pin: 
       number: $pin_rflink_reset
+      inverted: true
+
+light:
+  - platform: status_led
+    id: statusled
+    internal: true
+    pin: 
+      number: $pin_status_led
       inverted: true
 
 button:
