@@ -1,0 +1,66 @@
+---
+substitutions:
+  pin_rflink_tx: CHANGEME
+  pin_rflink_rx: CHANGEME
+  pin_rflink_reset: CHANGEME
+  
+external_components:
+  - source: github://oxan/esphome-stream-server
+
+logger:
+  logs:
+    switch: ERROR
+    button: ERROR
+    status_led: ERROR
+    light: ERROR
+
+uart:
+  baud_rate: 57600
+  tx_pin: $pin_rflink_tx
+  rx_pin: $pin_rflink_rx
+  debug:
+    direction: RX
+    after:
+      delimiter: "\n"
+    sequence:
+      - lambda: UARTDebug::log_string(direction, bytes);
+      - light.turn_on: statusled
+      - delay: 100ms
+      - light.turn_off: statusled
+
+stream_server:
+  port: 1900
+
+output:
+  - platform: gpio
+    id: reset_output
+    pin: 
+      number: $pin_rflink_reset
+      inverted: true
+
+button:
+  - platform: output
+    name: $name Restart MCU
+    output: reset_output
+    duration: 100 ms
+  
+  - platform: uart
+    name: $name Version
+    data: "10;VERSION;\r\n"
+
+  - platform: uart
+    name: $name Status
+    data: "10;STATUS;\r\n"
+
+switch:
+  - platform: uart
+    name: $name RFDEBUG
+    data:
+      turn_on: "10;RFDEBUG=ON;\r\n"
+      turn_off: "10;RFDEBUG=OFF;\r\n"
+
+  - platform: uart
+    name: $name RFUDEBUG
+    data:
+      turn_on: "10;RFUDEBUG=ON;\r\n"
+      turn_off: "10;RFUDEBUG=OFF;\r\n"
