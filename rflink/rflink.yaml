@@ -18,6 +18,7 @@ logger:
 
 uart:
   baud_rate: 57600
+  id: rflink_uart
   tx_pin: $pin_rflink_tx
   rx_pin: $pin_rflink_rx
   debug:
@@ -31,6 +32,7 @@ uart:
       - light.turn_off: statusled
 
 stream_server:
+  uart_id: rflink_uart
   port: 1900
 
 output:
