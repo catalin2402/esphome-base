@@ -1,0 +1,60 @@
+---
+substitutions:
+  pin_motion: REPLACEME
+  motion_light_id: REPLACEME
+  motion_delay_sensor_id: REPLACEME
+  motion_first_delay: 30s
+  motion_second_delay: 5min
+
+esphome:
+  on_boot:
+    - switch.turn_on: motion_enabled
+    - light.turn_off: $motion_light_id
+
+switch:
+  - platform: template
+    id: motion_enabled
+    name: "$name Motion Enabled"
+    icon: mdi:motion-sensor
+    optimistic: true
+    entity_category: config
+
+binary_sensor:
+  - platform: gpio
+    pin: $pin_motion
+    name: "$name Motion"
+    device_class: motion
+    on_press: 
+      if:
+        condition:
+          switch.is_on: motion_enabled
+        then:
+          script.execute: on_motion_started
+    on_release:
+      if:
+        condition:
+          switch.is_on: motion_enabled
+        then:
+          script.execute: on_motion_ended
+
+script:
+  - id: on_motion_started
+    mode: restart
+    then:
+      if:
+        condition: 
+          light.is_off: $motion_light_id
+        then:
+          light.turn_on: $motion_light_id
+
+  - id: on_motion_ended
+    mode: restart
+    then:
+      - if:
+          condition:
+            binary_sensor.is_off: $motion_delay_sensor_id
+          then:
+            delay: $motion_first_delay
+          else:
+            delay: $motion_second_delay
+      - light.turn_off: $motion_light_id
