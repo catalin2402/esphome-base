@@ -3,7 +3,7 @@ substitutions:
   bme280_address: REPLACEME
 
 sensor:
-  - platform: bme280
+  - platform: bme280_i2c
     address: $bme280_address
     temperature:
       id: sensor_temperature
