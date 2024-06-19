@@ -13,7 +13,6 @@ logger:
     
 ota:
   platform: esphome
-  safe_mode: true
 
 safe_mode:
 
