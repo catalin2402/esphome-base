@@ -13,6 +13,10 @@ logger:
     component: ERROR
 
 ota:
+  platform: esphome
+  safe_mode: true
+
+safe_mode:
 
 wifi:
   ssid: $wifi_ssid
