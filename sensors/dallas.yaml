@@ -3,15 +3,13 @@ substitutions:
   pin_dallas: REPLACEME
   dallas_address: REPLACEME
   
-dallas:
+one_wire:
   - pin:
       number: $pin_dallas
-      mode:
-        input: true
-        pullup: true
+      mode: INPUT_PULLUP
 
 sensor:
-  - platform: dallas
+  - platform: dallas_temp
     address: $dallas_address
     id: sensor_temperature
     name: $name Temperature
