@@ -2,11 +2,12 @@
 substitutions:
   pin_dallas: REPLACEME
   dallas_address: REPLACEME
-  
+
 one_wire:
-  - pin:
-      number: $pin_dallas
-      mode: INPUT_PULLUP
+  platform: gpio
+  pin:
+    number: $pin_dallas
+    mode: INPUT_PULLUP   
 
 sensor:
   - platform: dallas_temp
