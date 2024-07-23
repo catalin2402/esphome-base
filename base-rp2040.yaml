@@ -7,6 +7,11 @@ substitutions:
 esphome:
   name: $name
 
+rp2040:
+  board: rpipicow
+  framework:
+    platform_version: https://github.com/maxgerhardt/platform-raspberrypi.git
+
 logger:
   baud_rate: 0
   logs:
