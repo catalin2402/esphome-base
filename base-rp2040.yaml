@@ -24,12 +24,7 @@ wifi:
     ssid: $name Hotspot
     password: $wifi_password
 
-captive_portal:
-
 api:
-
-web_server:
-  local: true
 
 button:
   - platform: restart
@@ -41,7 +36,7 @@ button:
     id: safe_mode_button
     icon: mdi:restart-alert
     name: $name Safe Mode
-
+   
 sensor:
   - platform: uptime
     name: $name Uptime

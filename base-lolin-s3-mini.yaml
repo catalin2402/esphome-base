@@ -7,6 +7,15 @@ substitutions:
 esphome:
   name: $name
 
+esp32:
+  board: lolin_s3_mini
+  variant: esp32s3
+ 
+  framework:
+    type: arduino
+    version: 2.0.14
+    platform_version: 6.6.0
+
 logger:
   baud_rate: 0
   logs:
@@ -24,12 +33,7 @@ wifi:
     ssid: $name Hotspot
     password: $wifi_password
 
-captive_portal:
-
 api:
-
-web_server:
-  local: true
 
 button:
   - platform: restart
@@ -41,7 +45,7 @@ button:
     id: safe_mode_button
     icon: mdi:restart-alert
     name: $name Safe Mode
-
+   
 sensor:
   - platform: uptime
     name: $name Uptime
