@@ -33,7 +33,12 @@ wifi:
     ssid: $name Hotspot
     password: $wifi_password
 
+captive_portal:
+
 api:
+
+web_server:
+  local: true
 
 button:
   - platform: restart
