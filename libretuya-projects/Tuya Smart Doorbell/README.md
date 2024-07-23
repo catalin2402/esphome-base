@@ -1,1 +1,0 @@
-Device Link: https://www.aliexpress.com/item/1005003306515206.html

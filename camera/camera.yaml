@@ -45,7 +45,7 @@ esp32_camera:
   idle_framerate: 1 fps
   max_framerate: $camera_max_framerate
   disabled_by_default: true
-  internal: true
+
 
 esp32_camera_web_server:
   - port: 8080

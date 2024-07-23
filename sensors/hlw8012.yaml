@@ -23,7 +23,7 @@ sensor:
       unit_of_measurement: W
       id: power
       on_value:
-        - component.update: current
+        component.update: current
     voltage:
       name: $name Voltage
       unit_of_measurement: V
@@ -33,7 +33,7 @@ sensor:
     name: $name Energy
     power_id: power
     filters:
-        - multiply: 0.001
+      multiply: 0.001
     unit_of_measurement: kWh 
 
   - platform: template

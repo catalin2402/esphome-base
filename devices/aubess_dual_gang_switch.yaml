@@ -17,69 +17,51 @@ switch:
     id: relay_1
     pin: $pin_relay_1
     on_turn_on:
-      then:
-        - light.turn_on: statusled
+      light.turn_on: statusled
     on_turn_off:
-      then:
-        - light.turn_off: statusled
+      light.turn_off: statusled
 
   - platform: gpio
     name: $name Switch 2
     id: relay_2
     pin: $pin_relay_2
     on_turn_on:
-      then:
-        - light.turn_on: statusled
+      light.turn_on: statusled
     on_turn_off:
-      then:
-        - light.turn_off: statusled
+      light.turn_off: statusled
 
 binary_sensor:
   - platform: gpio
-    internal: true
     id: internal_switch
     pin:
       inverted: true
       number: $pin_internal_switch
-      mode:
-        input: true
-        pullup: true
+      mode: INPUT_PULLUP
     on_double_click:
-      then:
-        - button.press: restart_button
+      button.press: restart_button
 
   - platform: gpio
-    internal: true
     id: external_switch_1
     pin:
       inverted: true
       number: $pin_external_switch_1
-      mode:
-        input: true
-        pullup: true
+      mode: INPUT_PULLUP
     filters:
-        - delayed_on_off: 100ms
+      delayed_on_off: 100ms
     on_press:
-      then:
-        - switch.turn_on: relay_1
+      switch.turn_on: relay_1
     on_release:
-      then:
-        - switch.turn_off: relay_1
+      switch.turn_off: relay_1
 
   - platform: gpio
-    internal: true
     id: external_switch_2
     pin:
       inverted: true
       number: $pin_external_switch_2
-      mode:
-        input: true
-        pullup: true
+      mode: INPUT_PULLUP
     filters:
-        - delayed_on_off: 100ms
+      delayed_on_off: 100ms
     on_press:
-      then:
-        - switch.turn_on: relay_2
+      switch.turn_on: relay_2
     on_release:
-      then:
-        - switch.turn_off: relay_2
+      switch.turn_off: relay_2

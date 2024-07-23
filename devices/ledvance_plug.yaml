@@ -6,13 +6,12 @@ packages:
 
 binary_sensor:
   - platform: gpio
-    internal: true
     id: internal_button
     pin:
       number: $pin_button
       inverted: true
     on_press:
-      - switch.toggle: relay
+      switch.toggle: relay
 
 switch:
   - platform: gpio
@@ -20,6 +19,6 @@ switch:
     pin: $pin_relay
     id: relay
     on_turn_on:
-      - light.turn_on: statusled
+      light.turn_on: statusled
     on_turn_off:
-      - light.turn_off: statusled
+      light.turn_off: statusled

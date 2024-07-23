@@ -1,1 +1,0 @@
-Device Link: https://www.ledvance.com/consumer/products/smart-home/smart-home-products-with-wifi-technology/smart-home-components/plug-with-smart-socket-to-control-non-smart-devices-with-wifi-technology--pairable-with-remote-controller-c6482

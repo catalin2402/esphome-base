@@ -1,1 +1,0 @@
-Device Link: https://www.ledvance.com/consumer/products/smart-home/smart-lamps/smart-wifi/smart-classic-heatsink-lamps-with-wifi-technology/classic-candle-shape-with-wifi-technology-c6446
