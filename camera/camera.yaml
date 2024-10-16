@@ -40,13 +40,12 @@ esp32_camera:
   href_pin: $pin_camera_href
   pixel_clock_pin: $pin_camera_pixel_clock
   power_down_pin: $pin_camera_power_down
-  name: "Camera"
+  name: $name Camera
   resolution: $camera_resolution
   idle_framerate: 1 fps
   max_framerate: $camera_max_framerate
-  disabled_by_default: true
-
-
+  icon: mdi:cctv
+  
 esp32_camera_web_server:
   - port: 8080
     mode: stream
@@ -62,7 +61,7 @@ output:
 light:
   - platform: monochromatic
     output: flash_output
-    name: "$name Flash"
+    name: $name Flash
     icon: mdi:flash
     restore_mode: ALWAYS_OFF
     default_transition_length: 0s
