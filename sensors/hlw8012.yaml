@@ -22,16 +22,19 @@ sensor:
       name: $name Power
       unit_of_measurement: W
       id: power
+      icon: mdi:home-lightning-bolt      
       on_value:
         component.update: current
     voltage:
       name: $name Voltage
       unit_of_measurement: V
+      icon: mdi:flash-triangle
       id: voltage
 
   - platform: total_daily_energy
     name: $name Energy
     power_id: power
+    icon: mdi:meter-electric
     filters:
       multiply: 0.001
     unit_of_measurement: kWh 
@@ -39,6 +42,7 @@ sensor:
   - platform: template
     id: current
     name: $name Current
+    icon: mdi:transmission-tower
     lambda: !lambda 'return id(power).state / id(voltage).state;'
     unit_of_measurement: A
     accuracy_decimals: 3
