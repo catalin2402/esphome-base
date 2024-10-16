@@ -18,6 +18,7 @@ switch:
     name: $name Socket
     pin: $pin_relay
     id: relay
+    icon: mdi:power-socket-eu
     on_turn_on:
       light.turn_on: statusled
     on_turn_off:
