@@ -41,7 +41,8 @@ light:
     green: output_green 
     blue: output_blue 
     cold_white: output_coldwhite 
-    warm_white: output_warmwhite 
+    warm_white: output_warmwhite
+    icon: mdi:lightbulb
     cold_white_color_temperature: 6536 K
     warm_white_color_temperature: 2000 K
     color_interlock: true
