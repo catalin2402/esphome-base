@@ -33,7 +33,6 @@ binary_sensor:
       switch.toggle: relay
 
   - platform: gpio
-
     id: external_switch
     pin:
       inverted: true
