@@ -16,6 +16,7 @@ switch:
     name: $name Switch 1
     id: relay_1
     pin: $pin_relay_1
+    icon: mdi:light-switch
     on_turn_on:
       light.turn_on: statusled
     on_turn_off:
