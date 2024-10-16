@@ -14,7 +14,7 @@ esphome:
 switch:
   - platform: template
     id: motion_enabled
-    name: "$name Motion Enabled"
+    name: $name Motion Enabled
     icon: mdi:motion-sensor
     optimistic: true
     entity_category: config
