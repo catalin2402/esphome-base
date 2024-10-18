@@ -26,7 +26,6 @@ captive_portal:
 api:
 
 web_server:
-  version: 3
   local: true
 
 button:
