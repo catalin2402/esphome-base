@@ -67,16 +67,43 @@ switch:
     name: $name S1
     id: relay_s1
     pin: $pin_relay_s1
-    icon: mdi:light-switch    
-
+    icon: mdi:light-switch   
+    on_turn_on: 
+      script.execute: control_status_led
+    on_turn_off: 
+      script.execute: control_status_led
+        
   - platform: gpio
     id: relay_s2
     name: $name S2
     pin: $pin_relay_s2
     icon: mdi:light-switch    
+    on_turn_on: 
+      script.execute: control_status_led
+    on_turn_off: 
+      script.execute: control_status_led
 
   - platform: gpio
     id: relay_s3
     name: $name S3
     pin: $pin_relay_s3
     icon: mdi:light-switch    
+    on_turn_on: 
+      script.execute: control_status_led
+    on_turn_off: 
+      script.execute: control_status_led 
+
+script:
+  - id: control_status_led
+    mode: restart
+    then:
+      if:
+        condition:
+          or:
+            - switch.is_on: relay_s1
+            - switch.is_on: relay_s2
+            - switch.is_on: relay_s3
+        then:
+          light.turn_on:  statusled
+        else:
+          light.turn_off: statusled
