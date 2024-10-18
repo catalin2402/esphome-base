@@ -1,0 +1,83 @@
+---
+substitutions:
+  pin_status_led: GPIO6
+  pin_status_led: GPIO11
+  pin_input_s1: GPIO6
+  pin_input_s2: GPIO7
+  pin_input_s3: GPIO8
+  pin_internal_button: GPIO23
+  pin_relay_s1: GPIO10
+  pin_relay_s2: GPIO24
+  pin_relay_s3: GPIO26
+
+packages:
+  base: !include ../base.yaml
+  status_light: !include ../status/light.yaml
+
+light:
+  - id: !extend statusled
+    pin: 
+      inverted: false
+
+binary_sensor:
+  - platform: gpio
+    id: input_s1
+    pin: 
+      number: $pin_input_s1
+      mode: INPUT_PULLUP
+      inverted: true
+    on_press: 
+      switch.turn_on: relay_s1
+    on_release: 
+      switch.turn_off: relay_s1
+
+  - platform: gpio
+    id: input_s2
+    pin: 
+      number: $pin_input_s2
+      mode: INPUT_PULLUP
+      inverted: true
+    on_press: 
+      switch.turn_on: relay_s2
+    on_release: 
+      switch.turn_off: relay_s2
+
+  - platform: gpio
+    id: input_s3
+    pin: 
+      number: $pin_input_s3
+      mode: INPUT_PULLUP
+      inverted: true
+    on_press: 
+      switch.turn_on: relay_s3
+    on_release: 
+      switch.turn_off: relay_s3
+
+  - platform: gpio
+    id: internal_button
+    pin: 
+      number: $pin_internal_button
+      mode: INPUT_PULLUP
+      inverted: true
+    on_double_click:
+      then:
+        - button.press: restart_button
+
+switch:
+  - platform: gpio
+    name: $name S1
+    id: relay_s1
+    pin: $pin_relay_s1
+    icon: mdi:light-switch    
+
+  - platform: gpio
+    id: relay_s2
+    name: $name S2
+    pin: $pin_relay_s2
+    icon: mdi:light-switch    
+
+  - platform: gpio
+    id: relay_s3
+    name: $name S3
+    pin: $pin_relay_s3
+    icon: mdi:light-switch    
