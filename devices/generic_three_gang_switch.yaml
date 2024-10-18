@@ -1,6 +1,5 @@
 ---
 substitutions:
-  pin_status_led: GPIO6
   pin_status_led: GPIO11
   pin_input_s1: GPIO6
   pin_input_s2: GPIO7
