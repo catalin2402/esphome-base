@@ -26,13 +26,17 @@ wifi:
   ap:
     ssid: $name Hotspot
     password: $wifi_password
-
+  manual_ip:
+    static_ip: $wifi_ip
+    gateway: $wifi_gateway
+    subnet: $wifi_subnet
 captive_portal:
 
 api:
 
 web_server:
   local: true
+  version: 3
 
 button:
   - platform: restart
