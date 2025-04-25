@@ -1,11 +1,11 @@
 ---
 substitutions:
   name: REPLACEME
-  wifi_ssid: !secrets WIFI_SSID
-  wifi_password: !secrets WIFI_PASSWORD
+  wifi_ssid: REPLACEME
+  wifi_password: REPLACEME
   wifi_ip: REPLACEME
-  wifi_subnet: !secrets WIFI_SUBNET
-  wifi_gateway: !secrets WIFI_GATEWAY
+  wifi_subnet: REPLACEME
+  wifi_gateway: REPLACEME
 
 esphome:
   name: $name
