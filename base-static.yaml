@@ -30,6 +30,7 @@ wifi:
     static_ip: $wifi_ip
     gateway: $wifi_gateway
     subnet: $wifi_subnet
+
 captive_portal:
 
 api:
