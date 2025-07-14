@@ -1,9 +1,9 @@
 ---
 substitutions:
-  pin_camera_ext_clock: GPIO00
+  pin_camera_ext_clock: GPIO0
   pin_camera_i2c_sda: GPIO26
   pin_camera_i2c_scl: GPIO27
-  pin_camera_data_1: GPIO05
+  pin_camera_data_1: GPIO5
   pin_camera_data_2: GPIO18
   pin_camera_data_3: GPIO19
   pin_camera_data_4: GPIO21
@@ -15,7 +15,7 @@ substitutions:
   pin_camera_href: GPIO23
   pin_camera_pixel_clock: GPIO22
   pin_camera_power_down: GPIO32
-  pin_flash: GPIO04
+  pin_flash: GPIO4
   camera_max_framerate: "10 fps"
   camera_resolution: "800x600"
   camera_ext_clock: "20MHz"
@@ -30,12 +30,23 @@ logger:
 esp32_camera:
   id: camera
   external_clock:
-    pin: $pin_camera_ext_clock
+    pin: 
+      number: $pin_camera_ext_clock
+      ignore_strapping_warning: true
     frequency: $camera_ext_clock
   i2c_pins:
     sda: $pin_camera_i2c_sda
     scl: $pin_camera_i2c_scl
-  data_pins: [$pin_camera_data_1, $pin_camera_data_2, $pin_camera_data_3, $pin_camera_data_4, $pin_camera_data_5, $pin_camera_data_6, $pin_camera_data_7, $pin_camera_data_8]
+  data_pins: 
+    - number: $pin_camera_data_1
+      ignore_strapping_warning: true
+    - $pin_camera_data_2
+    - $pin_camera_data_3
+    - $pin_camera_data_4
+    - $pin_camera_data_5
+    - $pin_camera_data_6
+    - $pin_camera_data_7
+    - $pin_camera_data_8
   vsync_pin: $pin_camera_vsync
   href_pin: $pin_camera_href
   pixel_clock_pin: $pin_camera_pixel_clock
