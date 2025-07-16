@@ -38,7 +38,8 @@ captive_portal:
 api:
 
 web_server:
-  local: true
+  local: false
+  version: 3
 
 button:
   - platform: restart
