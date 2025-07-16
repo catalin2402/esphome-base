@@ -28,7 +28,7 @@ logger:
     esp32_camera_web_server: ERROR
 
 esp32_camera:
-  id: camera
+  id: espcam
   external_clock:
     pin: 
       number: $pin_camera_ext_clock
