@@ -21,6 +21,7 @@ light:
 binary_sensor:
   - platform: gpio
     id: input_s1
+    use_interrupt: false
     pin: 
       number: $pin_input_s1
       mode: INPUT_PULLUP
@@ -32,6 +33,7 @@ binary_sensor:
 
   - platform: gpio
     id: input_s2
+    use_interrupt: false
     pin: 
       number: $pin_input_s2
       mode: INPUT_PULLUP
@@ -43,6 +45,7 @@ binary_sensor:
 
   - platform: gpio
     id: input_s3
+    use_interrupt: false
     pin: 
       number: $pin_input_s3
       mode: INPUT_PULLUP
@@ -53,6 +56,7 @@ binary_sensor:
       switch.turn_off: relay_s3
 
   - platform: gpio
+    use_interrupt: false
     id: internal_button
     pin: 
       number: $pin_internal_button
