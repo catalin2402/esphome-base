@@ -34,6 +34,7 @@ switch:
 
 binary_sensor:
   - platform: gpio
+    use_interrupt: false
     id: internal_switch
     pin:
       inverted: true
@@ -43,6 +44,7 @@ binary_sensor:
       button.press: restart_button
 
   - platform: gpio
+    use_interrupt: false
     id: external_switch_1
     pin:
       inverted: true
@@ -56,6 +58,7 @@ binary_sensor:
       switch.turn_off: relay_1
 
   - platform: gpio
+    use_interrupt: false
     id: external_switch_2
     pin:
       inverted: true
