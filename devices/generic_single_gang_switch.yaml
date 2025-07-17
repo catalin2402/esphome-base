@@ -23,6 +23,7 @@ switch:
 binary_sensor:
   - platform: gpio
     id: internal_switch
+    use_interrupt: false
     pin:
       inverted: true
       number: $pin_internal_switch
@@ -33,6 +34,7 @@ binary_sensor:
       switch.toggle: relay
 
   - platform: gpio
+    use_interrupt: false
     id: external_switch
     pin:
       inverted: true
