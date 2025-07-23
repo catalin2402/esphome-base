@@ -27,6 +27,7 @@ api:
 
 web_server:
   local: true
+  version: 2
 
 button:
   - platform: restart
