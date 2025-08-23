@@ -22,10 +22,10 @@ substitutions:
 
 psram:
 
-logger:
-  logs:
-    esp32_camera: ERROR
-    esp32_camera_web_server: ERROR
+i2c:
+  - id: camera_i2c
+    sda: $pin_camera_i2c_sda
+    scl: $pin_camera_i2c_scl
 
 esp32_camera:
   id: espcam
@@ -34,9 +34,7 @@ esp32_camera:
       number: $pin_camera_ext_clock
       ignore_strapping_warning: true
     frequency: $camera_ext_clock
-  i2c_pins:
-    sda: $pin_camera_i2c_sda
-    scl: $pin_camera_i2c_scl
+  i2c_id: camera_i2c
   data_pins: 
     - number: $pin_camera_data_1
       ignore_strapping_warning: true
@@ -57,12 +55,6 @@ esp32_camera:
   max_framerate: $camera_max_framerate
   icon: mdi:cctv
   
-esp32_camera_web_server:
-  - port: 8080
-    mode: stream
-  - port: 8081
-    mode: snapshot
-
 output:
   - platform: ledc
     pin: $pin_flash
