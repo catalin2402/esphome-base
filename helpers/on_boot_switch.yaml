@@ -1,0 +1,18 @@
+---
+substitutions:
+  on_boot_switch_id: REPLACEME
+
+packages:
+  status_light: !include ../status/light.yaml
+
+esphome:
+  on_boot: 
+      - wait_until: 
+          api.connected:
+      - if:
+          condition:
+            switch.is_on: $on_boot_switch_id
+          then:
+            light.turn_on: statusled
+          else:
+            light.turn_off: statusled
