@@ -1,0 +1,16 @@
+---
+substitutions:
+  pin_eth_clk: REPLACEME
+  pin_eth_mosi: REPLACEME
+  pin_eth_miso: REPLACEME
+  pin_eth_cs: REPLACEME
+  pin_eth_reset: REPLACEME
+
+ethernet:
+  type: W5500
+  clk_pin: $pin_eth_clk
+  mosi_pin: $pin_eth_mosi
+  miso_pin: $pin_eth_miso
+  cs_pin: $pin_eth_cs  
+  reset_pin: $pin_eth_reset
+  interrupt_pin: $pin_eth_interrupt
