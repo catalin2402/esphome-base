@@ -35,10 +35,3 @@ button:
 sensor:
   - platform: uptime
     name: $name Uptime
-
-text_sensor: 
-  - platform: wifi_info
-    ip_address:
-      id: ip_address
-      icon: mdi:ip-network
-      name: $name IP Address
