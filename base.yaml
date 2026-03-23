@@ -30,7 +30,7 @@ api:
 
 web_server:
   local: true
-  version: 2
+  version: 3
 
 button:
   - platform: restart
