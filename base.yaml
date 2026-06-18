@@ -9,8 +9,6 @@ esphome:
 
 logger:
   baud_rate: 0
-  logs:
-    component: ERROR
 
 ota:
   platform: esphome
@@ -21,7 +19,7 @@ wifi:
   ssid: $wifi_ssid
   password: $wifi_password
   ap:
-    ssid: $name Hotspot
+    ssid: $name
     password: $wifi_password
 
 captive_portal:
@@ -36,20 +34,22 @@ button:
   - platform: restart
     id: restart_button
     icon: mdi:restart
-    name: $name Restart
+    name: Restart
 
   - platform: safe_mode
     id: safe_mode_button
     icon: mdi:restart-alert
-    name: $name Safe Mode
-
-sensor:
-  - platform: uptime
-    name: $name Uptime
+    name: Safe Mode
 
 text_sensor: 
   - platform: wifi_info
     ip_address:
       id: ip_address
       icon: mdi:ip-network
-      name: $name IP Address
+      name: IP Address
+
+  - platform: uptime
+    name: Uptime
+    format:
+      separator: " "
+      expand: false      

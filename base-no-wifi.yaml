@@ -7,8 +7,6 @@ esphome:
 
 logger:
   baud_rate: 0
-  logs:
-    component: ERROR
 
 ota:
   platform: esphome
@@ -19,19 +17,19 @@ api:
 
 web_server:
   local: true
-  version: 2
+  version: 3
 
 button:
   - platform: restart
     id: restart_button
     icon: mdi:restart
-    name: $name Restart
+    name: Restart
 
   - platform: safe_mode
     id: safe_mode_button
     icon: mdi:restart-alert
-    name: $name Safe Mode
+    name: Safe Mode
 
 sensor:
   - platform: uptime
-    name: $name Uptime
+    name: Uptime
