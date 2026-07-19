@@ -6,7 +6,7 @@ substitutions:
   pin_status_led: REPLACEME
   
 external_components:
-  - source: github://oxan/esphome-stream-server
+  - source: github://grob6000/esphome-stream-server
 
 logger:
   logs:
