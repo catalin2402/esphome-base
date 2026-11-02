@@ -1,9 +1,13 @@
 ---
 substitutions:
   name: REPLACEME
+  friendly_name: REPLACEME
+  area: REPLACEME
 
 esphome:
   name: $name
+  friendly_name: REPLACEME
+  area: REPLACEME
 
 logger:
   baud_rate: 0

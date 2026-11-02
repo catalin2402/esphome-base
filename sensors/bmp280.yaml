@@ -7,9 +7,9 @@ sensor:
     address: $bmp280_address
     temperature:
       id: sensor_temperature
-      name: $name Temperature
+      name: Temperature
       icon: mdi:thermometer
     pressure:
       id: sensor_pressure
-      name: $name Pressure
+      name: Pressure
       icon: mdi:gauge

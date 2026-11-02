@@ -3,9 +3,13 @@ substitutions:
   name: REPLACEME
   wifi_ssid: REPLACEME
   wifi_password: REPLACEME
+  friendly_name: REPLACEME
+  area: REPLACEME
 
 esphome:
   name: $name
+  friendly_name: $friendly_name
+  area: $area
 
 logger:
   baud_rate: 0

@@ -19,20 +19,20 @@ sensor:
     change_mode_every: 4294967295
     update_interval: 30s
     power:
-      name: $name Power
+      name: Power
       unit_of_measurement: W
       id: power
       icon: mdi:home-lightning-bolt      
       on_value:
         component.update: current
     voltage:
-      name: $name Voltage
+      name: Voltage
       unit_of_measurement: V
       icon: mdi:flash-triangle
       id: voltage
 
   - platform: total_daily_energy
-    name: $name Energy
+    name: Energy
     power_id: power
     icon: mdi:meter-electric
     filters:
@@ -41,7 +41,7 @@ sensor:
 
   - platform: template
     id: current
-    name: $name Current
+    name: Current
     icon: mdi:transmission-tower
     lambda: !lambda 'return id(power).state / id(voltage).state;'
     unit_of_measurement: A

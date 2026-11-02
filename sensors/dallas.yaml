@@ -13,5 +13,5 @@ sensor:
   - platform: dallas_temp
     address: $dallas_address
     id: sensor_temperature
-    name: $name Temperature
+    name: Temperature
     icon: mdi:thermometer

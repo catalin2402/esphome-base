@@ -51,27 +51,27 @@ light:
 
 button:
   - platform: output
-    name: $name Restart MCU
+    name: Restart MCU
     output: reset_output
     duration: 100 ms
   
   - platform: uart
-    name: $name Version
+    name: Version
     data: "10;VERSION;\r\n"
 
   - platform: uart
-    name: $name Status
+    name: Status
     data: "10;STATUS;\r\n"
 
 switch:
   - platform: uart
-    name: $name RFDEBUG
+    name: RFDEBUG
     data:
       turn_on: "10;RFDEBUG=ON;\r\n"
       turn_off: "10;RFDEBUG=OFF;\r\n"
 
   - platform: uart
-    name: $name RFUDEBUG
+    name: RFUDEBUG
     data:
       turn_on: "10;RFUDEBUG=ON;\r\n"
       turn_off: "10;RFUDEBUG=OFF;\r\n"

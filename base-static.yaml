@@ -6,6 +6,8 @@ substitutions:
   wifi_ip: REPLACEME
   wifi_subnet: REPLACEME
   wifi_gateway: REPLACEME
+  friendly_name: REPLACEME
+  area: REPLACEME  
 
 esphome:
   name: $name

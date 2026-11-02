@@ -1,6 +1,8 @@
 ---
 substitutions:
   name: REPLACEME
+  friendly_name: REPLACEME
+  area: REPLACEME  
   wifi_ssid: REPLACEME
   wifi_password: REPLACEME
 
