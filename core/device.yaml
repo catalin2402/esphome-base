@@ -1,7 +1,7 @@
 substitutions:
   name: REPLACEME
   friendly_name: REPLACEME
-  area: "REPLACEME"
+  area: ""
 
 esphome:
   name: $name
