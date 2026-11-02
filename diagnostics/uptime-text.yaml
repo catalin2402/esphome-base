@@ -1,0 +1,8 @@
+text_sensor:
+  - platform: uptime
+    id: uptime_text
+    name: Uptime
+    entity_category: diagnostic
+    format:
+      separator: " "
+      expand: false

@@ -1,88 +1,20 @@
----
-substitutions:
-  diy1_red: "1.0"
-  diy1_green: "1.0"
-  diy1_blue: "1.0"
-  diy2_red: "1.0"
-  diy2_green: "1.0"
-  diy2_blue: "1.0"
-  diy3_red: "1.0"
-  diy3_green: "1.0"
-  diy3_blue: "1.0"
-  diy4_red: "1.0"
-  diy4_green: "1.0"
-  diy4_blue: "1.0"
-  diy5_red: "1.0"
-  diy5_green: "1.0"
-  diy5_blue: "1.0"
-  diy6_red: "1.0"
-  diy6_green: "1.0"
-  diy6_blue: "1.0"   
-
-  remote_address: "0xFF00"
-  key01_code: "0xA35C"
-  key02_code: "0xA25D"
-  key03_code: "0xBE41"
-  key04_code: "0xBF40"
-  key05_code: "0xA758"
-  key06_code: "0xA659"
-  key07_code: "0xBA45"
-  key08_code: "0xBB44"
-  key09_code: "0xAB54"
-  key10_code: "0xAA55"
-  key11_code: "0xB649"
-  key12_code: "0xB748"
-  key13_code: "0xAF50"
-  key14_code: "0xAE51"
-  key15_code: "0xB24D"
-  key16_code: "0xB34C"
-  key17_code: "0xE31C"
-  key18_code: "0xE21D"
-  key19_code: "0xE11E"
-  key20_code: "0xE01F"
-  key21_code: "0xE718"
-  key22_code: "0xE619"
-  key23_code: "0xE51A"
-  key24_code: "0xE41B"
-  key25_code: "0xEB14"
-  key26_code: "0xEA15"
-  key27_code: "0xE916"
-  key28_code: "0xE817"
-  key29_code: "0xEF10"
-  key30_code: "0xEE11"
-  key31_code: "0xED12"
-  key32_code: "0xEC13"
-  key33_code: "0xF30C"
-  key34_code: "0xF20D"
-  key35_code: "0xF10E"
-  key36_code: "0xF00F"
-  key37_code: "0xF708"
-  key38_code: "0xF609"
-  key39_code: "0xF50A"
-  key40_code: "0xF40B"
-  key41_code: "0xFB04"
-  key42_code: "0xFA05"
-  key43_code: "0xF906"
-  key44_code: "0xF807"
-
 globals:
   id: last_effect
   type: std::string
   initial_value: '"None"'
 
 light:
-  - platform: custom
-    id: remote_light
+  - id: remote_light
     effects:
       - pulse:
       - strobe:
       - flicker:
       - random:
-      - <<: !include { file: ../light-effects/jump-3.yaml, vars: { id: remote_light } }
-      - <<: !include { file: ../light-effects/jump-7.yaml, vars: { id: remote_light } }
-      - <<: !include { file: ../light-effects/fade-3.yaml, vars: { id: remote_light } }
-      - <<: !include { file: ../light-effects/fade-7.yaml, vars: { id: remote_light } }                    
-   
+      - <<: !include {file: ../light-effects/jump-3.yaml, vars: {id: remote_light}}
+      - <<: !include {file: ../light-effects/jump-7.yaml, vars: {id: remote_light}}
+      - <<: !include {file: ../light-effects/fade-3.yaml, vars: {id: remote_light}}
+      - <<: !include {file: ../light-effects/fade-7.yaml, vars: {id: remote_light}}
+
 script:
   id: remote_process
   mode: single
@@ -91,6 +23,70 @@ script:
     address: int
   then:
     lambda: |-
+      constexpr float diy1_red = 1.0f;
+      constexpr float diy1_green = 1.0f;
+      constexpr float diy1_blue = 1.0f;
+      constexpr float diy2_red = 1.0f;
+      constexpr float diy2_green = 1.0f;
+      constexpr float diy2_blue = 1.0f;
+      constexpr float diy3_red = 1.0f;
+      constexpr float diy3_green = 1.0f;
+      constexpr float diy3_blue = 1.0f;
+      constexpr float diy4_red = 1.0f;
+      constexpr float diy4_green = 1.0f;
+      constexpr float diy4_blue = 1.0f;
+      constexpr float diy5_red = 1.0f;
+      constexpr float diy5_green = 1.0f;
+      constexpr float diy5_blue = 1.0f;
+      constexpr float diy6_red = 1.0f;
+      constexpr float diy6_green = 1.0f;
+      constexpr float diy6_blue = 1.0f;
+      constexpr uint16_t remote_address = 0xFF00;
+      constexpr uint16_t key01_code = 0xA35C;
+      constexpr uint16_t key02_code = 0xA25D;
+      constexpr uint16_t key03_code = 0xBE41;
+      constexpr uint16_t key04_code = 0xBF40;
+      constexpr uint16_t key05_code = 0xA758;
+      constexpr uint16_t key06_code = 0xA659;
+      constexpr uint16_t key07_code = 0xBA45;
+      constexpr uint16_t key08_code = 0xBB44;
+      constexpr uint16_t key09_code = 0xAB54;
+      constexpr uint16_t key10_code = 0xAA55;
+      constexpr uint16_t key11_code = 0xB649;
+      constexpr uint16_t key12_code = 0xB748;
+      constexpr uint16_t key13_code = 0xAF50;
+      constexpr uint16_t key14_code = 0xAE51;
+      constexpr uint16_t key15_code = 0xB24D;
+      constexpr uint16_t key16_code = 0xB34C;
+      constexpr uint16_t key17_code = 0xE31C;
+      constexpr uint16_t key18_code = 0xE21D;
+      constexpr uint16_t key19_code = 0xE11E;
+      constexpr uint16_t key20_code = 0xE01F;
+      constexpr uint16_t key21_code = 0xE718;
+      constexpr uint16_t key22_code = 0xE619;
+      constexpr uint16_t key23_code = 0xE51A;
+      constexpr uint16_t key24_code = 0xE41B;
+      constexpr uint16_t key25_code = 0xEB14;
+      constexpr uint16_t key26_code = 0xEA15;
+      constexpr uint16_t key27_code = 0xE916;
+      constexpr uint16_t key28_code = 0xE817;
+      constexpr uint16_t key29_code = 0xEF10;
+      constexpr uint16_t key30_code = 0xEE11;
+      constexpr uint16_t key31_code = 0xED12;
+      constexpr uint16_t key32_code = 0xEC13;
+      constexpr uint16_t key33_code = 0xF30C;
+      constexpr uint16_t key34_code = 0xF20D;
+      constexpr uint16_t key35_code = 0xF10E;
+      constexpr uint16_t key36_code = 0xF00F;
+      constexpr uint16_t key37_code = 0xF708;
+      constexpr uint16_t key38_code = 0xF609;
+      constexpr uint16_t key39_code = 0xF50A;
+      constexpr uint16_t key40_code = 0xF40B;
+      constexpr uint16_t key41_code = 0xFB04;
+      constexpr uint16_t key42_code = 0xFA05;
+      constexpr uint16_t key43_code = 0xF906;
+      constexpr uint16_t key44_code = 0xF807;
+
       auto call = id(remote_light).make_call();
       auto effect = id(remote_light).get_effect_name();
       float brightness = id(remote_light).remote_values.get_brightness();
@@ -98,189 +94,189 @@ script:
       float green = id(remote_light).remote_values.get_green();
       float blue = id(remote_light).remote_values.get_blue();
 
-      if ($remote_address != address) return;
+      if (remote_address != address) return;
 
       switch (command) {
-        case $key01_code:
+        case key01_code:
           call.set_brightness(clamp(brightness + 0.1f, 0.0f, 1.0f));
           break;
 
-        case $key02_code:
+        case key02_code:
           call.set_brightness(clamp(brightness - 0.1f, 0.1f, 1.0f));
           break;
 
-        case $key03_code:
+        case key03_code:
           if (effect != "None") { id(last_effect) = effect.c_str(); }
           call.set_effect((effect != "None") ? "None" : id(last_effect));
           break;
 
-        case $key04_code:
+        case key04_code:
           call = id(remote_light).toggle();
           break;
 
-        case $key05_code:
+        case key05_code:
           call.set_rgb(1.0f, 0.0f, 0.0f);
           break;
 
-        case $key06_code:
+        case key06_code:
           call.set_rgb(0.0f, 1.0f, 0.0f);
           break;
 
-        case $key07_code:
+        case key07_code:
           call.set_rgb(0.0f, 0.0f, 1.0f);
           break;
 
-        case $key08_code:
+        case key08_code:
           call.set_rgb(1.0f, 1.0f, 1.0f);
           break;
 
-        case $key09_code:
+        case key09_code:
           call.set_rgb(1.0f, 0.47f, 0.0f);
           break;
 
-        case $key10_code:
+        case key10_code:
           call.set_rgb(0.0f, 1.0f, 0.47f);
           break;
 
-        case $key11_code:
+        case key11_code:
           call.set_rgb(0.0f, 0.62f, 1.0f);
           break;   
 
-        case $key12_code:
+        case key12_code:
           call.set_rgb(1.0f, 0.66f, 0.41f);
           break;
 
-        case $key13_code:
+        case key13_code:
           call.set_rgb(1.0f, 0.62f, 0.0f);
           break;
 
-        case $key14_code:
+        case key14_code:
           call.set_rgb(0.0f, 1.0f, 0.62f);
           break;
 
-        case $key15_code:
+        case key15_code:
           call.set_rgb(0.66f, 0.0f, 1.0f);
           break;  
 
-        case $key16_code:
+        case key16_code:
           call.set_rgb(1.0f, 0.75f, 0.55f);
           break;
 
-        case $key17_code:
+        case key17_code:
           call.set_rgb(1.0f, 0.78f, 0.0f);
           break;
 
-        case $key18_code:
+        case key18_code:
           call.set_rgb(0.0f, 1.0f, 0.86f);
           break;
 
-        case $key19_code:
+        case key19_code:
           call.set_rgb(1.0f, 0.0f, 0.86f);
           break;  
 
-        case $key20_code:
+        case key20_code:
           call.set_rgb(1.0f, 0.83f, 0.7f);
           break;
 
-        case $key21_code:
+        case key21_code:
           call.set_rgb(1.0f, 1.0f, 0.0f);
           break;
 
-        case $key22_code:
+        case key22_code:
           call.set_rgb(0.0f, 0.78f, 1.0f);
           break;
 
-        case $key23_code:
+        case key23_code:
           call.set_rgb(1.0f, 0.0f, 0.62f);
           break;  
 
-        case $key24_code:
+        case key24_code:
           call.set_rgb(1.0f, 0.91f, 0.85f);
           break;
 
-        case $key25_code:
+        case key25_code:
           call.set_red(clamp(red + 0.05f, 0.0f, 1.0f));
           call.set_transition_length(0);
           break;
 
-        case $key26_code:
+        case key26_code:
           call.set_green(clamp(green + 0.05f, 0.0f, 1.0f));
           call.set_transition_length(0);
           break;
         
-        case $key27_code:
+        case key27_code:
           call.set_blue(clamp(blue + 0.05f, 0.0f, 1.0f));
           call.set_transition_length(0);
           break;
 
-        case $key28_code:
+        case key28_code:
           call.set_effect((effect == "Random") ? "None" : "Random");
           break;
 
-        case $key29_code:
+        case key29_code:
           call.set_red(clamp(red - 0.05f, 0.0f, 1.0f));
           call.set_transition_length(0);
           break;
 
-        case $key30_code:
+        case key30_code:
           call.set_green(clamp(green - 0.05f, 0.0f, 1.0f));
           call.set_transition_length(0);
           break;
         
-        case $key31_code:
+        case key31_code:
           call.set_blue(clamp(blue - 0.05f, 0.0f, 1.0f));
           call.set_transition_length(0);
           break;
-      
-        case $key32_code:
+
+        case key32_code:
           call.set_effect((effect == "Pulse") ? "None" : "Pulse");
           break;
 
-        case $key33_code:
-          call.set_rgb($diy1_red, $diy1_green, $diy1_blue);
+        case key33_code:
+          call.set_rgb(diy1_red, diy1_green, diy1_blue);
           break;
 
-        case $key34_code:
-          call.set_rgb($diy2_red, $diy2_green, $diy2_blue);
+        case key34_code:
+          call.set_rgb(diy2_red, diy2_green, diy2_blue);
           break;
 
-        case $key35_code:
-          call.set_rgb($diy3_red, $diy3_green, $diy3_blue);
+        case key35_code:
+          call.set_rgb(diy3_red, diy3_green, diy3_blue);
           break;
 
-        case $key36_code:
+        case key36_code:
           call.set_effect((effect == "Flicker") ? "None" : "Flicker");
           break;     
 
-        case $key37_code:
-          call.set_rgb($diy4_red, $diy4_green, $diy4_blue);
+        case key37_code:
+          call.set_rgb(diy4_red, diy4_green, diy4_blue);
           break;
 
-        case $key38_code:
-          call.set_rgb($diy5_red, $diy5_green, $diy5_blue);
+        case key38_code:
+          call.set_rgb(diy5_red, diy5_green, diy5_blue);
           break;
 
-        case $key39_code:
-          call.set_rgb($diy6_red, $diy6_green, $diy6_blue);
+        case key39_code:
+          call.set_rgb(diy6_red, diy6_green, diy6_blue);
           break;
 
-        case $key40_code:
+        case key40_code:
           call.set_effect((effect == "Strobe") ? "None" : "Strobe");
           break;                    
 
-        case $key41_code:
+        case key41_code:
           call.set_effect((effect == "Jump 3") ? "None" : "Jump 3");
           break; 
 
-        case $key42_code:
+        case key42_code:
           call.set_effect((effect == "Jump 7") ? "None" : "Jump 7");
           break; 
 
-        case $key43_code:
+        case key43_code:
           call.set_effect((effect == "Fade 3") ? "None" : "Fade 3");
           break; 
 
-        case $key44_code:
+        case key44_code:
           call.set_effect((effect == "Fade 7") ? "None" : "Fade 7");
           break; 
           

@@ -1,51 +1,7 @@
----
-substitutions:
-  name: REPLACEME
-  friendly_name: REPLACEME
-  area: REPLACEME
-  wifi_password: REPLACEME
-  
-esphome:
-  name: $name
-
-logger:
-  baud_rate: 0
-  logs:
-    component: ERROR
-    
-ota:
-  platform: esphome
-
-safe_mode:
-
-wifi:
-  ap:
-    ssid: $name Hotspot
-    password: $wifi_password
-
-captive_portal:
-
-api:
-
-web_server:
-  local: true
-  version: 2
-
-button:
-  - platform: restart
-    id: restart_button
-    name: Restart
-
-  - platform: safe_mode
-    id: safe_mode_button
-    name: Safe Mode
-    
-sensor:
-  - platform: uptime
-    name: Uptime
-    
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      id: ip_address
-      name: IP Address
+packages:
+  base_0: !include core/device.yaml
+  base_1: !include core/services.yaml
+  base_2: !include core/web-server.yaml
+  base_3: !include network/ap-only.yaml
+  base_4: !include diagnostics/wifi.yaml
+  base_5: !include diagnostics/uptime-text.yaml

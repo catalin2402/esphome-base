@@ -1,0 +1,2 @@
+packages:
+  debug_common: !include common.yaml

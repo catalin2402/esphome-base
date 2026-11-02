@@ -1,17 +1,16 @@
----
 substitutions:
-  pin_dallas: REPLACEME
   dallas_address: REPLACEME
+  pin_dallas: REPLACEME
 
 one_wire:
   platform: gpio
   pin:
     number: $pin_dallas
-    mode: INPUT_PULLUP   
+    mode: INPUT_PULLUP
 
 sensor:
   - platform: dallas_temp
-    address: $dallas_address
-    id: sensor_temperature
+    id: dallas_temperature
     name: Temperature
     icon: mdi:thermometer
+    address: $dallas_address

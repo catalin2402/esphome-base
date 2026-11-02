@@ -1,0 +1,11 @@
+packages:
+  debug_common: !include common.yaml
+
+sensor:
+  - id: !extend debug_sensors
+    block:
+      id: debug_block
+      name: Heap Max Block
+    min_free:
+      id: debug_min_free
+      name: Heap Min Free

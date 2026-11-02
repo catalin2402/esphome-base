@@ -1,0 +1,6 @@
+substitutions:
+  wifi_password: REPLACEME
+  wifi_ssid: REPLACEME
+wifi:
+  ssid: $wifi_ssid
+  password: $wifi_password

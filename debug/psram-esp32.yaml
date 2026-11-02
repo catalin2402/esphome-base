@@ -1,0 +1,5 @@
+sensor:
+  - id: !extend debug_sensors
+    psram:
+      id: debug_psram_free
+      name: Free PSRAM

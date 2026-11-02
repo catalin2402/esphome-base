@@ -1,0 +1,19 @@
+substitutions:
+  pin_eth_cs: REPLACEME
+  pin_eth_interrupt: REPLACEME
+  pin_eth_reset: REPLACEME
+  ethernet_clock_speed: 8MHz
+  ethernet_cs_ignore_strapping_warning: "false"
+  ethernet_interrupt_ignore_strapping_warning: "false"
+
+ethernet:
+  type: W5500
+  spi_id: bus_ethernet
+  cs_pin:
+    number: $pin_eth_cs
+    ignore_strapping_warning: $ethernet_cs_ignore_strapping_warning
+  reset_pin: $pin_eth_reset
+  interrupt_pin:
+    number: $pin_eth_interrupt
+    ignore_strapping_warning: $ethernet_interrupt_ignore_strapping_warning
+  clock_speed: $ethernet_clock_speed

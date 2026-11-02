@@ -1,7 +1,6 @@
----
 substitutions:
-  pin_motion: REPLACEME
   motion_light_id: REPLACEME
+  pin_motion: REPLACEME
   motion_light_on_brightness: "0.98"
   motion_first_delay: "5s"
   motion_intermediate_brightness: "0.48"
@@ -12,20 +11,12 @@ esphome:
     - switch.turn_on: motion_enabled
     - light.turn_off: $motion_light_id
 
-switch:
-  - platform: template
-    id: motion_enabled
-    name: Motion Enabled
-    icon: mdi:motion-sensor
-    optimistic: true
-    entity_category: config
-
 binary_sensor:
   - platform: gpio
-    pin: $pin_motion
     name: Motion
+    pin: $pin_motion
     device_class: motion
-    on_press: 
+    on_press:
       then:
         if:
           condition:
@@ -33,56 +24,71 @@ binary_sensor:
           then:
             script.execute: on_motion_started
     on_release:
-     then:
+      then:
         if:
           condition:
             switch.is_on: motion_enabled
           then:
             script.execute: on_motion_ended
 
+switch:
+  - platform: template
+    id: motion_enabled
+    name: Motion Enabled
+    icon: mdi:motion-sensor
+    entity_category: config
+
+    optimistic: true
+    turn_off_action:
+      - script.stop: on_motion_ended
+
 script:
   - id: on_motion_started
     mode: restart
     then:
-      - logger.log: 
+      - script.stop: on_motion_ended
+      - logger.log:
           format: "Motion detected"
           tag: "motion_started"
       - if:
-          condition: 
+          condition:
             or:
-              - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_light_on_brightness * 100);"
-              - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_intermediate_brightness * 100);"
+              - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_light_on_brightness
+                  * 100);"
+              - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_intermediate_brightness
+                  * 100);"
               - light.is_off: $motion_light_id
           then:
-              - light.turn_on:
-                  id: $motion_light_id
-                  brightness: $motion_light_on_brightness
-              - logger.log: 
-                  format: "Turning lights on"
-                  tag: "motion_started"
+            - light.turn_on:
+                id: $motion_light_id
+                brightness: $motion_light_on_brightness
+            - logger.log:
+                format: "Turning lights on"
+                tag: "motion_started"
 
   - id: on_motion_ended
     mode: restart
     then:
-      - logger.log: 
+      - logger.log:
           format: "Motion ended"
           tag: "motion_ended"
       - if:
           condition:
-            - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_light_on_brightness * 100);"
+            - lambda: "return (int)round(id($motion_light_id).remote_values.get_brightness() * 100) == (int)($motion_light_on_brightness
+                * 100);"
           then:
-            - logger.log: 
+            - logger.log:
                 format: "Waiting for time to pass to dim the lights"
                 tag: "motion_ended"
             - delay: $motion_first_delay
-            - logger.log: 
+            - logger.log:
                 format: "Dimming lights down"
                 tag: "motion_ended"
             - light.turn_on:
                 id: $motion_light_id
                 brightness: $motion_intermediate_brightness
             - delay: $motion_second_delay
-            - logger.log: 
+            - logger.log:
                 format: "Turning lights out"
                 tag: "motion_ended"
             - light.turn_off: $motion_light_id

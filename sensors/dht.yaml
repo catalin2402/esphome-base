@@ -1,15 +1,16 @@
----
 substitutions:
   pin_dht: REPLACEME
 
 sensor:
   - platform: dht
+    id: dht_sensor
     pin: $pin_dht
     temperature:
-      id: sensor_temperature
+      id: dht_temperature
       name: Temperature
       icon: mdi:thermometer
     humidity:
-      id: sensor_humidity
+      id: dht_humidity
       name: Humidity
       icon: mdi:water-percent
+

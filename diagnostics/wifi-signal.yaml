@@ -1,0 +1,9 @@
+substitutions:
+  wifi_signal_update_interval: 60s
+
+sensor:
+  - platform: wifi_signal
+    id: wifi_signal_db
+    name: WiFi Signal
+    entity_category: diagnostic
+    update_interval: $wifi_signal_update_interval

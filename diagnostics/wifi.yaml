@@ -1,0 +1,8 @@
+text_sensor:
+  - platform: wifi_info
+    id: wifi_diagnostics
+    ip_address:
+      id: ip_address
+      name: IP Address
+      icon: mdi:ip-network
+      entity_category: diagnostic

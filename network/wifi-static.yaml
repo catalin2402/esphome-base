@@ -1,0 +1,9 @@
+substitutions:
+  wifi_gateway: REPLACEME
+  wifi_ip: REPLACEME
+  wifi_subnet: REPLACEME
+wifi:
+  manual_ip:
+    static_ip: $wifi_ip
+    gateway: $wifi_gateway
+    subnet: $wifi_subnet

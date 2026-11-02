@@ -1,0 +1,28 @@
+substitutions:
+  debug_update_interval: 5s
+
+debug:
+  update_interval: $debug_update_interval
+
+sensor:
+  - platform: debug
+    id: debug_sensors
+    free:
+      id: debug_heap_free
+      name: Heap Free
+    loop_time:
+      id: debug_loop_time
+      name: Loop Time
+    cpu_frequency:
+      id: debug_cpu_frequency
+      name: CPU Frequency
+
+text_sensor:
+  - platform: debug
+    device:
+      id: debug_device_info
+      name: Device Info
+    reset_reason:
+      id: debug_reset_reason
+      name: Reset Reason
+

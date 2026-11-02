@@ -1,0 +1,5 @@
+binary_sensor:
+  - platform: status
+    id: system_status
+    name: Status
+    entity_category: diagnostic

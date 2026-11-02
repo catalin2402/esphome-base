@@ -1,0 +1,49 @@
+substitutions:
+  pin_sm2135_clk: REPLACEME
+  pin_sm2135_data: REPLACEME
+  sm2135_cw_current: 15mA
+  sm2135_rgb_current: 20mA
+  sm2135_cold_white_temperature: 6536 K
+  sm2135_warm_white_temperature: 2000 K
+
+sm2135:
+  data_pin: $pin_sm2135_data
+  clock_pin: $pin_sm2135_clk
+  cw_current: $sm2135_cw_current
+  rgb_current: $sm2135_rgb_current
+
+output:
+  - platform: sm2135
+    id: output_blue
+    channel: 2
+  - platform: sm2135
+    id: output_red
+    channel: 0
+  - platform: sm2135
+    id: output_green
+    channel: 1
+  - platform: sm2135
+    id: output_cold_white
+    channel: 3
+  - platform: sm2135
+    id: output_warm_white
+    channel: 4
+
+light:
+  - platform: rgbww
+    id: main_light
+    name: Light
+    icon: mdi:lightbulb
+    red: output_red
+    green: output_green
+    blue: output_blue
+    cold_white: output_cold_white
+    warm_white: output_warm_white
+    cold_white_color_temperature: $sm2135_cold_white_temperature
+    warm_white_color_temperature: $sm2135_warm_white_temperature
+    color_interlock: true
+    effects:
+      - pulse:
+      - random:
+      - strobe:
+      - flicker:

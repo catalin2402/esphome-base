@@ -1,4 +1,4 @@
-lambda: 
+lambda:
   name: Jump 7
   update_interval: 3s
   lambda: |-

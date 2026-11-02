@@ -1,13 +1,11 @@
----
 light:
-  - platform: custom
-    id: light_effects
+  - id: light_effects
     effects:
       - pulse:
       - strobe:
       - flicker:
       - random:
-      - <<: !include { file: jump-3.yaml, vars: { id: light_effects } }
-      - <<: !include { file: jump-7.yaml, vars: { id: light_effects } }
-      - <<: !include { file: fade-3.yaml, vars: { id: light_effects } }
-      - <<: !include { file: fade-7.yaml, vars: { id: light_effects } }   
+      - <<: !include {file: jump-3.yaml, vars: {id: light_effects}}
+      - <<: !include {file: jump-7.yaml, vars: {id: light_effects}}
+      - <<: !include {file: fade-3.yaml, vars: {id: light_effects}}
+      - <<: !include {file: fade-7.yaml, vars: {id: light_effects}}

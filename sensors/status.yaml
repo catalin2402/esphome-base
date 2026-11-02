@@ -1,4 +1,0 @@
----
-sensor:
-  platform: status
-  id: system_status

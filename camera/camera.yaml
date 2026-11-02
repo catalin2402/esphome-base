@@ -1,21 +1,20 @@
----
 substitutions:
-  pin_camera_ext_clock: GPIO0
-  pin_camera_i2c_sda: GPIO26
-  pin_camera_i2c_scl: GPIO27
-  pin_camera_data_1: GPIO5
-  pin_camera_data_2: GPIO18
-  pin_camera_data_3: GPIO19
-  pin_camera_data_4: GPIO21
-  pin_camera_data_5: GPIO36
-  pin_camera_data_6: GPIO39
-  pin_camera_data_7: GPIO34
-  pin_camera_data_8: GPIO35
-  pin_camera_vsync: GPIO25
-  pin_camera_href: GPIO23
-  pin_camera_pixel_clock: GPIO22
-  pin_camera_power_down: GPIO32
-  pin_flash: GPIO4
+  pin_camera_data_1: REPLACEME
+  pin_camera_data_2: REPLACEME
+  pin_camera_data_3: REPLACEME
+  pin_camera_data_4: REPLACEME
+  pin_camera_data_5: REPLACEME
+  pin_camera_data_6: REPLACEME
+  pin_camera_data_7: REPLACEME
+  pin_camera_data_8: REPLACEME
+  pin_camera_ext_clock: REPLACEME
+  pin_camera_href: REPLACEME
+  pin_camera_i2c_scl: REPLACEME
+  pin_camera_i2c_sda: REPLACEME
+  pin_camera_pixel_clock: REPLACEME
+  pin_camera_power_down: REPLACEME
+  pin_camera_vsync: REPLACEME
+  pin_flash: REPLACEME
   camera_max_framerate: "10 fps"
   camera_resolution: "800x600"
   camera_ext_clock: "20MHz"
@@ -27,15 +26,29 @@ i2c:
     sda: $pin_camera_i2c_sda
     scl: $pin_camera_i2c_scl
 
+output:
+  - platform: ledc
+    id: flash_output
+    pin: $pin_flash
+    channel: 7
+
+light:
+  - platform: monochromatic
+    name: Flash
+    icon: mdi:flash
+    output: flash_output
+    restore_mode: ALWAYS_OFF
+    default_transition_length: 0s
+
 esp32_camera:
   id: espcam
   external_clock:
-    pin: 
+    pin:
       number: $pin_camera_ext_clock
       ignore_strapping_warning: true
     frequency: $camera_ext_clock
   i2c_id: camera_i2c
-  data_pins: 
+  data_pins:
     - number: $pin_camera_data_1
       ignore_strapping_warning: true
     - $pin_camera_data_2
@@ -54,17 +67,4 @@ esp32_camera:
   idle_framerate: 1 fps
   max_framerate: $camera_max_framerate
   icon: mdi:cctv
-  
-output:
-  - platform: ledc
-    pin: $pin_flash
-    id: flash_output
-    channel: 7
 
-light:
-  - platform: monochromatic
-    output: flash_output
-    name: Flash
-    icon: mdi:flash
-    restore_mode: ALWAYS_OFF
-    default_transition_length: 0s

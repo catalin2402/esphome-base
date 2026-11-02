@@ -1,0 +1,152 @@
+substitutions:
+  pin_button_high: REPLACEME
+  pin_button_low: REPLACEME
+  pin_button_medium: REPLACEME
+  pin_relay_high: REPLACEME
+  pin_relay_low: REPLACEME
+  pin_relay_medium: REPLACEME
+  fan_relay_inverted: 'false'
+  fan_interlock_wait_time: 500ms
+  fan_switching_delay: 100ms
+
+esphome:
+  on_boot:
+    - priority: 250
+      then:
+        script.execute: check_buttons
+
+binary_sensor:
+  - platform: gpio
+    id: button_low
+    pin:
+      number: $pin_button_low
+      mode: INPUT_PULLUP
+      inverted: true
+    on_state:
+      script.execute: check_buttons
+
+  - platform: gpio
+    id: button_medium
+    pin:
+      number: $pin_button_medium
+      mode: INPUT_PULLUP
+      inverted: true
+    on_state:
+      script.execute: check_buttons
+
+  - platform: gpio
+    id: button_high
+    pin:
+      number: $pin_button_high
+      mode: INPUT_PULLUP
+      inverted: true
+    on_state:
+      script.execute: check_buttons
+
+switch:
+  - platform: gpio
+    id: relay_low
+    pin:
+      number: $pin_relay_low
+      inverted: $fan_relay_inverted
+    interlock: &interlock_group [relay_low, relay_medium, relay_high]
+    interlock_wait_time: $fan_interlock_wait_time
+
+  - platform: gpio
+    id: relay_medium
+    pin:
+      number: $pin_relay_medium
+      inverted: $fan_relay_inverted
+    interlock: *interlock_group
+    interlock_wait_time: $fan_interlock_wait_time
+
+  - platform: gpio
+    id: relay_high
+    pin:
+      number: $pin_relay_high
+      inverted: $fan_relay_inverted
+    interlock: *interlock_group
+    interlock_wait_time: $fan_interlock_wait_time
+
+fan:
+  - platform: template
+    id: main_fan
+    name: Fan
+    speed_count: 3
+    restore_mode: RESTORE_DEFAULT_OFF
+    on_state:
+      if:
+        condition:
+          lambda: "return x->state == false;"
+        then:
+          - switch.turn_off: relay_medium
+          - switch.turn_off: relay_high
+          - switch.turn_off: relay_low
+        else:
+          - if:
+              condition:
+                lambda: "return x->speed == 1;"
+              then:
+                - switch.turn_off: relay_medium
+                - switch.turn_off: relay_high
+                - delay: $fan_switching_delay
+                - switch.turn_on: relay_low
+          - if:
+              condition:
+                lambda: "return x->speed == 2;"
+              then:
+                - switch.turn_off: relay_low
+                - switch.turn_off: relay_high
+                - delay: $fan_switching_delay
+                - switch.turn_on: relay_medium
+          - if:
+              condition:
+                lambda: "return x->speed == 3;"
+              then:
+                - switch.turn_off: relay_low
+                - switch.turn_off: relay_medium
+                - delay: $fan_switching_delay
+                - switch.turn_on: relay_high
+
+script:
+  - id: check_buttons
+    mode: restart
+    then:
+      - if:
+          condition:
+            and:
+              - binary_sensor.is_off: button_low
+              - binary_sensor.is_off: button_medium
+              - binary_sensor.is_off: button_high
+          then:
+            fan.turn_off: main_fan
+      - if:
+          condition:
+            and:
+              - binary_sensor.is_on: button_low
+              - binary_sensor.is_off: button_medium
+              - binary_sensor.is_off: button_high
+          then:
+            fan.turn_on:
+              id: main_fan
+              speed: 1
+      - if:
+          condition:
+            and:
+              - binary_sensor.is_off: button_low
+              - binary_sensor.is_on: button_medium
+              - binary_sensor.is_off: button_high
+          then:
+            fan.turn_on:
+              id: main_fan
+              speed: 2
+      - if:
+          condition:
+            and:
+              - binary_sensor.is_off: button_low
+              - binary_sensor.is_off: button_medium
+              - binary_sensor.is_on: button_high
+          then:
+            fan.turn_on:
+              id: main_fan
+              speed: 3

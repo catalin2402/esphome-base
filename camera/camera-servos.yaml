@@ -1,4 +1,3 @@
----
 substitutions:
   pin_servo_1: REPLACEME
   pin_servo_2: REPLACEME
@@ -8,8 +7,8 @@ substitutions:
 esphome:
   on_boot:
     script.execute: set_defaults
-    
-output: 
+
+output:
   - platform: ledc
     id: servo1_output
     pin: $pin_servo_1
@@ -20,16 +19,7 @@ output:
     id: servo2_output
     pin: $pin_servo_2
     channel: 5
-    frequency: 50 Hz   
-
-servo:
-  - id: servo_1
-    output: servo1_output
-    auto_detach_time: 1 s
-
-  - id: servo_2
-    output: servo2_output
-    auto_detach_time: 1 s
+    frequency: 50 Hz
 
 number:
   - platform: template
@@ -45,8 +35,8 @@ number:
           level: !lambda 'return x / 100.0;'
 
   - platform: template
-    name: Tilt
     id: tilt
+    name: Tilt
     min_value: -100
     max_value: 100
     optimistic: true
@@ -71,3 +61,13 @@ script:
       - number.set:
           id: tilt
           value: $default_servo_tilt
+
+servo:
+  - id: servo_1
+    output: servo1_output
+    auto_detach_time: 1 s
+
+  - id: servo_2
+    output: servo2_output
+    auto_detach_time: 1 s
+

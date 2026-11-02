@@ -1,4 +1,3 @@
----
 time:
   - platform: sntp
     id: time_sntp

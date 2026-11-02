@@ -1,11 +1,11 @@
----
 sensor:
   - platform: htu21d
+    id: htu21d_sensor
     temperature:
-      id: sensor_temperature
+      id: htu21d_temperature
       name: Temperature
       icon: mdi:thermometer
     humidity:
-      id: sensor_humidity
+      id: htu21d_humidity
       name: Humidity
       icon: mdi:water-percent

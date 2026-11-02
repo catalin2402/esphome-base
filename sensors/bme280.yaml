@@ -1,19 +1,20 @@
----
 substitutions:
   bme280_address: REPLACEME
 
 sensor:
   - platform: bme280_i2c
+    id: bme280_sensor
     address: $bme280_address
     temperature:
-      id: sensor_temperature
+      id: bme280_temperature
       name: Temperature
       icon: mdi:thermometer
     pressure:
-      id: sensor_pressure
+      id: bme280_pressure
       name: Pressure
       icon: mdi:gauge
     humidity:
-      id: sensor_humidity
+      id: bme280_humidity
       name: Humidity
       icon: mdi:water-percent
+

@@ -1,4 +1,3 @@
----
 display:
   - platform: lcd_pcf8574
     id: lcd

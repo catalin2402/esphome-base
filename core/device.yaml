@@ -1,0 +1,10 @@
+substitutions:
+  name: REPLACEME
+  friendly_name: REPLACEME
+  area: "REPLACEME"
+
+esphome:
+  name: $name
+  friendly_name: $friendly_name
+  area: $area
+  min_version: 2026.10.0

@@ -1,10 +1,11 @@
----
 substitutions:
-  pin_hlw8012_sel: REPLACEME
+  hlw8012_current_resistor: REPLACEME
+  hlw8012_voltage_divider: REPLACEME
   pin_hlw8012_cf: REPLACEME
   pin_hlw8012_cf1: REPLACEME
-  hlw8012_voltage_divider: REPLACEME
-  hlw8012_current_resistor: REPLACEME
+  pin_hlw8012_sel: REPLACEME
+  hlw8012_update_interval: 30s
+  hlw8012_current_min_voltage: '1.0'
 
 sensor:
   - platform: hlw8012
@@ -17,12 +18,12 @@ sensor:
     current_resistor: $hlw8012_current_resistor
     initial_mode: VOLTAGE
     change_mode_every: 4294967295
-    update_interval: 30s
+    update_interval: $hlw8012_update_interval
     power:
       name: Power
       unit_of_measurement: W
       id: power
-      icon: mdi:home-lightning-bolt      
+      icon: mdi:home-lightning-bolt
       on_value:
         component.update: current
     voltage:
@@ -33,17 +34,22 @@ sensor:
 
   - platform: total_daily_energy
     name: Energy
-    power_id: power
     icon: mdi:meter-electric
+    power_id: power
     filters:
       multiply: 0.001
-    unit_of_measurement: kWh 
+    unit_of_measurement: kWh
 
   - platform: template
     id: current
     name: Current
     icon: mdi:transmission-tower
-    lambda: !lambda 'return id(power).state / id(voltage).state;'
+    lambda: !lambda |-
+      const float power = id(power).state;
+      const float voltage = id(voltage).state;
+      if (!std::isfinite(power) || !std::isfinite(voltage) || voltage < $hlw8012_current_min_voltage)
+        return NAN;
+      return power / voltage;
     unit_of_measurement: A
     accuracy_decimals: 3
     update_interval: never

@@ -1,0 +1,8 @@
+substitutions:
+  wifi_password: REPLACEME
+wifi:
+  ap:
+    ssid: $name Hotspot
+    password: $wifi_password
+
+captive_portal:

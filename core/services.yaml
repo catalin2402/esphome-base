@@ -1,0 +1,25 @@
+substitutions:
+  logger_baud_rate: "0"
+
+api:
+
+ota:
+  - platform: esphome
+    id: ota_esphome
+
+logger:
+  baud_rate: $logger_baud_rate
+
+button:
+  - platform: restart
+    id: restart_button
+    name: Restart
+    icon: mdi:restart
+    entity_category: diagnostic
+  - platform: safe_mode
+    id: safe_mode_button
+    name: Safe Mode
+    icon: mdi:restart-alert
+    entity_category: diagnostic
+
+safe_mode:

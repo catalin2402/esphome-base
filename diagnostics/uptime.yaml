@@ -1,0 +1,5 @@
+sensor:
+  - platform: uptime
+    id: uptime_seconds
+    name: Uptime
+    entity_category: diagnostic
