@@ -45,11 +45,11 @@ sensor:
     name: Current
     icon: mdi:transmission-tower
     lambda: !lambda |-
-      const float power = id(power).state;
-      const float voltage = id(voltage).state;
-      if (!std::isfinite(power) || !std::isfinite(voltage) || voltage < $hlw8012_current_min_voltage)
+      const float measured_power = id(power).state;
+      const float measured_voltage = id(voltage).state;
+      if (!std::isfinite(measured_power) || !std::isfinite(measured_voltage) || measured_voltage < $hlw8012_current_min_voltage)
         return NAN;
-      return power / voltage;
+      return measured_power / measured_voltage;
     unit_of_measurement: A
     accuracy_decimals: 3
     update_interval: never
