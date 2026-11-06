@@ -37,8 +37,8 @@ Required substitutions use `REPLACEME`. Optional overrides show their default va
 | `diagnostics/status.yaml` | Connection status. | — | — |
 | `diagnostics/uptime-text.yaml` | Uptime as formatted text. | — | — |
 | `diagnostics/uptime.yaml` | Uptime as a numeric value. | — | — |
-| `status/led.yaml` | Status LED. | `pin_status_led` | `status_led_inverted: true`<br>`status_led_allow_other_uses: false`<br>`status_led_ignore_strapping_warning: false` (ESP32) |
-| `status/light.yaml` | Status LED with light controls. | `pin_status_led` | `status_led_inverted: true`<br>`status_led_allow_other_uses: false`<br>`status_led_ignore_strapping_warning: false` (ESP32) |
+| `status/led.yaml` | Status LED. | `pin_status_led` | `status_led_inverted: true`<br>`status_led_allow_other_uses: false` |
+| `status/light.yaml` | Status LED with light controls. | `pin_status_led` | `status_led_inverted: true`<br>`status_led_allow_other_uses: false` |
 | `debug/debug-esp32.yaml` | ESP32 device and memory diagnostics. | — | `debug_update_interval: 5s` |
 | `debug/debug-esp8266.yaml` | ESP8266 device and memory diagnostics. | — | `debug_update_interval: 5s` |
 | `debug/debug-bk72xx.yaml` | BK72xx device and memory diagnostics. | — | `debug_update_interval: 5s` |
@@ -68,7 +68,7 @@ Required substitutions use `REPLACEME`. Optional overrides show their default va
 | `light-effects/jump-3.yaml`, `jump-7.yaml` | Three- and seven-color jump effects. | `id` (include variable) | — |
 | `helpers/motion_light.yaml` | Motion-controlled lighting with dimming and shutoff. | `motion_light_id`<br>`pin_motion` | `motion_light_on_brightness: 0.98`<br>`motion_first_delay: 5s`<br>`motion_intermediate_brightness: 0.48`<br>`motion_second_delay: 3s` |
 | `helpers/binary_motion_light.yaml` | Motion-controlled lighting with selectable shutoff delays. | `motion_delay_sensor_id`<br>`motion_light_id`<br>`pin_motion` | `motion_first_delay: 30s`<br>`motion_second_delay: 5min` |
-| `helpers/on_boot_switch.yaml` | Sets the indicator to match a switch at startup. | `pin_status_led`<br>`on_boot_switch_id` | `status_led_inverted: true`<br>`status_led_allow_other_uses: false`<br>`status_led_ignore_strapping_warning: false` (ESP32) |
+| `helpers/on_boot_switch.yaml` | Sets the indicator to match a switch at startup. | `pin_status_led`<br>`on_boot_switch_id` | `status_led_inverted: true`<br>`status_led_allow_other_uses: false` |
 
 ## Cameras, displays and time
 

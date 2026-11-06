@@ -2,11 +2,9 @@ substitutions:
   pin_status_led: REPLACEME
   status_led_inverted: "true"
   status_led_allow_other_uses: "false"
-  status_led_ignore_strapping_warning: false
 
 status_led:
   pin:
     number: $pin_status_led
     inverted: $status_led_inverted
     allow_other_uses: $status_led_allow_other_uses
-    ignore_strapping_warning: $status_led_ignore_strapping_warning
